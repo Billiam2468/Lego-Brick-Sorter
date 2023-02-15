@@ -1,0 +1,1027 @@
+Performance of VGG16: 
+529/529 - 9s - loss: 0.2347 - accuracy: 0.9281 - 9s/epoch - 17ms/step
+
+Performance of VGG19: 
+529/529 - 11s - loss: 0.2529 - accuracy: 0.9305 - 11s/epoch - 21ms/step
+
+Performance of ResNet101V2: 
+529/529 - 10s - loss: 0.1498 - accuracy: 0.9655 - 10s/epoch - 19ms/step
+
+Performance of ResNet152V2: 
+529/529 - 14s - loss: 0.1858 - accuracy: 0.9470 - 14s/epoch - 27ms/step
+
+Performance of ResNet50: 
+529/529 - 7s - loss: 0.1460 - accuracy: 0.9612 - 7s/epoch - 13ms/step
+
+Performance of ResNet50V2: 
+529/529 - 6s - loss: 0.1323 - accuracy: 0.9617 - 6s/epoch - 12ms/step
+
+Performance of InceptionResNetV2: 
+529/529 - 13s - loss: 0.1897 - accuracy: 0.9461 - 13s/epoch - 24ms/step
+
+Performance of InceptionV3: 
+529/529 - 7s - loss: 0.1602 - accuracy: 0.9504 - 7s/epoch - 12ms/step
+
+Performance of MobileNet: 
+529/529 - 2s - loss: 0.1162 - accuracy: 0.9669 - 2s/epoch - 5ms/step
+
+Performance of MobileNetV2: 
+529/529 - 3s - loss: 0.1444 - accuracy: 0.9556 - 3s/epoch - 6ms/step
+
+Performance of Xception: 
+529/529 - 6s - loss: 0.1130 - accuracy: 0.9693 - 6s/epoch - 12ms/step
+
+Performance of DenseNet121: 
+529/529 - 9s - loss: 0.1100 - accuracy: 0.9603 - 9s/epoch - 18ms/step
+
+Performance ofDenseNet169: 
+529/529 - 12s - loss: 0.0976 - accuracy: 0.9730 - 12s/epoch - 23ms/step
+
+Performance ofDenseNet201: 
+529/529 - 15s - loss: 0.1101 - accuracy: 0.9683 - 15s/epoch - 28ms/step
+
+Performance ofEfficientNetV2S: 
+529/529 - 8s - loss: 0.0965 - accuracy: 0.9688 - 8s/epoch - 15ms/step
+
+Performance ofEfficientNetV2M: 
+529/529 - 13s - loss: 0.1209 - accuracy: 0.9636 - 13s/epoch - 25ms/step
+
+Performance ofEfficientNetV2L: 
+529/529 - 22s - loss: 0.1132 - accuracy: 0.9645 - 22s/epoch - 41ms/step
+
+
+
+TOTAL OUTPUT:
+
+Found 8463 images belonging to 5 classes.
+Found 3528 images belonging to 5 classes.
+Found 2115 images belonging to 5 classes.
+Start training of: VGG16
+Model: "sequential_41"
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #   
+=================================================================
+ vgg16 (Functional)          (None, None, None, 512)   14714688  
+                                                                 
+ global_average_pooling2d (G  (None, 512)              0         
+ lobalAveragePooling2D)                                          
+                                                                 
+ dense_38 (Dense)            (None, 5)                 2565      
+                                                                 
+=================================================================
+Total params: 14,717,253
+Trainable params: 2,565
+Non-trainable params: 14,714,688
+_________________________________________________________________
+Epoch 1/30
+2116/2116 - 54s - loss: 0.5436 - accuracy: 0.8139 - val_loss: 0.2961 - val_accuracy: 0.8946 - 54s/epoch - 26ms/step
+Epoch 2/30
+2116/2116 - 53s - loss: 0.2363 - accuracy: 0.9126 - val_loss: 0.2062 - val_accuracy: 0.9300 - 53s/epoch - 25ms/step
+Epoch 3/30
+2116/2116 - 53s - loss: 0.1860 - accuracy: 0.9358 - val_loss: 0.1961 - val_accuracy: 0.9291 - 53s/epoch - 25ms/step
+Epoch 4/30
+2116/2116 - 53s - loss: 0.1663 - accuracy: 0.9410 - val_loss: 0.1741 - val_accuracy: 0.9388 - 53s/epoch - 25ms/step
+Epoch 5/30
+2116/2116 - 52s - loss: 0.1477 - accuracy: 0.9482 - val_loss: 0.1675 - val_accuracy: 0.9442 - 52s/epoch - 25ms/step
+Epoch 6/30
+2116/2116 - 52s - loss: 0.1374 - accuracy: 0.9482 - val_loss: 0.1960 - val_accuracy: 0.9371 - 52s/epoch - 25ms/step
+Epoch 7/30
+2116/2116 - 52s - loss: 0.1280 - accuracy: 0.9543 - val_loss: 0.2558 - val_accuracy: 0.9170 - 52s/epoch - 25ms/step
+Epoch 8/30
+2116/2116 - 52s - loss: 0.1288 - accuracy: 0.9549 - val_loss: 0.2806 - val_accuracy: 0.9076 - 52s/epoch - 25ms/step
+Epoch 9/30
+2116/2116 - 52s - loss: 0.1196 - accuracy: 0.9560 - val_loss: 0.1994 - val_accuracy: 0.9396 - 52s/epoch - 25ms/step
+Epoch 10/30
+2116/2116 - 52s - loss: 0.1168 - accuracy: 0.9572 - val_loss: 0.2132 - val_accuracy: 0.9368 - 52s/epoch - 24ms/step
+Epoch 10: early stopping
+Performance ofVGG16: 
+529/529 - 9s - loss: 0.2347 - accuracy: 0.9281 - 9s/epoch - 17ms/step
+Found 8463 images belonging to 5 classes.
+Found 3528 images belonging to 5 classes.
+Found 2115 images belonging to 5 classes.
+Start training of: VGG19
+Model: "sequential_42"
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #   
+=================================================================
+ vgg19 (Functional)          (None, None, None, 512)   20024384  
+                                                                 
+ global_average_pooling2d_1   (None, 512)              0         
+ (GlobalAveragePooling2D)                                        
+                                                                 
+ dense_39 (Dense)            (None, 5)                 2565      
+                                                                 
+=================================================================
+Total params: 20,026,949
+Trainable params: 2,565
+Non-trainable params: 20,024,384
+_________________________________________________________________
+Epoch 1/30
+2116/2116 - 64s - loss: 0.5457 - accuracy: 0.8127 - val_loss: 0.2555 - val_accuracy: 0.9062 - 64s/epoch - 30ms/step
+Epoch 2/30
+2116/2116 - 63s - loss: 0.2070 - accuracy: 0.9266 - val_loss: 0.2226 - val_accuracy: 0.9238 - 63s/epoch - 30ms/step
+Epoch 3/30
+2116/2116 - 63s - loss: 0.1644 - accuracy: 0.9402 - val_loss: 0.1826 - val_accuracy: 0.9382 - 63s/epoch - 30ms/step
+Epoch 4/30
+2116/2116 - 63s - loss: 0.1458 - accuracy: 0.9467 - val_loss: 0.2009 - val_accuracy: 0.9357 - 63s/epoch - 30ms/step
+Epoch 5/30
+2116/2116 - 63s - loss: 0.1320 - accuracy: 0.9533 - val_loss: 0.1806 - val_accuracy: 0.9433 - 63s/epoch - 30ms/step
+Epoch 6/30
+2116/2116 - 63s - loss: 0.1252 - accuracy: 0.9547 - val_loss: 0.3769 - val_accuracy: 0.8713 - 63s/epoch - 30ms/step
+Epoch 7/30
+2116/2116 - 63s - loss: 0.1165 - accuracy: 0.9604 - val_loss: 0.1612 - val_accuracy: 0.9498 - 63s/epoch - 30ms/step
+Epoch 8/30
+2116/2116 - 63s - loss: 0.1128 - accuracy: 0.9589 - val_loss: 0.3555 - val_accuracy: 0.8906 - 63s/epoch - 30ms/step
+Epoch 9/30
+2116/2116 - 63s - loss: 0.1114 - accuracy: 0.9602 - val_loss: 0.1921 - val_accuracy: 0.9439 - 63s/epoch - 30ms/step
+Epoch 10/30
+2116/2116 - 64s - loss: 0.1004 - accuracy: 0.9646 - val_loss: 0.1831 - val_accuracy: 0.9504 - 64s/epoch - 30ms/step
+Epoch 11/30
+2116/2116 - 63s - loss: 0.0998 - accuracy: 0.9642 - val_loss: 0.2056 - val_accuracy: 0.9416 - 63s/epoch - 30ms/step
+Epoch 12/30
+2116/2116 - 63s - loss: 0.0983 - accuracy: 0.9647 - val_loss: 0.2603 - val_accuracy: 0.9362 - 63s/epoch - 30ms/step
+Epoch 12: early stopping
+Performance ofVGG19: 
+529/529 - 11s - loss: 0.2529 - accuracy: 0.9305 - 11s/epoch - 21ms/step
+Found 8463 images belonging to 5 classes.
+Found 3528 images belonging to 5 classes.
+Found 2115 images belonging to 5 classes.
+Start training of: ResNet101V2
+Model: "sequential_43"
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #   
+=================================================================
+ resnet101v2 (Functional)    (None, None, None, 2048)  42626560  
+                                                                 
+ global_average_pooling2d_2   (None, 2048)             0         
+ (GlobalAveragePooling2D)                                        
+                                                                 
+ dense_40 (Dense)            (None, 5)                 10245     
+                                                                 
+=================================================================
+Total params: 42,636,805
+Trainable params: 10,245
+Non-trainable params: 42,626,560
+_________________________________________________________________
+Epoch 1/30
+2116/2116 - 61s - loss: 0.2427 - accuracy: 0.9127 - val_loss: 0.1611 - val_accuracy: 0.9410 - 61s/epoch - 29ms/step
+Epoch 2/30
+2116/2116 - 56s - loss: 0.1066 - accuracy: 0.9604 - val_loss: 0.1648 - val_accuracy: 0.9334 - 56s/epoch - 27ms/step
+Epoch 3/30
+2116/2116 - 57s - loss: 0.0830 - accuracy: 0.9705 - val_loss: 0.1312 - val_accuracy: 0.9467 - 57s/epoch - 27ms/step
+Epoch 4/30
+2116/2116 - 57s - loss: 0.0648 - accuracy: 0.9754 - val_loss: 0.1002 - val_accuracy: 0.9617 - 57s/epoch - 27ms/step
+Epoch 5/30
+2116/2116 - 57s - loss: 0.0573 - accuracy: 0.9771 - val_loss: 0.1027 - val_accuracy: 0.9660 - 57s/epoch - 27ms/step
+Epoch 6/30
+2116/2116 - 57s - loss: 0.0436 - accuracy: 0.9842 - val_loss: 0.1039 - val_accuracy: 0.9657 - 57s/epoch - 27ms/step
+Epoch 7/30
+2116/2116 - 57s - loss: 0.0387 - accuracy: 0.9855 - val_loss: 0.1280 - val_accuracy: 0.9558 - 57s/epoch - 27ms/step
+Epoch 8/30
+2116/2116 - 57s - loss: 0.0332 - accuracy: 0.9872 - val_loss: 0.1308 - val_accuracy: 0.9626 - 57s/epoch - 27ms/step
+Epoch 9/30
+2116/2116 - 56s - loss: 0.0295 - accuracy: 0.9894 - val_loss: 0.0946 - val_accuracy: 0.9697 - 56s/epoch - 27ms/step
+Epoch 10/30
+2116/2116 - 57s - loss: 0.0248 - accuracy: 0.9905 - val_loss: 0.1077 - val_accuracy: 0.9680 - 57s/epoch - 27ms/step
+Epoch 11/30
+2116/2116 - 57s - loss: 0.0223 - accuracy: 0.9917 - val_loss: 0.1458 - val_accuracy: 0.9603 - 57s/epoch - 27ms/step
+Epoch 12/30
+2116/2116 - 57s - loss: 0.0226 - accuracy: 0.9915 - val_loss: 0.0996 - val_accuracy: 0.9685 - 57s/epoch - 27ms/step
+Epoch 13/30
+2116/2116 - 57s - loss: 0.0194 - accuracy: 0.9935 - val_loss: 0.1998 - val_accuracy: 0.9374 - 57s/epoch - 27ms/step
+Epoch 14/30
+2116/2116 - 57s - loss: 0.0185 - accuracy: 0.9928 - val_loss: 0.1507 - val_accuracy: 0.9632 - 57s/epoch - 27ms/step
+Epoch 14: early stopping
+Performance ofResNet101V2: 
+529/529 - 10s - loss: 0.1498 - accuracy: 0.9655 - 10s/epoch - 19ms/step
+Found 8463 images belonging to 5 classes.
+Found 3528 images belonging to 5 classes.
+Found 2115 images belonging to 5 classes.
+
+Start training of: ResNet152V2
+Model: "sequential_44"
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #   
+=================================================================
+ resnet152v2 (Functional)    (None, None, None, 2048)  58331648  
+                                                                 
+ global_average_pooling2d_3   (None, 2048)             0         
+ (GlobalAveragePooling2D)                                        
+                                                                 
+ dense_41 (Dense)            (None, 5)                 10245     
+                                                                 
+=================================================================
+Total params: 58,341,893
+Trainable params: 10,245
+Non-trainable params: 58,331,648
+_________________________________________________________________
+Epoch 1/30
+2116/2116 - 86s - loss: 0.2763 - accuracy: 0.8968 - val_loss: 0.1392 - val_accuracy: 0.9515 - 86s/epoch - 41ms/step
+Epoch 2/30
+2116/2116 - 80s - loss: 0.1291 - accuracy: 0.9532 - val_loss: 0.1387 - val_accuracy: 0.9484 - 80s/epoch - 38ms/step
+Epoch 3/30
+2116/2116 - 80s - loss: 0.0900 - accuracy: 0.9681 - val_loss: 0.1195 - val_accuracy: 0.9583 - 80s/epoch - 38ms/step
+Epoch 4/30
+2116/2116 - 80s - loss: 0.0784 - accuracy: 0.9725 - val_loss: 0.1269 - val_accuracy: 0.9561 - 80s/epoch - 38ms/step
+Epoch 5/30
+2116/2116 - 80s - loss: 0.0672 - accuracy: 0.9758 - val_loss: 0.1404 - val_accuracy: 0.9532 - 80s/epoch - 38ms/step
+Epoch 6/30
+2116/2116 - 80s - loss: 0.0560 - accuracy: 0.9796 - val_loss: 0.1035 - val_accuracy: 0.9634 - 80s/epoch - 38ms/step
+Epoch 7/30
+2116/2116 - 80s - loss: 0.0439 - accuracy: 0.9835 - val_loss: 0.1361 - val_accuracy: 0.9561 - 80s/epoch - 38ms/step
+Epoch 8/30
+2116/2116 - 81s - loss: 0.0427 - accuracy: 0.9845 - val_loss: 0.1638 - val_accuracy: 0.9507 - 81s/epoch - 38ms/step
+Epoch 9/30
+2116/2116 - 80s - loss: 0.0398 - accuracy: 0.9850 - val_loss: 0.1080 - val_accuracy: 0.9708 - 80s/epoch - 38ms/step
+Epoch 10/30
+2116/2116 - 80s - loss: 0.0322 - accuracy: 0.9881 - val_loss: 0.1129 - val_accuracy: 0.9666 - 80s/epoch - 38ms/step
+Epoch 11/30
+2116/2116 - 80s - loss: 0.0301 - accuracy: 0.9900 - val_loss: 0.1659 - val_accuracy: 0.9532 - 80s/epoch - 38ms/step
+Epoch 11: early stopping
+Performance ofResNet152V2: 
+529/529 - 14s - loss: 0.1858 - accuracy: 0.9470 - 14s/epoch - 27ms/step
+Found 8463 images belonging to 5 classes.
+Found 3528 images belonging to 5 classes.
+Found 2115 images belonging to 5 classes.
+Start training of: ResNet50
+Model: "sequential_45"
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #   
+=================================================================
+ resnet50 (Functional)       (None, None, None, 2048)  23587712  
+                                                                 
+ global_average_pooling2d_4   (None, 2048)             0         
+ (GlobalAveragePooling2D)                                        
+                                                                 
+ dense_42 (Dense)            (None, 5)                 10245     
+                                                                 
+=================================================================
+Total params: 23,597,957
+Trainable params: 10,245
+Non-trainable params: 23,587,712
+_________________________________________________________________
+Epoch 1/30
+2116/2116 - 43s - loss: 0.2895 - accuracy: 0.8928 - val_loss: 0.1461 - val_accuracy: 0.9481 - 43s/epoch - 20ms/step
+Epoch 2/30
+2116/2116 - 40s - loss: 0.1328 - accuracy: 0.9519 - val_loss: 0.1124 - val_accuracy: 0.9580 - 40s/epoch - 19ms/step
+Epoch 3/30
+2116/2116 - 40s - loss: 0.1039 - accuracy: 0.9611 - val_loss: 0.0894 - val_accuracy: 0.9697 - 40s/epoch - 19ms/step
+Epoch 4/30
+2116/2116 - 40s - loss: 0.0808 - accuracy: 0.9720 - val_loss: 0.1420 - val_accuracy: 0.9498 - 40s/epoch - 19ms/step
+Epoch 5/30
+2116/2116 - 40s - loss: 0.0667 - accuracy: 0.9757 - val_loss: 0.0886 - val_accuracy: 0.9705 - 40s/epoch - 19ms/step
+Epoch 6/30
+2116/2116 - 40s - loss: 0.0598 - accuracy: 0.9781 - val_loss: 0.0852 - val_accuracy: 0.9700 - 40s/epoch - 19ms/step
+Epoch 7/30
+2116/2116 - 40s - loss: 0.0507 - accuracy: 0.9810 - val_loss: 0.1084 - val_accuracy: 0.9685 - 40s/epoch - 19ms/step
+Epoch 8/30
+2116/2116 - 40s - loss: 0.0481 - accuracy: 0.9819 - val_loss: 0.0972 - val_accuracy: 0.9719 - 40s/epoch - 19ms/step
+Epoch 9/30
+2116/2116 - 40s - loss: 0.0414 - accuracy: 0.9837 - val_loss: 0.0874 - val_accuracy: 0.9725 - 40s/epoch - 19ms/step
+Epoch 10/30
+2116/2116 - 40s - loss: 0.0314 - accuracy: 0.9889 - val_loss: 0.0874 - val_accuracy: 0.9736 - 40s/epoch - 19ms/step
+Epoch 11/30
+2116/2116 - 40s - loss: 0.0327 - accuracy: 0.9881 - val_loss: 0.1491 - val_accuracy: 0.9623 - 40s/epoch - 19ms/step
+Epoch 11: early stopping
+Performance ofResNet50: 
+529/529 - 7s - loss: 0.1460 - accuracy: 0.9612 - 7s/epoch - 13ms/step
+Found 8463 images belonging to 5 classes.
+Found 3528 images belonging to 5 classes.
+Found 2115 images belonging to 5 classes.
+Start training of: ResNet50V2
+Model: "sequential_46"
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #   
+=================================================================
+ resnet50v2 (Functional)     (None, None, None, 2048)  23564800  
+                                                                 
+ global_average_pooling2d_5   (None, 2048)             0         
+ (GlobalAveragePooling2D)                                        
+                                                                 
+ dense_43 (Dense)            (None, 5)                 10245     
+                                                                 
+=================================================================
+Total params: 23,575,045
+Trainable params: 10,245
+Non-trainable params: 23,564,800
+_________________________________________________________________
+Epoch 1/30
+2116/2116 - 36s - loss: 0.2670 - accuracy: 0.9036 - val_loss: 0.1615 - val_accuracy: 0.9408 - 36s/epoch - 17ms/step
+Epoch 2/30
+2116/2116 - 34s - loss: 0.1254 - accuracy: 0.9547 - val_loss: 0.1688 - val_accuracy: 0.9362 - 34s/epoch - 16ms/step
+Epoch 3/30
+2116/2116 - 34s - loss: 0.0998 - accuracy: 0.9614 - val_loss: 0.1475 - val_accuracy: 0.9459 - 34s/epoch - 16ms/step
+Epoch 4/30
+2116/2116 - 34s - loss: 0.0747 - accuracy: 0.9732 - val_loss: 0.1164 - val_accuracy: 0.9617 - 34s/epoch - 16ms/step
+Epoch 5/30
+2116/2116 - 34s - loss: 0.0642 - accuracy: 0.9757 - val_loss: 0.1354 - val_accuracy: 0.9549 - 34s/epoch - 16ms/step
+Epoch 6/30
+2116/2116 - 34s - loss: 0.0579 - accuracy: 0.9796 - val_loss: 0.1112 - val_accuracy: 0.9612 - 34s/epoch - 16ms/step
+Epoch 7/30
+2116/2116 - 34s - loss: 0.0481 - accuracy: 0.9829 - val_loss: 0.1307 - val_accuracy: 0.9583 - 34s/epoch - 16ms/step
+Epoch 8/30
+2116/2116 - 34s - loss: 0.0457 - accuracy: 0.9845 - val_loss: 0.1279 - val_accuracy: 0.9617 - 34s/epoch - 16ms/step
+Epoch 9/30
+2116/2116 - 34s - loss: 0.0400 - accuracy: 0.9863 - val_loss: 0.1230 - val_accuracy: 0.9640 - 34s/epoch - 16ms/step
+Epoch 10/30
+2116/2116 - 34s - loss: 0.0350 - accuracy: 0.9872 - val_loss: 0.1299 - val_accuracy: 0.9637 - 34s/epoch - 16ms/step
+Epoch 11/30
+2116/2116 - 34s - loss: 0.0315 - accuracy: 0.9898 - val_loss: 0.1295 - val_accuracy: 0.9640 - 34s/epoch - 16ms/step
+Epoch 11: early stopping
+Performance ofResNet50V2: 
+529/529 - 6s - loss: 0.1323 - accuracy: 0.9617 - 6s/epoch - 12ms/step
+Found 8463 images belonging to 5 classes.
+Found 3528 images belonging to 5 classes.
+Found 2115 images belonging to 5 classes.
+Start training of: InceptionResNetV2
+Model: "sequential_47"
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #   
+=================================================================
+ inception_resnet_v2 (Functi  (None, None, None, 1536)  54336736 
+ onal)                                                           
+                                                                 
+ global_average_pooling2d_6   (None, 1536)             0         
+
+ (GlobalAveragePooling2D)                                        
+                                                                 
+ dense_44 (Dense)            (None, 5)                 7685      
+                                                                 
+=================================================================
+Total params: 54,344,421
+Trainable params: 7,685
+Non-trainable params: 54,336,736
+_________________________________________________________________
+Epoch 1/30
+2116/2116 - 81s - loss: 0.3440 - accuracy: 0.8698 - val_loss: 0.2722 - val_accuracy: 0.9039 - 81s/epoch - 38ms/step
+Epoch 2/30
+2116/2116 - 74s - loss: 0.2209 - accuracy: 0.9154 - val_loss: 0.1715 - val_accuracy: 0.9385 - 74s/epoch - 35ms/step
+Epoch 3/30
+2116/2116 - 73s - loss: 0.1780 - accuracy: 0.9345 - val_loss: 0.1862 - val_accuracy: 0.9376 - 73s/epoch - 34ms/step
+Epoch 4/30
+2116/2116 - 73s - loss: 0.1639 - accuracy: 0.9395 - val_loss: 0.1843 - val_accuracy: 0.9382 - 73s/epoch - 34ms/step
+Epoch 5/30
+2116/2116 - 73s - loss: 0.1433 - accuracy: 0.9467 - val_loss: 0.1295 - val_accuracy: 0.9575 - 73s/epoch - 34ms/step
+Epoch 6/30
+2116/2116 - 73s - loss: 0.1299 - accuracy: 0.9519 - val_loss: 0.2115 - val_accuracy: 0.9357 - 73s/epoch - 34ms/step
+Epoch 7/30
+2116/2116 - 73s - loss: 0.1258 - accuracy: 0.9538 - val_loss: 0.1744 - val_accuracy: 0.9427 - 73s/epoch - 34ms/step
+Epoch 8/30
+2116/2116 - 73s - loss: 0.1173 - accuracy: 0.9569 - val_loss: 0.1340 - val_accuracy: 0.9535 - 73s/epoch - 34ms/step
+Epoch 9/30
+2116/2116 - 73s - loss: 0.1059 - accuracy: 0.9616 - val_loss: 0.1253 - val_accuracy: 0.9598 - 73s/epoch - 34ms/step
+Epoch 10/30
+2116/2116 - 73s - loss: 0.1042 - accuracy: 0.9620 - val_loss: 0.4096 - val_accuracy: 0.8478 - 73s/epoch - 34ms/step
+Epoch 11/30
+2116/2116 - 73s - loss: 0.0935 - accuracy: 0.9647 - val_loss: 0.1603 - val_accuracy: 0.9447 - 73s/epoch - 35ms/step
+Epoch 12/30
+2116/2116 - 73s - loss: 0.0963 - accuracy: 0.9649 - val_loss: 0.1075 - val_accuracy: 0.9640 - 73s/epoch - 34ms/step
+Epoch 13/30
+2116/2116 - 73s - loss: 0.0878 - accuracy: 0.9688 - val_loss: 0.1107 - val_accuracy: 0.9660 - 73s/epoch - 34ms/step
+Epoch 14/30
+2116/2116 - 72s - loss: 0.0837 - accuracy: 0.9711 - val_loss: 0.1085 - val_accuracy: 0.9640 - 72s/epoch - 34ms/step
+Epoch 15/30
+2116/2116 - 73s - loss: 0.0863 - accuracy: 0.9701 - val_loss: 0.1077 - val_accuracy: 0.9660 - 73s/epoch - 34ms/step
+Epoch 16/30
+2116/2116 - 74s - loss: 0.0754 - accuracy: 0.9729 - val_loss: 0.1188 - val_accuracy: 0.9600 - 74s/epoch - 35ms/step
+Epoch 17/30
+2116/2116 - 74s - loss: 0.0694 - accuracy: 0.9753 - val_loss: 0.1702 - val_accuracy: 0.9456 - 74s/epoch - 35ms/step
+Epoch 17: early stopping
+Performance ofInceptionResNetV2: 
+529/529 - 13s - loss: 0.1897 - accuracy: 0.9461 - 13s/epoch - 24ms/step
+Found 8463 images belonging to 5 classes.
+Found 3528 images belonging to 5 classes.
+Found 2115 images belonging to 5 classes.
+Start training of: InceptionV3
+Model: "sequential_48"
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #   
+=================================================================
+ inception_v3 (Functional)   (None, None, None, 2048)  21802784  
+                                                                 
+ global_average_pooling2d_7   (None, 2048)             0         
+ (GlobalAveragePooling2D)                                        
+                                                                 
+ dense_45 (Dense)            (None, 5)                 10245     
+                                                                 
+=================================================================
+Total params: 21,813,029
+Trainable params: 10,245
+Non-trainable params: 21,802,784
+_________________________________________________________________
+Epoch 1/30
+2116/2116 - 41s - loss: 0.3535 - accuracy: 0.8664 - val_loss: 0.2246 - val_accuracy: 0.9235 - 41s/epoch - 19ms/step
+Epoch 2/30
+2116/2116 - 38s - loss: 0.2018 - accuracy: 0.9259 - val_loss: 0.1828 - val_accuracy: 0.9320 - 38s/epoch - 18ms/step
+Epoch 3/30
+2116/2116 - 38s - loss: 0.1694 - accuracy: 0.9376 - val_loss: 0.2007 - val_accuracy: 0.9328 - 38s/epoch - 18ms/step
+Epoch 4/30
+2116/2116 - 38s - loss: 0.1340 - accuracy: 0.9493 - val_loss: 0.1790 - val_accuracy: 0.9325 - 38s/epoch - 18ms/step
+Epoch 5/30
+2116/2116 - 38s - loss: 0.1319 - accuracy: 0.9492 - val_loss: 0.2414 - val_accuracy: 0.9161 - 38s/epoch - 18ms/step
+Epoch 6/30
+2116/2116 - 38s - loss: 0.1148 - accuracy: 0.9572 - val_loss: 0.1715 - val_accuracy: 0.9444 - 38s/epoch - 18ms/step
+Epoch 7/30
+2116/2116 - 38s - loss: 0.0999 - accuracy: 0.9629 - val_loss: 0.1548 - val_accuracy: 0.9425 - 38s/epoch - 18ms/step
+Epoch 8/30
+2116/2116 - 38s - loss: 0.1019 - accuracy: 0.9624 - val_loss: 0.1751 - val_accuracy: 0.9419 - 38s/epoch - 18ms/step
+Epoch 9/30
+2116/2116 - 38s - loss: 0.0853 - accuracy: 0.9670 - val_loss: 0.2081 - val_accuracy: 0.9297 - 38s/epoch - 18ms/step
+Epoch 10/30
+2116/2116 - 38s - loss: 0.0878 - accuracy: 0.9683 - val_loss: 0.1650 - val_accuracy: 0.9442 - 38s/epoch - 18ms/step
+Epoch 11/30
+2116/2116 - 38s - loss: 0.0774 - accuracy: 0.9706 - val_loss: 0.1598 - val_accuracy: 0.9510 - 38s/epoch - 18ms/step
+Epoch 12/30
+2116/2116 - 38s - loss: 0.0772 - accuracy: 0.9724 - val_loss: 0.1716 - val_accuracy: 0.9481 - 38s/epoch - 18ms/step
+Epoch 12: early stopping
+Performance ofInceptionV3: 
+529/529 - 7s - loss: 0.1602 - accuracy: 0.9504 - 7s/epoch - 12ms/step
+Found 8463 images belonging to 5 classes.
+Found 3528 images belonging to 5 classes.
+Found 2115 images belonging to 5 classes.
+Start training of: MobileNet
+Model: "sequential_49"
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #   
+=================================================================
+ mobilenet_1.00_224 (Functio  (None, None, None, 1024)  3228864  
+ nal)                                                            
+                                                                 
+ global_average_pooling2d_8   (None, 1024)             0         
+ (GlobalAveragePooling2D)                                        
+                                                                 
+ dense_46 (Dense)            (None, 5)                 5125      
+                                                                 
+=================================================================
+Total params: 3,233,989
+Trainable params: 5,125
+Non-trainable params: 3,228,864
+_________________________________________________________________
+Epoch 1/30
+2116/2116 - 15s - loss: 0.2892 - accuracy: 0.8990 - val_loss: 0.1359 - val_accuracy: 0.9546 - 15s/epoch - 7ms/step
+Epoch 2/30
+2116/2116 - 14s - loss: 0.1305 - accuracy: 0.9563 - val_loss: 0.1425 - val_accuracy: 0.9422 - 14s/epoch - 6ms/step
+Epoch 3/30
+2116/2116 - 14s - loss: 0.0952 - accuracy: 0.9657 - val_loss: 0.1387 - val_accuracy: 0.9478 - 14s/epoch - 6ms/step
+Epoch 4/30
+2116/2116 - 14s - loss: 0.0761 - accuracy: 0.9733 - val_loss: 0.1390 - val_accuracy: 0.9512 - 14s/epoch - 6ms/step
+Epoch 5/30
+2116/2116 - 14s - loss: 0.0643 - accuracy: 0.9778 - val_loss: 0.0869 - val_accuracy: 0.9694 - 14s/epoch - 6ms/step
+Epoch 6/30
+2116/2116 - 14s - loss: 0.0595 - accuracy: 0.9796 - val_loss: 0.0878 - val_accuracy: 0.9685 - 14s/epoch - 6ms/step
+Epoch 7/30
+2116/2116 - 14s - loss: 0.0536 - accuracy: 0.9816 - val_loss: 0.0881 - val_accuracy: 0.9697 - 14s/epoch - 7ms/step
+Epoch 8/30
+2116/2116 - 14s - loss: 0.0479 - accuracy: 0.9833 - val_loss: 0.0864 - val_accuracy: 0.9705 - 14s/epoch - 6ms/step
+Epoch 9/30
+2116/2116 - 13s - loss: 0.0441 - accuracy: 0.9836 - val_loss: 0.1052 - val_accuracy: 0.9674 - 13s/epoch - 6ms/step
+Epoch 10/30
+2116/2116 - 14s - loss: 0.0411 - accuracy: 0.9850 - val_loss: 0.1062 - val_accuracy: 0.9603 - 14s/epoch - 6ms/step
+Epoch 11/30
+2116/2116 - 13s - loss: 0.0342 - accuracy: 0.9874 - val_loss: 0.0931 - val_accuracy: 0.9694 - 13s/epoch - 6ms/step
+Epoch 12/30
+2116/2116 - 13s - loss: 0.0343 - accuracy: 0.9884 - val_loss: 0.0824 - val_accuracy: 0.9728 - 13s/epoch - 6ms/step
+Epoch 13/30
+2116/2116 - 14s - loss: 0.0333 - accuracy: 0.9881 - val_loss: 0.0902 - val_accuracy: 0.9697 - 14s/epoch - 7ms/step
+
+Epoch 14/30
+2116/2116 - 14s - loss: 0.0313 - accuracy: 0.9895 - val_loss: 0.1203 - val_accuracy: 0.9589 - 14s/epoch - 6ms/step
+Epoch 15/30
+2116/2116 - 14s - loss: 0.0291 - accuracy: 0.9887 - val_loss: 0.0890 - val_accuracy: 0.9688 - 14s/epoch - 6ms/step
+Epoch 16/30
+2116/2116 - 14s - loss: 0.0271 - accuracy: 0.9902 - val_loss: 0.0992 - val_accuracy: 0.9691 - 14s/epoch - 6ms/step
+Epoch 17/30
+2116/2116 - 13s - loss: 0.0282 - accuracy: 0.9904 - val_loss: 0.1049 - val_accuracy: 0.9668 - 13s/epoch - 6ms/step
+Epoch 17: early stopping
+Performance ofMobileNet: 
+529/529 - 2s - loss: 0.1162 - accuracy: 0.9669 - 2s/epoch - 5ms/step
+Found 8463 images belonging to 5 classes.
+Found 3528 images belonging to 5 classes.
+Found 2115 images belonging to 5 classes.
+Start training of: MobileNetV2
+Model: "sequential_50"
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #   
+=================================================================
+ mobilenetv2_1.00_224 (Funct  (None, None, None, 1280)  2257984  
+ ional)                                                          
+                                                                 
+ global_average_pooling2d_9   (None, 1280)             0         
+ (GlobalAveragePooling2D)                                        
+                                                                 
+ dense_47 (Dense)            (None, 5)                 6405      
+                                                                 
+=================================================================
+Total params: 2,264,389
+Trainable params: 6,405
+Non-trainable params: 2,257,984
+_________________________________________________________________
+Epoch 1/30
+2116/2116 - 18s - loss: 0.3344 - accuracy: 0.8781 - val_loss: 0.2181 - val_accuracy: 0.9195 - 18s/epoch - 9ms/step
+Epoch 2/30
+2116/2116 - 16s - loss: 0.1655 - accuracy: 0.9410 - val_loss: 0.1554 - val_accuracy: 0.9490 - 16s/epoch - 8ms/step
+Epoch 3/30
+2116/2116 - 16s - loss: 0.1269 - accuracy: 0.9547 - val_loss: 0.1654 - val_accuracy: 0.9399 - 16s/epoch - 7ms/step
+Epoch 4/30
+2116/2116 - 16s - loss: 0.1040 - accuracy: 0.9631 - val_loss: 0.1362 - val_accuracy: 0.9487 - 16s/epoch - 8ms/step
+Epoch 5/30
+2116/2116 - 16s - loss: 0.0917 - accuracy: 0.9698 - val_loss: 0.1290 - val_accuracy: 0.9549 - 16s/epoch - 7ms/step
+Epoch 6/30
+2116/2116 - 16s - loss: 0.0777 - accuracy: 0.9736 - val_loss: 0.1285 - val_accuracy: 0.9541 - 16s/epoch - 8ms/step
+Epoch 7/30
+2116/2116 - 16s - loss: 0.0678 - accuracy: 0.9747 - val_loss: 0.1638 - val_accuracy: 0.9365 - 16s/epoch - 8ms/step
+Epoch 8/30
+2116/2116 - 16s - loss: 0.0642 - accuracy: 0.9768 - val_loss: 0.1264 - val_accuracy: 0.9580 - 16s/epoch - 8ms/step
+Epoch 9/30
+2116/2116 - 16s - loss: 0.0580 - accuracy: 0.9785 - val_loss: 0.1255 - val_accuracy: 0.9555 - 16s/epoch - 8ms/step
+Epoch 10/30
+2116/2116 - 16s - loss: 0.0518 - accuracy: 0.9818 - val_loss: 0.1253 - val_accuracy: 0.9583 - 16s/epoch - 8ms/step
+Epoch 11/30
+2116/2116 - 16s - loss: 0.0508 - accuracy: 0.9823 - val_loss: 0.1316 - val_accuracy: 0.9555 - 16s/epoch - 8ms/step
+Epoch 12/30
+2116/2116 - 16s - loss: 0.0445 - accuracy: 0.9851 - val_loss: 0.1436 - val_accuracy: 0.9510 - 16s/epoch - 8ms/step
+Epoch 13/30
+2116/2116 - 16s - loss: 0.0431 - accuracy: 0.9862 - val_loss: 0.1444 - val_accuracy: 0.9572 - 16s/epoch - 8ms/step
+Epoch 14/30
+2116/2116 - 16s - loss: 0.0410 - accuracy: 0.9853 - val_loss: 0.1401 - val_accuracy: 0.9563 - 16s/epoch - 7ms/step
+Epoch 15/30
+2116/2116 - 16s - loss: 0.0405 - accuracy: 0.9856 - val_loss: 0.1450 - val_accuracy: 0.9546 - 16s/epoch - 8ms/step
+Epoch 15: early stopping
+Performance ofMobileNetV2: 
+529/529 - 3s - loss: 0.1444 - accuracy: 0.9556 - 3s/epoch - 6ms/step
+Found 8463 images belonging to 5 classes.
+Found 3528 images belonging to 5 classes.
+Found 2115 images belonging to 5 classes.
+Start training of: Xception
+Model: "sequential_51"
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #   
+=================================================================
+ xception (Functional)       (None, None, None, 2048)  20861480  
+                                                                 
+ global_average_pooling2d_10  (None, 2048)             0         
+  (GlobalAveragePooling2D)                                       
+                                                                 
+ dense_48 (Dense)            (None, 5)                 10245     
+                                                                 
+=================================================================
+Total params: 20,871,725
+Trainable params: 10,245
+Non-trainable params: 20,861,480
+_________________________________________________________________
+Epoch 1/30
+2116/2116 - 35s - loss: 0.3189 - accuracy: 0.8901 - val_loss: 0.1885 - val_accuracy: 0.9376 - 35s/epoch - 17ms/step
+Epoch 2/30
+2116/2116 - 33s - loss: 0.1645 - accuracy: 0.9453 - val_loss: 0.1601 - val_accuracy: 0.9487 - 33s/epoch - 16ms/step
+Epoch 3/30
+2116/2116 - 34s - loss: 0.1242 - accuracy: 0.9594 - val_loss: 0.1314 - val_accuracy: 0.9549 - 34s/epoch - 16ms/step
+Epoch 4/30
+2116/2116 - 33s - loss: 0.1014 - accuracy: 0.9662 - val_loss: 0.1162 - val_accuracy: 0.9606 - 33s/epoch - 16ms/step
+Epoch 5/30
+2116/2116 - 34s - loss: 0.0853 - accuracy: 0.9718 - val_loss: 0.1143 - val_accuracy: 0.9563 - 34s/epoch - 16ms/step
+Epoch 6/30
+2116/2116 - 33s - loss: 0.0762 - accuracy: 0.9745 - val_loss: 0.1138 - val_accuracy: 0.9609 - 33s/epoch - 16ms/step
+Epoch 7/30
+2116/2116 - 34s - loss: 0.0698 - accuracy: 0.9757 - val_loss: 0.1107 - val_accuracy: 0.9620 - 34s/epoch - 16ms/step
+Epoch 8/30
+2116/2116 - 33s - loss: 0.0618 - accuracy: 0.9784 - val_loss: 0.1137 - val_accuracy: 0.9586 - 33s/epoch - 16ms/step
+Epoch 9/30
+2116/2116 - 34s - loss: 0.0576 - accuracy: 0.9817 - val_loss: 0.1101 - val_accuracy: 0.9612 - 34s/epoch - 16ms/step
+Epoch 10/30
+2116/2116 - 34s - loss: 0.0503 - accuracy: 0.9801 - val_loss: 0.1449 - val_accuracy: 0.9518 - 34s/epoch - 16ms/step
+Epoch 11/30
+2116/2116 - 33s - loss: 0.0461 - accuracy: 0.9839 - val_loss: 0.1080 - val_accuracy: 0.9617 - 33s/epoch - 16ms/step
+Epoch 12/30
+2116/2116 - 34s - loss: 0.0427 - accuracy: 0.9878 - val_loss: 0.1100 - val_accuracy: 0.9615 - 34s/epoch - 16ms/step
+Epoch 13/30
+2116/2116 - 33s - loss: 0.0406 - accuracy: 0.9863 - val_loss: 0.1128 - val_accuracy: 0.9632 - 33s/epoch - 16ms/step
+Epoch 14/30
+2116/2116 - 35s - loss: 0.0377 - accuracy: 0.9875 - val_loss: 0.1608 - val_accuracy: 0.9501 - 35s/epoch - 16ms/step
+Epoch 15/30
+2116/2116 - 34s - loss: 0.0355 - accuracy: 0.9883 - val_loss: 0.1179 - val_accuracy: 0.9558 - 34s/epoch - 16ms/step
+Epoch 16/30
+2116/2116 - 35s - loss: 0.0331 - accuracy: 0.9894 - val_loss: 0.1166 - val_accuracy: 0.9640 - 35s/epoch - 16ms/step
+Epoch 16: early stopping
+Performance ofXception: 
+529/529 - 6s - loss: 0.1130 - accuracy: 0.9693 - 6s/epoch - 12ms/step
+Found 8463 images belonging to 5 classes.
+Found 3528 images belonging to 5 classes.
+Found 2115 images belonging to 5 classes.
+Start training of: DenseNet121
+Model: "sequential_52"
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #   
+=================================================================
+ densenet121 (Functional)    (None, None, None, 1024)  7037504   
+                                                                 
+ global_average_pooling2d_11  (None, 1024)             0         
+  (GlobalAveragePooling2D)                                       
+                                                                 
+ dense_49 (Dense)            (None, 5)                 5125      
+                                                                 
+=================================================================
+Total params: 7,042,629
+Trainable params: 5,125
+Non-trainable params: 7,037,504
+_________________________________________________________________
+Epoch 1/30
+2116/2116 - 60s - loss: 0.3835 - accuracy: 0.8583 - val_loss: 0.2016 - val_accuracy: 0.9272 - 60s/epoch - 28ms/step
+Epoch 2/30
+2116/2116 - 54s - loss: 0.1843 - accuracy: 0.9326 - val_loss: 0.1556 - val_accuracy: 0.9487 - 54s/epoch - 26ms/step
+
+Epoch 3/30
+2116/2116 - 55s - loss: 0.1470 - accuracy: 0.9464 - val_loss: 0.1309 - val_accuracy: 0.9535 - 55s/epoch - 26ms/step
+Epoch 4/30
+2116/2116 - 53s - loss: 0.1269 - accuracy: 0.9568 - val_loss: 0.1483 - val_accuracy: 0.9453 - 53s/epoch - 25ms/step
+Epoch 5/30
+2116/2116 - 53s - loss: 0.1156 - accuracy: 0.9592 - val_loss: 0.1090 - val_accuracy: 0.9646 - 53s/epoch - 25ms/step
+Epoch 6/30
+2116/2116 - 53s - loss: 0.1057 - accuracy: 0.9618 - val_loss: 0.1208 - val_accuracy: 0.9575 - 53s/epoch - 25ms/step
+Epoch 7/30
+2116/2116 - 53s - loss: 0.0990 - accuracy: 0.9643 - val_loss: 0.1155 - val_accuracy: 0.9598 - 53s/epoch - 25ms/step
+Epoch 8/30
+2116/2116 - 53s - loss: 0.0913 - accuracy: 0.9663 - val_loss: 0.1047 - val_accuracy: 0.9606 - 53s/epoch - 25ms/step
+Epoch 9/30
+2116/2116 - 53s - loss: 0.0867 - accuracy: 0.9693 - val_loss: 0.1103 - val_accuracy: 0.9609 - 53s/epoch - 25ms/step
+Epoch 10/30
+2116/2116 - 53s - loss: 0.0812 - accuracy: 0.9721 - val_loss: 0.1144 - val_accuracy: 0.9589 - 53s/epoch - 25ms/step
+Epoch 11/30
+2116/2116 - 53s - loss: 0.0794 - accuracy: 0.9715 - val_loss: 0.1463 - val_accuracy: 0.9484 - 53s/epoch - 25ms/step
+Epoch 12/30
+2116/2116 - 53s - loss: 0.0782 - accuracy: 0.9731 - val_loss: 0.1012 - val_accuracy: 0.9626 - 53s/epoch - 25ms/step
+Epoch 13/30
+2116/2116 - 53s - loss: 0.0740 - accuracy: 0.9722 - val_loss: 0.1184 - val_accuracy: 0.9569 - 53s/epoch - 25ms/step
+Epoch 14/30
+2116/2116 - 54s - loss: 0.0733 - accuracy: 0.9735 - val_loss: 0.1042 - val_accuracy: 0.9626 - 54s/epoch - 25ms/step
+Epoch 15/30
+2116/2116 - 53s - loss: 0.0702 - accuracy: 0.9726 - val_loss: 0.1062 - val_accuracy: 0.9632 - 53s/epoch - 25ms/step
+Epoch 16/30
+2116/2116 - 53s - loss: 0.0692 - accuracy: 0.9747 - val_loss: 0.1274 - val_accuracy: 0.9558 - 53s/epoch - 25ms/step
+Epoch 17/30
+2116/2116 - 53s - loss: 0.0699 - accuracy: 0.9741 - val_loss: 0.1029 - val_accuracy: 0.9651 - 53s/epoch - 25ms/step
+Epoch 17: early stopping
+Performance ofDenseNet121: 
+529/529 - 9s - loss: 0.1100 - accuracy: 0.9603 - 9s/epoch - 18ms/step
+Found 8463 images belonging to 5 classes.
+Found 3528 images belonging to 5 classes.
+Found 2115 images belonging to 5 classes.
+Start training of: DenseNet169
+Model: "sequential_53"
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #   
+=================================================================
+ densenet169 (Functional)    (None, None, None, 1664)  12642880  
+                                                                 
+ global_average_pooling2d_12  (None, 1664)             0         
+  (GlobalAveragePooling2D)                                       
+                                                                 
+ dense_50 (Dense)            (None, 5)                 8325      
+                                                                 
+=================================================================
+Total params: 12,651,205
+Trainable params: 8,325
+Non-trainable params: 12,642,880
+_________________________________________________________________
+Epoch 1/30
+2116/2116 - 75s - loss: 0.2983 - accuracy: 0.8885 - val_loss: 0.1462 - val_accuracy: 0.9510 - 75s/epoch - 35ms/step
+Epoch 2/30
+2116/2116 - 69s - loss: 0.1425 - accuracy: 0.9499 - val_loss: 0.1129 - val_accuracy: 0.9643 - 69s/epoch - 33ms/step
+Epoch 3/30
+2116/2116 - 70s - loss: 0.1159 - accuracy: 0.9583 - val_loss: 0.1300 - val_accuracy: 0.9538 - 70s/epoch - 33ms/step
+Epoch 4/30
+2116/2116 - 69s - loss: 0.0971 - accuracy: 0.9648 - val_loss: 0.0990 - val_accuracy: 0.9683 - 69s/epoch - 33ms/step
+Epoch 5/30
+2116/2116 - 69s - loss: 0.0893 - accuracy: 0.9689 - val_loss: 0.1016 - val_accuracy: 0.9640 - 69s/epoch - 33ms/step
+Epoch 6/30
+2116/2116 - 69s - loss: 0.0798 - accuracy: 0.9722 - val_loss: 0.0945 - val_accuracy: 0.9680 - 69s/epoch - 33ms/step
+Epoch 7/30
+2116/2116 - 69s - loss: 0.0724 - accuracy: 0.9751 - val_loss: 0.1361 - val_accuracy: 0.9552 - 69s/epoch - 33ms/step
+Epoch 8/30
+2116/2116 - 69s - loss: 0.0696 - accuracy: 0.9738 - val_loss: 0.1212 - val_accuracy: 0.9566 - 69s/epoch - 32ms/step
+Epoch 9/30
+2116/2116 - 69s - loss: 0.0659 - accuracy: 0.9768 - val_loss: 0.0933 - val_accuracy: 0.9683 - 69s/epoch - 33ms/step
+Epoch 10/30
+2116/2116 - 69s - loss: 0.0614 - accuracy: 0.9779 - val_loss: 0.1007 - val_accuracy: 0.9683 - 69s/epoch - 33ms/step
+Epoch 11/30
+2116/2116 - 69s - loss: 0.0557 - accuracy: 0.9804 - val_loss: 0.0976 - val_accuracy: 0.9683 - 69s/epoch - 33ms/step
+Epoch 12/30
+2116/2116 - 69s - loss: 0.0538 - accuracy: 0.9825 - val_loss: 0.0935 - val_accuracy: 0.9705 - 69s/epoch - 33ms/step
+Epoch 13/30
+2116/2116 - 69s - loss: 0.0533 - accuracy: 0.9798 - val_loss: 0.1014 - val_accuracy: 0.9674 - 69s/epoch - 33ms/step
+Epoch 14/30
+2116/2116 - 69s - loss: 0.0516 - accuracy: 0.9798 - val_loss: 0.0938 - val_accuracy: 0.9700 - 69s/epoch - 33ms/step
+Epoch 14: early stopping
+Performance ofDenseNet169: 
+529/529 - 12s - loss: 0.0976 - accuracy: 0.9730 - 12s/epoch - 23ms/step
+Found 8463 images belonging to 5 classes.
+Found 3528 images belonging to 5 classes.
+Found 2115 images belonging to 5 classes.
+Start training of: DenseNet201
+Model: "sequential_54"
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #   
+=================================================================
+ densenet201 (Functional)    (None, None, None, 1920)  18321984  
+                                                                 
+ global_average_pooling2d_13  (None, 1920)             0         
+  (GlobalAveragePooling2D)                                       
+                                                                 
+ dense_51 (Dense)            (None, 5)                 9605      
+                                                                 
+=================================================================
+Total params: 18,331,589
+Trainable params: 9,605
+Non-trainable params: 18,321,984
+_________________________________________________________________
+Epoch 1/30
+2116/2116 - 91s - loss: 0.2928 - accuracy: 0.8933 - val_loss: 0.1665 - val_accuracy: 0.9459 - 91s/epoch - 43ms/step
+Epoch 2/30
+2116/2116 - 84s - loss: 0.1441 - accuracy: 0.9497 - val_loss: 0.1226 - val_accuracy: 0.9592 - 84s/epoch - 40ms/step
+Epoch 3/30
+2116/2116 - 84s - loss: 0.1117 - accuracy: 0.9611 - val_loss: 0.1216 - val_accuracy: 0.9569 - 84s/epoch - 40ms/step
+Epoch 4/30
+2116/2116 - 84s - loss: 0.0900 - accuracy: 0.9679 - val_loss: 0.1022 - val_accuracy: 0.9671 - 84s/epoch - 39ms/step
+Epoch 5/30
+2116/2116 - 84s - loss: 0.0798 - accuracy: 0.9726 - val_loss: 0.1168 - val_accuracy: 0.9640 - 84s/epoch - 40ms/step
+Epoch 6/30
+2116/2116 - 84s - loss: 0.0713 - accuracy: 0.9753 - val_loss: 0.2393 - val_accuracy: 0.9053 - 84s/epoch - 40ms/step
+Epoch 7/30
+2116/2116 - 83s - loss: 0.0626 - accuracy: 0.9787 - val_loss: 0.1159 - val_accuracy: 0.9609 - 83s/epoch - 39ms/step
+Epoch 8/30
+2116/2116 - 84s - loss: 0.0643 - accuracy: 0.9764 - val_loss: 0.1049 - val_accuracy: 0.9663 - 84s/epoch - 40ms/step
+Epoch 9/30
+2116/2116 - 83s - loss: 0.0589 - accuracy: 0.9758 - val_loss: 0.1005 - val_accuracy: 0.9663 - 83s/epoch - 39ms/step
+Epoch 10/30
+2116/2116 - 84s - loss: 0.0502 - accuracy: 0.9819 - val_loss: 0.0992 - val_accuracy: 0.9671 - 84s/epoch - 39ms/step
+Epoch 11/30
+2116/2116 - 83s - loss: 0.0517 - accuracy: 0.9813 - val_loss: 0.1087 - val_accuracy: 0.9680 - 83s/epoch - 39ms/step
+Epoch 12/30
+2116/2116 - 83s - loss: 0.0459 - accuracy: 0.9845 - val_loss: 0.1146 - val_accuracy: 0.9671 - 83s/epoch - 39ms/step
+Epoch 13/30
+2116/2116 - 83s - loss: 0.0442 - accuracy: 0.9832 - val_loss: 0.1355 - val_accuracy: 0.9615 - 83s/epoch - 39ms/step
+Epoch 14/30
+2116/2116 - 83s - loss: 0.0422 - accuracy: 0.9844 - val_loss: 0.0968 - val_accuracy: 0.9700 - 83s/epoch - 39ms/step
+Epoch 15/30
+2116/2116 - 84s - loss: 0.0422 - accuracy: 0.9844 - val_loss: 0.1123 - val_accuracy: 0.9651 - 84s/epoch - 39ms/step
+Epoch 16/30
+2116/2116 - 84s - loss: 0.0397 - accuracy: 0.9843 - val_loss: 0.1038 - val_accuracy: 0.9694 - 84s/epoch - 39ms/step
+Epoch 17/30
+2116/2116 - 83s - loss: 0.0358 - accuracy: 0.9864 - val_loss: 0.1298 - val_accuracy: 0.9569 - 83s/epoch - 39ms/step
+
+Epoch 18/30
+2116/2116 - 83s - loss: 0.0355 - accuracy: 0.9872 - val_loss: 0.1150 - val_accuracy: 0.9677 - 83s/epoch - 39ms/step
+Epoch 19/30
+2116/2116 - 83s - loss: 0.0329 - accuracy: 0.9878 - val_loss: 0.1080 - val_accuracy: 0.9685 - 83s/epoch - 39ms/step
+Epoch 19: early stopping
+Performance ofDenseNet201: 
+529/529 - 15s - loss: 0.1101 - accuracy: 0.9683 - 15s/epoch - 28ms/step
+Found 8463 images belonging to 5 classes.
+Found 3528 images belonging to 5 classes.
+Found 2115 images belonging to 5 classes.
+Start training of: EfficientNetV2S
+Model: "sequential_55"
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #   
+=================================================================
+ efficientnetv2-s (Functiona  (None, None, None, 1280)  20331360 
+ l)                                                              
+                                                                 
+ global_average_pooling2d_14  (None, 1280)             0         
+  (GlobalAveragePooling2D)                                       
+                                                                 
+ dense_52 (Dense)            (None, 5)                 6405      
+                                                                 
+=================================================================
+Total params: 20,337,765
+Trainable params: 6,405
+Non-trainable params: 20,331,360
+_________________________________________________________________
+Epoch 1/30
+2116/2116 - 54s - loss: 0.3431 - accuracy: 0.8783 - val_loss: 0.1857 - val_accuracy: 0.9413 - 54s/epoch - 25ms/step
+Epoch 2/30
+2116/2116 - 46s - loss: 0.1948 - accuracy: 0.9355 - val_loss: 0.1411 - val_accuracy: 0.9515 - 46s/epoch - 22ms/step
+Epoch 3/30
+2116/2116 - 46s - loss: 0.1601 - accuracy: 0.9433 - val_loss: 0.1241 - val_accuracy: 0.9563 - 46s/epoch - 22ms/step
+Epoch 4/30
+2116/2116 - 46s - loss: 0.1411 - accuracy: 0.9486 - val_loss: 0.1181 - val_accuracy: 0.9600 - 46s/epoch - 22ms/step
+Epoch 5/30
+2116/2116 - 46s - loss: 0.1334 - accuracy: 0.9490 - val_loss: 0.1097 - val_accuracy: 0.9629 - 46s/epoch - 22ms/step
+Epoch 6/30
+2116/2116 - 45s - loss: 0.1211 - accuracy: 0.9579 - val_loss: 0.0950 - val_accuracy: 0.9668 - 45s/epoch - 21ms/step
+Epoch 7/30
+2116/2116 - 46s - loss: 0.1133 - accuracy: 0.9589 - val_loss: 0.0910 - val_accuracy: 0.9663 - 46s/epoch - 22ms/step
+Epoch 8/30
+2116/2116 - 46s - loss: 0.1081 - accuracy: 0.9607 - val_loss: 0.0963 - val_accuracy: 0.9663 - 46s/epoch - 22ms/step
+Epoch 9/30
+2116/2116 - 46s - loss: 0.1058 - accuracy: 0.9625 - val_loss: 0.0900 - val_accuracy: 0.9649 - 46s/epoch - 22ms/step
+Epoch 10/30
+2116/2116 - 46s - loss: 0.1033 - accuracy: 0.9636 - val_loss: 0.0849 - val_accuracy: 0.9651 - 46s/epoch - 22ms/step
+Epoch 11/30
+2116/2116 - 46s - loss: 0.1008 - accuracy: 0.9644 - val_loss: 0.0820 - val_accuracy: 0.9702 - 46s/epoch - 22ms/step
+Epoch 12/30
+2116/2116 - 46s - loss: 0.0950 - accuracy: 0.9664 - val_loss: 0.0853 - val_accuracy: 0.9654 - 46s/epoch - 22ms/step
+Epoch 13/30
+2116/2116 - 46s - loss: 0.0913 - accuracy: 0.9689 - val_loss: 0.0787 - val_accuracy: 0.9728 - 46s/epoch - 22ms/step
+Epoch 14/30
+2116/2116 - 46s - loss: 0.0914 - accuracy: 0.9677 - val_loss: 0.0788 - val_accuracy: 0.9725 - 46s/epoch - 22ms/step
+Epoch 15/30
+2116/2116 - 46s - loss: 0.0879 - accuracy: 0.9680 - val_loss: 0.0776 - val_accuracy: 0.9742 - 46s/epoch - 22ms/step
+Epoch 16/30
+2116/2116 - 46s - loss: 0.0865 - accuracy: 0.9688 - val_loss: 0.0734 - val_accuracy: 0.9734 - 46s/epoch - 22ms/step
+Epoch 17/30
+2116/2116 - 46s - loss: 0.0808 - accuracy: 0.9694 - val_loss: 0.0761 - val_accuracy: 0.9705 - 46s/epoch - 22ms/step
+Epoch 18/30
+2116/2116 - 46s - loss: 0.0821 - accuracy: 0.9694 - val_loss: 0.0769 - val_accuracy: 0.9719 - 46s/epoch - 22ms/step
+Epoch 19/30
+2116/2116 - 46s - loss: 0.0820 - accuracy: 0.9695 - val_loss: 0.0734 - val_accuracy: 0.9736 - 46s/epoch - 22ms/step
+Epoch 20/30
+2116/2116 - 46s - loss: 0.0789 - accuracy: 0.9719 - val_loss: 0.0716 - val_accuracy: 0.9719 - 46s/epoch - 22ms/step
+Epoch 21/30
+2116/2116 - 46s - loss: 0.0802 - accuracy: 0.9694 - val_loss: 0.0704 - val_accuracy: 0.9756 - 46s/epoch - 22ms/step
+Epoch 22/30
+2116/2116 - 46s - loss: 0.0756 - accuracy: 0.9716 - val_loss: 0.1059 - val_accuracy: 0.9580 - 46s/epoch - 22ms/step
+Epoch 23/30
+2116/2116 - 46s - loss: 0.0737 - accuracy: 0.9742 - val_loss: 0.0679 - val_accuracy: 0.9734 - 46s/epoch - 22ms/step
+Epoch 24/30
+2116/2116 - 46s - loss: 0.0796 - accuracy: 0.9709 - val_loss: 0.0672 - val_accuracy: 0.9736 - 46s/epoch - 22ms/step
+Epoch 25/30
+2116/2116 - 46s - loss: 0.0789 - accuracy: 0.9715 - val_loss: 0.0752 - val_accuracy: 0.9677 - 46s/epoch - 22ms/step
+Epoch 26/30
+2116/2116 - 46s - loss: 0.0748 - accuracy: 0.9702 - val_loss: 0.0683 - val_accuracy: 0.9756 - 46s/epoch - 22ms/step
+Epoch 27/30
+2116/2116 - 46s - loss: 0.0736 - accuracy: 0.9744 - val_loss: 0.0697 - val_accuracy: 0.9731 - 46s/epoch - 22ms/step
+Epoch 28/30
+2116/2116 - 46s - loss: 0.0771 - accuracy: 0.9719 - val_loss: 0.0613 - val_accuracy: 0.9799 - 46s/epoch - 22ms/step
+Epoch 29/30
+2116/2116 - 46s - loss: 0.0708 - accuracy: 0.9749 - val_loss: 0.0643 - val_accuracy: 0.9759 - 46s/epoch - 22ms/step
+Epoch 30/30
+2116/2116 - 46s - loss: 0.0692 - accuracy: 0.9748 - val_loss: 0.0684 - val_accuracy: 0.9736 - 46s/epoch - 22ms/step
+Performance ofEfficientNetV2S: 
+529/529 - 8s - loss: 0.0965 - accuracy: 0.9688 - 8s/epoch - 15ms/step
+Found 8463 images belonging to 5 classes.
+Found 3528 images belonging to 5 classes.
+Found 2115 images belonging to 5 classes.
+Start training of: EfficientNetV2M
+Model: "sequential_56"
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #   
+=================================================================
+ efficientnetv2-m (Functiona  (None, None, None, 1280)  53150388 
+ l)                                                              
+                                                                 
+ global_average_pooling2d_15  (None, 1280)             0         
+  (GlobalAveragePooling2D)                                       
+                                                                 
+ dense_53 (Dense)            (None, 5)                 6405      
+                                                                 
+=================================================================
+Total params: 53,156,793
+Trainable params: 6,405
+Non-trainable params: 53,150,388
+_________________________________________________________________
+Epoch 1/30
+2116/2116 - 88s - loss: 0.4220 - accuracy: 0.8562 - val_loss: 0.2650 - val_accuracy: 0.9050 - 88s/epoch - 41ms/step
+Epoch 2/30
+2116/2116 - 76s - loss: 0.2538 - accuracy: 0.9145 - val_loss: 0.2108 - val_accuracy: 0.9291 - 76s/epoch - 36ms/step
+Epoch 3/30
+2116/2116 - 76s - loss: 0.2168 - accuracy: 0.9252 - val_loss: 0.1802 - val_accuracy: 0.9416 - 76s/epoch - 36ms/step
+Epoch 4/30
+2116/2116 - 76s - loss: 0.1905 - accuracy: 0.9352 - val_loss: 0.1564 - val_accuracy: 0.9495 - 76s/epoch - 36ms/step
+Epoch 5/30
+2116/2116 - 75s - loss: 0.1744 - accuracy: 0.9407 - val_loss: 0.1513 - val_accuracy: 0.9464 - 75s/epoch - 36ms/step
+Epoch 6/30
+2116/2116 - 76s - loss: 0.1618 - accuracy: 0.9458 - val_loss: 0.1354 - val_accuracy: 0.9586 - 76s/epoch - 36ms/step
+Epoch 7/30
+2116/2116 - 76s - loss: 0.1517 - accuracy: 0.9472 - val_loss: 0.1355 - val_accuracy: 0.9541 - 76s/epoch - 36ms/step
+Epoch 8/30
+2116/2116 - 75s - loss: 0.1398 - accuracy: 0.9534 - val_loss: 0.1307 - val_accuracy: 0.9552 - 75s/epoch - 36ms/step
+Epoch 9/30
+2116/2116 - 76s - loss: 0.1363 - accuracy: 0.9546 - val_loss: 0.1270 - val_accuracy: 0.9561 - 76s/epoch - 36ms/step
+Epoch 10/30
+2116/2116 - 76s - loss: 0.1344 - accuracy: 0.9539 - val_loss: 0.1281 - val_accuracy: 0.9580 - 76s/epoch - 36ms/step
+Epoch 11/30
+2116/2116 - 75s - loss: 0.1306 - accuracy: 0.9549 - val_loss: 0.1335 - val_accuracy: 0.9538 - 75s/epoch - 36ms/step
+Epoch 12/30
+2116/2116 - 76s - loss: 0.1275 - accuracy: 0.9560 - val_loss: 0.1249 - val_accuracy: 0.9592 - 76s/epoch - 36ms/step
+Epoch 13/30
+2116/2116 - 76s - loss: 0.1248 - accuracy: 0.9578 - val_loss: 0.1106 - val_accuracy: 0.9620 - 76s/epoch - 36ms/step
+
+Epoch 14/30
+2116/2116 - 76s - loss: 0.1172 - accuracy: 0.9595 - val_loss: 0.1180 - val_accuracy: 0.9572 - 76s/epoch - 36ms/step
+Epoch 15/30
+2116/2116 - 75s - loss: 0.1200 - accuracy: 0.9585 - val_loss: 0.1073 - val_accuracy: 0.9637 - 75s/epoch - 36ms/step
+Epoch 16/30
+2116/2116 - 76s - loss: 0.1130 - accuracy: 0.9603 - val_loss: 0.1059 - val_accuracy: 0.9663 - 76s/epoch - 36ms/step
+Epoch 17/30
+2116/2116 - 75s - loss: 0.1136 - accuracy: 0.9586 - val_loss: 0.1062 - val_accuracy: 0.9651 - 75s/epoch - 35ms/step
+Epoch 18/30
+2116/2116 - 75s - loss: 0.1144 - accuracy: 0.9582 - val_loss: 0.1032 - val_accuracy: 0.9640 - 75s/epoch - 35ms/step
+Epoch 19/30
+2116/2116 - 75s - loss: 0.1076 - accuracy: 0.9624 - val_loss: 0.1026 - val_accuracy: 0.9643 - 75s/epoch - 36ms/step
+Epoch 20/30
+2116/2116 - 76s - loss: 0.1051 - accuracy: 0.9644 - val_loss: 0.1008 - val_accuracy: 0.9660 - 76s/epoch - 36ms/step
+Epoch 21/30
+2116/2116 - 75s - loss: 0.1045 - accuracy: 0.9629 - val_loss: 0.1074 - val_accuracy: 0.9612 - 75s/epoch - 36ms/step
+Epoch 22/30
+2116/2116 - 75s - loss: 0.1069 - accuracy: 0.9618 - val_loss: 0.1005 - val_accuracy: 0.9640 - 75s/epoch - 36ms/step
+Epoch 23/30
+2116/2116 - 75s - loss: 0.1079 - accuracy: 0.9602 - val_loss: 0.0983 - val_accuracy: 0.9683 - 75s/epoch - 36ms/step
+Epoch 24/30
+2116/2116 - 76s - loss: 0.1012 - accuracy: 0.9628 - val_loss: 0.1015 - val_accuracy: 0.9649 - 76s/epoch - 36ms/step
+Epoch 25/30
+2116/2116 - 75s - loss: 0.1033 - accuracy: 0.9641 - val_loss: 0.1033 - val_accuracy: 0.9640 - 75s/epoch - 36ms/step
+Epoch 26/30
+2116/2116 - 75s - loss: 0.1021 - accuracy: 0.9617 - val_loss: 0.1013 - val_accuracy: 0.9643 - 75s/epoch - 35ms/step
+Epoch 27/30
+2116/2116 - 76s - loss: 0.0972 - accuracy: 0.9664 - val_loss: 0.0991 - val_accuracy: 0.9660 - 76s/epoch - 36ms/step
+Epoch 28/30
+2116/2116 - 75s - loss: 0.0955 - accuracy: 0.9662 - val_loss: 0.1085 - val_accuracy: 0.9617 - 75s/epoch - 36ms/step
+Epoch 28: early stopping
+Performance ofEfficientNetV2M: 
+529/529 - 13s - loss: 0.1209 - accuracy: 0.9636 - 13s/epoch - 25ms/step
+Found 8463 images belonging to 5 classes.
+Found 3528 images belonging to 5 classes.
+Found 2115 images belonging to 5 classes.
+Start training of: EfficientNetV2L
+Model: "sequential_57"
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #   
+=================================================================
+ efficientnetv2-l (Functiona  (None, None, None, 1280)  117746848
+ l)                                                              
+                                                                 
+ global_average_pooling2d_16  (None, 1280)             0         
+  (GlobalAveragePooling2D)                                       
+                                                                 
+ dense_54 (Dense)            (None, 5)                 6405      
+                                                                 
+=================================================================
+Total params: 117,753,253
+Trainable params: 6,405
+Non-trainable params: 117,746,848
+_________________________________________________________________
+Epoch 1/30
+2116/2116 - 144s - loss: 0.4368 - accuracy: 0.8451 - val_loss: 0.2787 - val_accuracy: 0.9028 - 144s/epoch - 68ms/step
+Epoch 2/30
+2116/2116 - 128s - loss: 0.2548 - accuracy: 0.9097 - val_loss: 0.2186 - val_accuracy: 0.9277 - 128s/epoch - 60ms/step
+Epoch 3/30
+2116/2116 - 128s - loss: 0.2106 - accuracy: 0.9284 - val_loss: 0.1735 - val_accuracy: 0.9450 - 128s/epoch - 60ms/step
+Epoch 4/30
+2116/2116 - 128s - loss: 0.1839 - accuracy: 0.9363 - val_loss: 0.1568 - val_accuracy: 0.9510 - 128s/epoch - 60ms/step
+Epoch 5/30
+2116/2116 - 127s - loss: 0.1711 - accuracy: 0.9376 - val_loss: 0.1491 - val_accuracy: 0.9484 - 127s/epoch - 60ms/step
+Epoch 6/30
+2116/2116 - 128s - loss: 0.1611 - accuracy: 0.9459 - val_loss: 0.1377 - val_accuracy: 0.9538 - 128s/epoch - 60ms/step
+Epoch 7/30
+2116/2116 - 127s - loss: 0.1491 - accuracy: 0.9498 - val_loss: 0.1315 - val_accuracy: 0.9569 - 127s/epoch - 60ms/step
+Epoch 8/30
+2116/2116 - 127s - loss: 0.1448 - accuracy: 0.9512 - val_loss: 0.1354 - val_accuracy: 0.9549 - 127s/epoch - 60ms/step
+Epoch 9/30
+2116/2116 - 128s - loss: 0.1395 - accuracy: 0.9516 - val_loss: 0.1230 - val_accuracy: 0.9580 - 128s/epoch - 60ms/step
+Epoch 10/30
+2116/2116 - 128s - loss: 0.1347 - accuracy: 0.9514 - val_loss: 0.1219 - val_accuracy: 0.9595 - 128s/epoch - 61ms/step
+Epoch 11/30
+2116/2116 - 128s - loss: 0.1314 - accuracy: 0.9552 - val_loss: 0.1206 - val_accuracy: 0.9612 - 128s/epoch - 61ms/step
+Epoch 12/30
+2116/2116 - 128s - loss: 0.1241 - accuracy: 0.9564 - val_loss: 0.1062 - val_accuracy: 0.9657 - 128s/epoch - 61ms/step
+Epoch 13/30
+2116/2116 - 128s - loss: 0.1189 - accuracy: 0.9579 - val_loss: 0.1044 - val_accuracy: 0.9674 - 128s/epoch - 61ms/step
+Epoch 14/30
+2116/2116 - 128s - loss: 0.1206 - accuracy: 0.9577 - val_loss: 0.1141 - val_accuracy: 0.9629 - 128s/epoch - 61ms/step
+Epoch 15/30
+2116/2116 - 128s - loss: 0.1155 - accuracy: 0.9596 - val_loss: 0.1009 - val_accuracy: 0.9668 - 128s/epoch - 61ms/step
+Epoch 16/30
+2116/2116 - 128s - loss: 0.1109 - accuracy: 0.9617 - val_loss: 0.1013 - val_accuracy: 0.9683 - 128s/epoch - 61ms/step
+Epoch 17/30
+2116/2116 - 128s - loss: 0.1076 - accuracy: 0.9621 - val_loss: 0.0994 - val_accuracy: 0.9674 - 128s/epoch - 61ms/step
+Epoch 18/30
+2116/2116 - 128s - loss: 0.1108 - accuracy: 0.9592 - val_loss: 0.1022 - val_accuracy: 0.9663 - 128s/epoch - 60ms/step
+Epoch 19/30
+2116/2116 - 128s - loss: 0.1074 - accuracy: 0.9618 - val_loss: 0.0995 - val_accuracy: 0.9677 - 128s/epoch - 61ms/step
+Epoch 20/30
+2116/2116 - 128s - loss: 0.1028 - accuracy: 0.9648 - val_loss: 0.0995 - val_accuracy: 0.9680 - 128s/epoch - 60ms/step
+Epoch 21/30
+2116/2116 - 128s - loss: 0.1025 - accuracy: 0.9654 - val_loss: 0.1042 - val_accuracy: 0.9632 - 128s/epoch - 60ms/step
+Epoch 22/30
+2116/2116 - 128s - loss: 0.1031 - accuracy: 0.9638 - val_loss: 0.0954 - val_accuracy: 0.9697 - 128s/epoch - 61ms/step
+Epoch 23/30
+2116/2116 - 128s - loss: 0.1042 - accuracy: 0.9623 - val_loss: 0.0942 - val_accuracy: 0.9683 - 128s/epoch - 61ms/step
+Epoch 24/30
+2116/2116 - 128s - loss: 0.1017 - accuracy: 0.9651 - val_loss: 0.0993 - val_accuracy: 0.9671 - 128s/epoch - 61ms/step
+Epoch 25/30
+2116/2116 - 128s - loss: 0.0990 - accuracy: 0.9636 - val_loss: 0.0985 - val_accuracy: 0.9668 - 128s/epoch - 60ms/step
+Epoch 26/30
+2116/2116 - 128s - loss: 0.0997 - accuracy: 0.9647 - val_loss: 0.0949 - val_accuracy: 0.9688 - 128s/epoch - 61ms/step
+Epoch 27/30
+2116/2116 - 128s - loss: 0.1033 - accuracy: 0.9630 - val_loss: 0.0900 - val_accuracy: 0.9722 - 128s/epoch - 61ms/step
+Epoch 28/30
+2116/2116 - 128s - loss: 0.1006 - accuracy: 0.9661 - val_loss: 0.0921 - val_accuracy: 0.9683 - 128s/epoch - 60ms/step
+Epoch 29/30
+2116/2116 - 128s - loss: 0.0971 - accuracy: 0.9669 - val_loss: 0.0898 - val_accuracy: 0.9705 - 128s/epoch - 61ms/step
+Epoch 30/30
+2116/2116 - 128s - loss: 0.0951 - accuracy: 0.9690 - val_loss: 0.0993 - val_accuracy: 0.9668 - 128s/epoch - 61ms/step
+Performance ofEfficientNetV2L: 
+529/529 - 22s - loss: 0.1132 - accuracy: 0.9645 - 22s/epoch - 41ms/step
+
+
+
