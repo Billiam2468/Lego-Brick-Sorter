@@ -22,34 +22,37 @@ class EuclideanDistTracker:
             x, y, w, h = rect
             cx = (x + x + w) // 2
             cy = (y + y + h) // 2
-
-            # Find out if that object was detected already
             same_object_detected = False
-            for id, pt in self.center_points.items():
-                dist = math.hypot(cx - pt[0], cy - pt[1])
+            # Find out if that object was detected already
+            for id, pttime in self.center_points.items():
+                xpoint = pttime[0][0]
+                ypoint = pttime[0][1]
+                timerVal = pttime[1]
+                dist = math.hypot(cx - xpoint, cy - ypoint)
 
                 if dist < 25:
-                    self.center_points[id] = (cx, cy)
-                    print(self.center_points)
-                    objects_bbs_ids.append([x, y, w, h, id])
+                    self.center_points[id] = [(cx, cy), timerVal+1]
+                    objects_bbs_ids.append([x, y, w, h, id, timerVal+1])
                     same_object_detected = True
                     break
 
             # New object is detected we assign the ID to that object
             if same_object_detected is False:
-                self.center_points[self.id_count] = (cx, cy)
-                objects_bbs_ids.append([x, y, w, h, self.id_count])
+                self.center_points[self.id_count] = [(cx, cy), 0]
+                objects_bbs_ids.append([x, y, w, h, self.id_count, 0])
                 self.id_count += 1
 
         # Clean the dictionary by center points to remove IDS not used anymore
         new_center_points = {}
         for obj_bb_id in objects_bbs_ids:
-            _, _, _, _, object_id = obj_bb_id
-            center = self.center_points[object_id]
-            new_center_points[object_id] = center
+            object_id = obj_bb_id[4]
+            center = self.center_points[object_id][0]
+            timeAlive = self.center_points[object_id][1]
+            new_center_points[object_id] = [center, timeAlive]
 
         # Update dictionary with IDs not used removed
         self.center_points = new_center_points.copy()
+        print(objects_bbs_ids)
         return objects_bbs_ids
 
 
