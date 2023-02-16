@@ -1,5 +1,8 @@
-import math
+# To implement:
+# Will have to implement a time tracker so that we can call in the time that bounding box + id combos have been present. If it has reached a certain threshold
+# we can conclude that it is a lego piece (a consistent contour). We will then take a photo of that piece at different time intervals and put it into our model
 
+import math
 
 class EuclideanDistTracker:
     def __init__(self):
