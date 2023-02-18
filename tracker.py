@@ -30,7 +30,7 @@ class EuclideanDistTracker:
                 timerVal = pttime[1]
                 dist = math.hypot(cx - xpoint, cy - ypoint)
 
-                if dist < 25:
+                if dist < 50:
                     self.center_points[id] = [(cx, cy), timerVal+1]
                     objects_bbs_ids.append([x, y, w, h, id, timerVal+1])
                     same_object_detected = True
@@ -52,7 +52,7 @@ class EuclideanDistTracker:
 
         # Update dictionary with IDs not used removed
         self.center_points = new_center_points.copy()
-        print(objects_bbs_ids)
+        # print(objects_bbs_ids)
         return objects_bbs_ids
 
 
