@@ -30,7 +30,7 @@ class EuclideanDistTracker:
                 timerVal = pttime[1]
                 dist = math.hypot(cx - xpoint, cy - ypoint)
 
-                if dist < 50:
+                if dist < 200:
                     self.center_points[id] = [(cx, cy), timerVal+1]
                     objects_bbs_ids.append([x, y, w, h, id, timerVal+1])
                     same_object_detected = True
