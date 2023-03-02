@@ -6,5 +6,5 @@ Will be using TensorFlow and OpenCV, to sort lego bricks into different categori
 **Benchmarks:**
 This involves training a model and testing on our real data set
 
-Model v1:
-Trained fully on synthetic data (4 classes) --> Real world accuracy ~37%
+1. Model v1:
+* Trained fully on synthetic data (4 classes) --> Real world accuracy ~37%
