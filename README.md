@@ -15,5 +15,5 @@ This involves training a model on four classes and testing on our real data set
 4. Model v2.0:
 * DenseNet169 transfer-trained fully on synthetic data (4 classes) with all techniques above + fine-tuning on real world data --> RW Categorical Accuracy ~93.3
 5. **Model v3.0:**
-* ResNet50 transfer-trained fully on synthetic data --> RWCA AVG 81% --> Fine-Tuned --> RWCA AVG **95.69%**
+* ResNet50 transfer-trained fully on synthetic data --> RWCA AVG 81% --> Fine-Tuned --> **RWCA AVG 95.69%**
 * We will use this one!
