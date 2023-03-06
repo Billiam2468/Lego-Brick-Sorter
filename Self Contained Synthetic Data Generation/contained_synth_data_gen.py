@@ -31,8 +31,7 @@ from tqdm.contrib.discord import tqdm, trange
 
 #Firebase Database
 import firebase_admin
-
-
+from firebase_admin import db
 
 # Global Variables
 cam = None
@@ -73,9 +72,25 @@ with bpy.data.libraries.load(material_path) as (data_from, data_to):
     data_to.materials = data_from.materials
 paper_texture = data_to.materials[0]
 
+#Database Access:
+cred_obj = firebase_admin.credentials.Certificate(base_path + "firebaseKey.json")
+default_app = firebase_admin.initialize_app(cred_obj, {
+    "databaseURL":"https://lego-brick-sorter-default-rtdb.firebaseio.com/"
+})
+ref = db.reference("/")
+
+
 # Execute
 def execute():
     startTime = time.perf_counter()
+    pieces = ref.order_by_key().get()
+    if "3005" in pieces:
+        print("3005 was in the dict")
+    ref.update({
+        '24124':True
+    })
+
+    raise KeyboardInterrupt()
     global currentModel
     global colorLibrary
 
