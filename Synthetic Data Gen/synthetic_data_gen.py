@@ -1,6 +1,10 @@
 # RUNNING THIS SCRIPT (Make sure in Blender folder)
 # ./blender -b --python /home/billiam/Documents/Lego_Sorter/synthetic_data_gen.py -- pieceToRender.dat
 
+# THE BLENDER DEBUGGING TOOL:
+# raise KeyboardInterrupt()
+
+
 import bpy
 import os
 import sys
@@ -25,7 +29,7 @@ sys.stdout = sys.stderr #For print statements only
 cam = None
 light = None
 currentModel = None
-num_generate = 1000 #Number of images to generate
+num_generate = 10 #Number of images to generate
 renderResolution = 600
 cameraAngleOfView = 64.8 #Degrees from vertical of the top plane of the cameras view
 dropHeight = 4 #Height (m) in which to drop the Lego piece
@@ -47,11 +51,11 @@ scene.gravity[2] = -75
 
 
 #Import Textures and Model References (Mac or Linux)
-base_path = "/home/billiam/Documents/Lego_Sorter/"
+base_path = "/home/billiam/Documents/Repos/Lego-Brick-Sorter/"
 #base_path = "/Users/williamlee/Documents/BlenderStuff/"
-material_path = base_path + "Blender Paper Texture/paper_texture.blend"
-models_path = base_path + "LDraw Files/complete/ldraw/parts/"
-render_path = base_path + "Renders/"
+material_path = base_path + "paper_texture.blend"
+models_path = "/home/billiam/Documents/Lego_Sorter/LDraw Files/complete/ldraw/parts/" #base_path + "LDraw Files/complete/ldraw/parts/"
+render_path = "/home/billiam/Documents/Lego_Sorter/Renders/" #base_path + "Renders/"
 
 with bpy.data.libraries.load(material_path) as (data_from, data_to):
     data_to.materials = data_from.materials
@@ -62,26 +66,32 @@ def execute():
     startTime = time.perf_counter()
     global currentModel
     global colorLibrary
-    with open(base_path + 'models.txt') as models:
-        models = models.read().splitlines()
-        for model in models:
 
-            #00000_model name.dat
+    print("hello")
+    print("this")
+
+    for model in os.listdir(models_path):
+        if(model.endswith('73587p03.dat')):
             currentModel = importModel(model)
+
+            if(currentModel.type == "EMPTY" and (len(currentModel.children) == 0)):
+                #print("skipping")
+                continue
+            #joinMeshes(currentModel)
 
             # Save state of the model
             ogPos = currentModel.location
             ogRotation = currentModel.rotation_euler
 
-            if not os.path.exists(render_path + model):
-                os.makedirs(render_path + model)
+            if not os.path.exists(render_path + model[:-4]):
+                os.makedirs(render_path + model[:-4])
             for iteration in range(num_generate):
                 random.seed()
                 random.shuffle(colorLibrary)
                 frame = getCamView()
                 placePiece(frame)
                 
-                renderPiece(render_path + model, iteration)
+                renderPiece(render_path + model[:-4], iteration)
             removeModel()
     endTime = time.perf_counter()
     print(f"Finished render in {endTime - startTime:0.4f} seconds")
@@ -252,12 +262,12 @@ def joinMeshes(model):
 # Get all meshes that have information:
 # Will use recursion here to obtain all of the different mesh objects and put them into one list that other functions can use
 def getMeshes(model):
-    print("inu get meshes")
-    print(model)
+    #print("inu get meshes")
+    #print(model)
     allMeshObjects = []
     if(model.type == "MESH"):
-        print("appending model")
-        print(model)
+        #print("appending model")
+        #print(model)
         allMeshObjects.append(model)
     for children in model.children:
         allMeshObjects += getMeshes(children)
@@ -328,17 +338,32 @@ def dropPiece(model, startLocationX, startLocationY):
 
     height = getHighestPoint(model) - model.matrix_world.translation.z
 
-    model.location = (startLocationX, startLocationY, height * 2.5)
+    model.location = (startLocationX, startLocationY, height * 2)
+
     rbw = scene.rigidbody_world
     pc = rbw.point_cache
     bpy.ops.ptcache.bake({"point_cache": pc}, bake=True)
     scene.frame_set(frameEnd)
-
+    
+    
     bpy.ops.object.select_all(action='DESELECT')
     model.select_set(True)
     bpy.ops.object.visual_transform_apply()
     bpy.ops.ptcache.free_bake_all()
+    
+    
+
+    #Update the location of the potentially parent body:
+    if model.type == "EMPTY":
+        meshObject = getMeshes(model)
+        model.location = meshObject[0].matrix_world.translation
+        
+        model.rotation_euler = meshObject[0].matrix_world.to_euler('XYZ')
+        bpy.ops.object.visual_transform_apply()
+    raise KeyboardInterrupt()
     scene.rigidbody_world.enabled = False
+    
+    
 
 
 
@@ -510,12 +535,24 @@ def importModel(model_path):
     bpy.ops.import_scene.importldraw(filepath=path)
     current_name = bpy.context.selected_objects[0].name
 
+    theModel = bpy.data.objects[current_name]
+
     #Add model to rigidbody
+
+    #SKIP IF TYPE IS EMPTY
+    if(theModel.type == "EMPTY" and (len(theModel.children) == 0)):
+        #print("import model found an empty model")
+        return(theModel)
+
+    modelMesh = joinMeshes(theModel)
+
+    bpy.ops.object.select_all(action='DESELECT')
+    modelMesh.select_set(True)
     bpy.ops.rigidbody.object_add()
     bpy.context.object.rigid_body.type = 'ACTIVE'
     bpy.ops.object.origin_set(type='ORIGIN_CENTER_OF_VOLUME', center='MEDIAN')
 
-    return(bpy.data.objects[current_name])
+    return(theModel)
 
 # Remove Model
 def removeModel():
