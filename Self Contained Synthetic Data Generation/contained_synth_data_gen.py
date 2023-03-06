@@ -29,6 +29,11 @@ sys.stdout = sys.stderr #For print statements only
 #Discord Bot!
 from tqdm.contrib.discord import tqdm, trange
 
+#Firebase Database
+import firebase_admin
+
+
+
 # Global Variables
 cam = None
 light = None
@@ -82,7 +87,11 @@ def execute():
         # u9132c05.dat (1: EMPTY, 2: EMPTY WITH MESHES INSIDE, MESH, MESH)
         # 73587po4.dat (1: EMPTY, 2: MESH, MESH)
         # 54696p01c01.dat (1: EMPTY, 2: MESH, MESH WITH MESHES INSIDE, MESH WITH MESHES INSIDE)
+        
+        #Here check if model not in database and not in blacklist (massive pieces/electronics)
         if not os.path.exists(render_path + model[:-4]):
+            #As soon as confirmed, need to add model to database so other processes don't do the same ones
+
 
             if(model.endswith('3004.dat')):
                 currentModel = importModel(model)

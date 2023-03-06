@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "lego-brick-sorter",
+  "private_key_id": "a5f4bca7269cbc795f3f7c6d9a78a8be022e7f0a",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQC3wlVUpg6hOe1i\n1mnQwErifSsETNfBt/CbXjz/quv80OmWsEU/WdsiBXQMjTldsIOM5xxzOCoMV7wA\nJXfCsl67GgHsd18jj39THMFD+j8osLB3Lp2jSg1QRP/vWqisbEAFJsUaY8PzkxTz\n0TPVA173hqcaTKcRAATCEqJIBzN88rkNXh86C169Ni5HaryTKi19y6jHkcX48h2t\nstY63zl/L+eyEdWRqMq0YabC/hegXjIP5bEHnyeOQ0dWTFQloBqSfnA1PZ3xDVLO\n0Lo3AbBBcnadAUF4pRmJpFndRkGGYZT1AGmZAYKMK9c2Uuc2nGqHkrnvJX9JlAZC\n5H0K2H9HAgMBAAECggEAL5oO4sO1jHxmCzGB7cqyW2OTTiTdy1fr40ORR6WuRiqU\nKC33ckbDpleFTW8UCjocidagnxRQiCv+DoemM3Bja9J75xaxNZQJpq0PP53G2LKU\ns/sGaPNY6Y9GQWnZwfi0yODXNFPdwe47AkISTD74TeS6yuxKZvP7R47uLPx4kQgZ\n7i6i2AdC63fLjmveU9E/IDdQv7Rj9k6pcfPgXChvrsxItr3z9i4Zci5xd5KdR/RY\nU5W3N4QBgG+A1RKDTAc9Vg/6rZ7dsF85/HVsvNh3dIwS4y+JMSaUDBG/0T8umvip\nPkoKPImdZ6N1XgyrmqsqnMj4IEAUn+WBL0grisf2sQKBgQD6mWQbZaHmnDOCdwYS\n50x8UsVLITatpNtNW3su2Duhk/p9XQcVJD7tKXeLoltqFflgK1xqSVWXYGVNQQsN\nIu+5UsBhlrRPeiujrMl1XY1b6XO7Q8JoyQMUdB7r1LFBwfETM5wElUwaivRJIEE1\nuI1VBmX2NBxEzYr5sTMUiIrzrwKBgQC7uCvhritjjMVX9IgeKcD3jQh+Fb51Aovc\nyExHCyri+sk21hR3l71wqpj8K2p2+bMAXjHddOiSx/3lQ9g3ANdaq35pX0F242C8\ne5fBTyzCSUExysFpZ/b9AcU/LrPLCHFZGkPM6q3pqszPIVzmDbEmuc28lGpABNji\nhDEWMTbb6QKBgBd4alHOkP1CP+jGMQFwPE+giO3ibHaS7B8wpDbc9ajKbTl0jwdB\n38riiVnAmQM0j6icJwmlWKjW1GYJ43kVfpJC19XMAZM4BAJOWoftfSHQmZA+ZmTd\n/rXZslOwFfHssiF0QfaD7R7HSN3YcYMQh9wgv0fx1Xv0LEH6gKg5qZntAoGBAIzT\n2CfQ0EA4xXv8uXlXfaq5pVth2KZTqLWTlpXdrOjnl7iJ1oT502cItQjJUW+8WCu4\nftRS9n/XhYRP548sFGOzMHzAt44HevUsC2c8jKmc50oBgCQhmMuqXl3OHZf913sv\nFxpOHPal6kyiDN2R/Aq/bbdB6IvqlwMohOLPPQaxAoGBAJF0iJPFi4HbO6JaoBBT\ndGdx9JuSlYely3aNQiZryiDJoIsjrDmPMgLJ2A0DIMG11R1KpJJ0+l1GJgAH72tH\nFBDKxO7SjgnLJIqFRMTYcKBJZAEMUcO3Uecc3vHwezXSUHO5V1epUqrODO0vYWth\nDP3BNBE6IQ+1u4FO/SNpdAQf\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-jvija@lego-brick-sorter.iam.gserviceaccount.com",
+  "client_id": "107226542155617224602",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-jvija%40lego-brick-sorter.iam.gserviceaccount.com"
+}
