@@ -67,15 +67,12 @@ def execute():
     global currentModel
     global colorLibrary
 
-    print("hello")
-    print("this")
-
     for model in os.listdir(models_path):
         #Models to test:
         # u9132c05.dat (1: EMPTY, 2: EMPTY WITH MESHES INSIDE, MESH, MESH)
         # 73587po4.dat (1: EMPTY, 2: MESH, MESH)
         # 54696p01c01.dat (1: EMPTY, 2: MESH, MESH WITH MESHES INSIDE, MESH WITH MESHES INSIDE)
-        if(model.endswith('3003.dat')):
+        if(model.endswith('.dat')):
             currentModel = importModel(model)
 
             if(currentModel.type == "EMPTY" and (len(currentModel.children) == 0)):
@@ -227,32 +224,6 @@ def camera_view_bounds_2d(scene, cam_ob, me_ob):
         round((max_y - min_y) * dim_y)   # Height
     )
 
-# Read in all possible LEGO colors from CSV and convert to HSV
-# def getColors():
-#     global colorLibrary
-#     data = read_csv(base_path + "colors.csv")
-#     colors = data['rgb'].tolist()
-#     index = 0
-#     for color in colors:
-#         rgb = ImageColor.getcolor("#" + color, 'HSV')
-#         # print("hex is")
-#         # print(color)
-#         # print("rgb is")
-#         # print(rgb)
-#         # rgb = []
-#         # for i in (0, 2, 4):
-#         #     decimal = int(color[i:i+2], 16)
-#         #     rgb.append(decimal)
-#         # rgb = tuple(rgb)
-
-#         hsv = colorsys.rgb_to_hsv(rgb[0]/256, rgb[1]/256, rgb[2]/256)
-#         # print("hsv is")
-#         # print(hsv)
-#         hsv = hsv + (1,)
-#         colors[index] = hsv
-#         index += 1
-#     colorLibrary = colors
-
 # Join all the meshes in a multipart object and returns main mesh:
 def joinMeshes(model):
     global currentModel
@@ -264,9 +235,6 @@ def joinMeshes(model):
     bpy.ops.object.join()
 
     # Attempting to remove all parents of mesh
-    print(allMeshes)
-
-    
     trueName = model.name
     bpy.ops.object.select_all(action='DESELECT')
     allMeshes[0].select_set(True)
@@ -290,12 +258,8 @@ def joinMeshes(model):
 # Get all meshes that have information:
 # Will use recursion here to obtain all of the different mesh objects and put them into one list that other functions can use
 def getMeshes(model):
-    #print("inu get meshes")
-    #print(model)
     allMeshObjects = []
     if(model.type == "MESH"):
-        #print("appending model")
-        #print(model)
         allMeshObjects.append(model)
     for children in model.children:
         allMeshObjects += getMeshes(children)
@@ -569,7 +533,6 @@ def importModel(model_path):
 
     #SKIP IF TYPE IS EMPTY
     if(theModel.type == "EMPTY" and (len(theModel.children) == 0)):
-        #print("import model found an empty model")
         return(theModel)
 
     theModel = joinMeshes(theModel)
