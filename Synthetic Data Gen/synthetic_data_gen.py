@@ -22,17 +22,22 @@ from pandas import *
 import colorsys
 import os.path
 from PIL import ImageColor
+from tqdm import tqdm
 
 sys.stdout = sys.stderr #For print statements only
+
+#Discord Bot!
+from tqdm.contrib.discord import tqdm, trange
 
 # Global Variables
 cam = None
 light = None
 currentModel = None
-num_generate = 10 #Number of images to generate
+num_generate = 1 #Number of images to generate
 renderResolution = 600
 cameraAngleOfView = 64.8 #Degrees from vertical of the top plane of the cameras view
 dropHeight = 4 #Height (m) in which to drop the Lego piece
+frameStart = 1
 frameEnd = 25 #Frame on which the drop simulation ends
 padding = 0.01
 # For plane of cam
@@ -49,13 +54,12 @@ scene.cycles.samples = 500 # Decreasing number of samples from 4096 to increase 
 scene.gravity[2] = -75
 
 
-
 #Import Textures and Model References (Mac or Linux)
 base_path = "/home/billiam/Documents/Repos/Lego-Brick-Sorter/"
 #base_path = "/Users/williamlee/Documents/BlenderStuff/"
 material_path = base_path + "paper_texture.blend"
 models_path = "/home/billiam/Documents/Lego_Sorter/LDraw Files/complete/ldraw/parts/" #base_path + "LDraw Files/complete/ldraw/parts/"
-render_path = "/home/billiam/Documents/Lego_Sorter/Renders/Synthetic Data" #base_path + "Renders/"
+render_path = "/home/billiam/Documents/Lego_Sorter/Renders/Synthetic Data/" #base_path + "Renders/"
 
 with bpy.data.libraries.load(material_path) as (data_from, data_to):
     data_to.materials = data_from.materials
@@ -67,33 +71,39 @@ def execute():
     global currentModel
     global colorLibrary
 
-    for model in os.listdir(models_path):
+    for model in tqdm(os.listdir(models_path),
+                      token ='MTA4MjIxMjY4NDc0Njk5MzY4NQ.Gp8hFW.L67JvpL3hFSmZmF3xY8QhX8e5dGWy96vVCOU5M',
+                      channel_id='1082212254688235612',
+                      miniters=50):
         #Models to test:
         # u9132c05.dat (1: EMPTY, 2: EMPTY WITH MESHES INSIDE, MESH, MESH)
         # 73587po4.dat (1: EMPTY, 2: MESH, MESH)
         # 54696p01c01.dat (1: EMPTY, 2: MESH, MESH WITH MESHES INSIDE, MESH WITH MESHES INSIDE)
-        if(model.endswith('.dat')):
-            currentModel = importModel(model)
+        if not os.path.exists(render_path + model[:-4]):
 
-            if(currentModel.type == "EMPTY" and (len(currentModel.children) == 0)):
-                #print("skipping")
-                continue
-            #joinMeshes(currentModel)
+            if(model.endswith('.dat')):
+                currentModel = importModel(model)
 
-            # Save state of the model
-            ogPos = currentModel.location
-            ogRotation = currentModel.rotation_euler
+                if(currentModel.type == "EMPTY" and (len(currentModel.children) == 0)):
+                    #print("skipping")
+                    continue
+                #joinMeshes(currentModel)
 
-            if not os.path.exists(render_path + model[:-4]):
-                os.makedirs(render_path + model[:-4])
-            for iteration in range(num_generate):
-                random.seed()
-                random.shuffle(colorLibrary)
-                frame = getCamView()
-                placePiece(frame)
-                
-                renderPiece(render_path + model[:-4], iteration)
-            removeModel()
+                # Save state of the model
+                ogPos = currentModel.location
+                ogRotation = currentModel.rotation_euler
+
+                if not os.path.exists(render_path + model[:-4]):
+                    os.makedirs(render_path + model[:-4])
+                for iteration in range(num_generate):
+                    random.seed()
+                    random.shuffle(colorLibrary)
+                    frame = getCamView()
+                    placePiece(frame)
+                    
+                    renderPiece(render_path + model[:-4], iteration)
+                removeModel()
+
     endTime = time.perf_counter()
     print(f"Finished render in {endTime - startTime:0.4f} seconds")
 
@@ -334,6 +344,8 @@ def dropPiece(model, startLocationX, startLocationY):
 
     rbw = scene.rigidbody_world
     pc = rbw.point_cache
+    pc.frame_start = frameStart
+    pc.frame_end = frameEnd
     bpy.ops.ptcache.bake({"point_cache": pc}, bake=True)
     scene.frame_set(frameEnd)
     
