@@ -55,7 +55,7 @@ base_path = "/home/billiam/Documents/Repos/Lego-Brick-Sorter/"
 #base_path = "/Users/williamlee/Documents/BlenderStuff/"
 material_path = base_path + "paper_texture.blend"
 models_path = "/home/billiam/Documents/Lego_Sorter/LDraw Files/complete/ldraw/parts/" #base_path + "LDraw Files/complete/ldraw/parts/"
-render_path = "/home/billiam/Documents/Lego_Sorter/Renders/" #base_path + "Renders/"
+render_path = "/home/billiam/Documents/Lego_Sorter/Renders/Synthetic Data" #base_path + "Renders/"
 
 with bpy.data.libraries.load(material_path) as (data_from, data_to):
     data_to.materials = data_from.materials
@@ -71,7 +71,11 @@ def execute():
     print("this")
 
     for model in os.listdir(models_path):
-        if(model.endswith('73587p03.dat')):
+        #Models to test:
+        # u9132c05.dat (1: EMPTY, 2: EMPTY WITH MESHES INSIDE, MESH, MESH)
+        # 73587po4.dat (1: EMPTY, 2: MESH, MESH)
+        # 54696p01c01.dat (1: EMPTY, 2: MESH, MESH WITH MESHES INSIDE, MESH WITH MESHES INSIDE)
+        if(model.endswith('3003.dat')):
             currentModel = importModel(model)
 
             if(currentModel.type == "EMPTY" and (len(currentModel.children) == 0)):
@@ -251,13 +255,37 @@ def camera_view_bounds_2d(scene, cam_ob, me_ob):
 
 # Join all the meshes in a multipart object and returns main mesh:
 def joinMeshes(model):
+    global currentModel
     allMeshes = getMeshes(model)
     bpy.ops.object.select_all(action='DESELECT')
     for mesh in allMeshes:
         mesh.select_set(True)
     bpy.context.view_layer.objects.active = allMeshes[0]
     bpy.ops.object.join()
-    return(bpy.context.view_layer.objects.active)
+
+    # Attempting to remove all parents of mesh
+    print(allMeshes)
+
+    
+    trueName = model.name
+    bpy.ops.object.select_all(action='DESELECT')
+    allMeshes[0].select_set(True)
+    bpy.ops.object.parent_clear(type='CLEAR')
+    
+    #raise KeyboardInterrupt()
+
+    if not (allMeshes[0].name == trueName):
+        modelSkeleton = selectMeshes(model)
+        bpy.ops.object.select_all(action='DESELECT')
+        for mod in modelSkeleton:
+            mod.select_set(True)
+        bpy.ops.object.delete()
+
+
+    allMeshes[0].name = trueName
+    currentModel = allMeshes[0]
+
+    return(allMeshes[0])
 
 # Get all meshes that have information:
 # Will use recursion here to obtain all of the different mesh objects and put them into one list that other functions can use
@@ -360,7 +388,7 @@ def dropPiece(model, startLocationX, startLocationY):
         
         model.rotation_euler = meshObject[0].matrix_world.to_euler('XYZ')
         bpy.ops.object.visual_transform_apply()
-    raise KeyboardInterrupt()
+    #raise KeyboardInterrupt()
     scene.rigidbody_world.enabled = False
     
     
@@ -544,10 +572,10 @@ def importModel(model_path):
         #print("import model found an empty model")
         return(theModel)
 
-    modelMesh = joinMeshes(theModel)
+    theModel = joinMeshes(theModel)
 
     bpy.ops.object.select_all(action='DESELECT')
-    modelMesh.select_set(True)
+    theModel.select_set(True)
     bpy.ops.rigidbody.object_add()
     bpy.context.object.rigid_body.type = 'ACTIVE'
     bpy.ops.object.origin_set(type='ORIGIN_CENTER_OF_VOLUME', center='MEDIAN')
