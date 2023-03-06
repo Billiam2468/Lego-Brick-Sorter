@@ -1,0 +1,115 @@
+Trained on full synthetic data, and tested on real world images
+
+Found 3000 images belonging to 4 classes.
+Found 1000 images belonging to 4 classes.
+Found 1401 images belonging to 4 classes.
+Start training of: VGG16
+Epoch 7: early stopping
+Performance ofVGG16: 
+351/351 - 7s - loss: 0.8796 - categorical_accuracy: 0.8415 - 7s/epoch - 19ms/step
+Found 3000 images belonging to 4 classes.
+Found 1000 images belonging to 4 classes.
+Found 1401 images belonging to 4 classes.
+Start training of: VGG19
+Epoch 14: early stopping
+Performance ofVGG19: 
+351/351 - 8s - loss: 0.9129 - categorical_accuracy: 0.8351 - 8s/epoch - 22ms/step
+Found 3000 images belonging to 4 classes.
+Found 1000 images belonging to 4 classes.
+Found 1401 images belonging to 4 classes.
+Start training of: ResNet101V2
+Epoch 20: early stopping
+Performance ofResNet101V2: 
+351/351 - 7s - loss: 0.8169 - categorical_accuracy: 0.7866 - 7s/epoch - 19ms/step
+Found 3000 images belonging to 4 classes.
+Found 1000 images belonging to 4 classes.
+Found 1401 images belonging to 4 classes.
+Start training of: ResNet152V2
+Epoch 18: early stopping
+Performance ofResNet152V2: 
+351/351 - 9s - loss: 0.9157 - categorical_accuracy: 0.7716 - 9s/epoch - 26ms/step
+Found 3000 images belonging to 4 classes.
+Found 1000 images belonging to 4 classes.
+Found 1401 images belonging to 4 classes.
+Start training of: ResNet50
+Epoch 19: early stopping
+Performance ofResNet50: 
+351/351 - 5s - loss: 1.0673 - categorical_accuracy: 0.7702 - 5s/epoch - 14ms/step
+Found 3000 images belonging to 4 classes.
+Found 1000 images belonging to 4 classes.
+Found 1401 images belonging to 4 classes.
+Start training of: ResNet50V2
+Epoch 15: early stopping
+Performance ofResNet50V2: 
+351/351 - 4s - loss: 1.5970 - categorical_accuracy: 0.5953 - 4s/epoch - 11ms/step
+Found 3000 images belonging to 4 classes.
+Found 1000 images belonging to 4 classes.
+Found 1401 images belonging to 4 classes.
+Start training of: InceptionResNetV2
+Performance ofInceptionResNetV2: 
+351/351 - 9s - loss: 1.6612 - categorical_accuracy: 0.4939 - 9s/epoch - 25ms/step
+Found 3000 images belonging to 4 classes.
+Found 1000 images belonging to 4 classes.
+Found 1401 images belonging to 4 classes.
+Start training of: InceptionV3
+Epoch 18: early stopping
+Performance ofInceptionV3: 
+351/351 - 4s - loss: 0.8132 - categorical_accuracy: 0.7116 - 4s/epoch - 13ms/step
+Found 3000 images belonging to 4 classes.
+Found 1000 images belonging to 4 classes.
+Found 1401 images belonging to 4 classes.
+Start training of: MobileNet
+Epoch 21: early stopping
+Performance ofMobileNet: 
+351/351 - 2s - loss: 1.8226 - categorical_accuracy: 0.5625 - 2s/epoch - 4ms/step
+Found 3000 images belonging to 4 classes.
+Found 1000 images belonging to 4 classes.
+Found 1401 images belonging to 4 classes.
+Start training of: MobileNetV2
+Epoch 14: early stopping
+Performance ofMobileNetV2: 
+351/351 - 2s - loss: 1.2447 - categorical_accuracy: 0.5753 - 2s/epoch - 5ms/step
+Found 3000 images belonging to 4 classes.
+Found 1000 images belonging to 4 classes.
+Found 1401 images belonging to 4 classes.
+Start training of: Xception
+Performance ofXception: 
+351/351 - 4s - loss: 1.1500 - categorical_accuracy: 0.6288 - 4s/epoch - 11ms/step
+Found 3000 images belonging to 4 classes.
+Found 1000 images belonging to 4 classes.
+Found 1401 images belonging to 4 classes.
+Start training of: DenseNet121
+Epoch 15: early stopping
+Performance ofDenseNet121: 
+351/351 - 6s - loss: 0.9461 - categorical_accuracy: 0.7131 - 6s/epoch - 18ms/step
+Found 3000 images belonging to 4 classes.
+Found 1000 images belonging to 4 classes.
+Found 1401 images belonging to 4 classes.
+Start training of: DenseNet169
+Performance ofDenseNet169: 
+351/351 - 8s - loss: 1.5765 - categorical_accuracy: 0.7452 - 8s/epoch - 23ms/step
+Found 3000 images belonging to 4 classes.
+Found 1000 images belonging to 4 classes.
+Found 1401 images belonging to 4 classes.
+Start training of: DenseNet201
+Epoch 16: early stopping
+Performance ofDenseNet201: 
+351/351 - 10s - loss: 0.9741 - categorical_accuracy: 0.6881 - 10s/epoch - 28ms/step
+Found 3000 images belonging to 4 classes.
+Found 1000 images belonging to 4 classes.
+Found 1401 images belonging to 4 classes.
+Start training of: EfficientNetV2S
+Epoch 14: early stopping
+Performance ofEfficientNetV2S: 
+351/351 - 5s - loss: 0.6852 - categorical_accuracy: 0.7887 - 5s/epoch - 15ms/step
+Found 3000 images belonging to 4 classes.
+Found 1000 images belonging to 4 classes.
+Found 1401 images belonging to 4 classes.
+Start training of: EfficientNetV2M
+Performance ofEfficientNetV2M: 
+351/351 - 9s - loss: 1.1216 - categorical_accuracy: 0.7894 - 9s/epoch - 25ms/step
+Found 3000 images belonging to 4 classes.
+Found 1000 images belonging to 4 classes.
+Found 1401 images belonging to 4 classes.
+Start training of: EfficientNetV2L
+Epoch 10: early stopping
