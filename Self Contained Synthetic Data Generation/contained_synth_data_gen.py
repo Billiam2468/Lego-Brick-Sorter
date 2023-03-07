@@ -380,7 +380,9 @@ def dropPiece(model, startLocationX, startLocationY):
     pc = rbw.point_cache
     pc.frame_start = frameStart
     pc.frame_end = frameEnd
-    bpy.ops.ptcache.bake({"point_cache": pc}, bake=True)
+
+    #bpy.ops.ptcache.bake({"point_cache": pc}, bake=True)
+    bpy.ops.ptcache.bake_all(bake=True)
     scene.frame_set(frameEnd)
     
     
