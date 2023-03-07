@@ -112,7 +112,7 @@ def execute():
         with open(base_path + "blacklist.txt") as f:
             if (pieceName not in pieces) and (pieceName not in f.read()):
                 ref.update({
-                    pieceName:True
+                    pieceName:False
                 })
 
                 if(model.endswith('.dat')):
@@ -137,6 +137,9 @@ def execute():
                         
                         renderPiece(render_path + model[:-4], iteration)
                     removeModel()
+                    ref.update({
+                        pieceName:False
+                    })
 
     endTime = time.perf_counter()
     print(f"Finished render in {endTime - startTime:0.4f} seconds")
