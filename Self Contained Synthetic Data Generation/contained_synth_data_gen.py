@@ -83,14 +83,12 @@ ref = db.reference("/")
 # Execute
 def execute():
     startTime = time.perf_counter()
-    pieces = ref.order_by_key().get()
-    if "3005" in pieces:
-        print("3005 was in the dict")
-    ref.update({
-        '24124':True
-    })
-
-    raise KeyboardInterrupt()
+    # pieces = ref.order_by_key().get()
+    # if "3005" in pieces:
+    #     print("3005 was in the dict")
+    # ref.update({
+    #     '24124':True
+    # })
     global currentModel
     global colorLibrary
 
@@ -98,38 +96,45 @@ def execute():
                       token ='MTA4MjIxMjY4NDc0Njk5MzY4NQ.Gp8hFW.L67JvpL3hFSmZmF3xY8QhX8e5dGWy96vVCOU5M',
                       channel_id='1082212254688235612',
                       miniters=50):
+        model = "u9328.dat"
         #Models to test:
         # u9132c05.dat (1: EMPTY, 2: EMPTY WITH MESHES INSIDE, MESH, MESH)
         # 73587po4.dat (1: EMPTY, 2: MESH, MESH)
         # 54696p01c01.dat (1: EMPTY, 2: MESH, MESH WITH MESHES INSIDE, MESH WITH MESHES INSIDE)
         
         #Here check if model not in database and not in blacklist (massive pieces/electronics)
-        if not os.path.exists(render_path + model[:-4]):
-            #As soon as confirmed, need to add model to database so other processes don't do the same ones
+        pieceName = model[:-4]
+        pieces = ref.order_by_key().get()
+        
+        with open(base_path + "blacklist.txt") as f:
+            if (pieceName not in pieces) and (pieceName not in f.read()):
+                #As soon as confirmed, need to add model to database so other processes don't do the same ones
+                ref.update({
+                    pieceName:True
+                })
 
+                raise KeyboardInterrupt()
 
-            if(model.endswith('3004.dat')):
-                currentModel = importModel(model)
+                if(model.endswith('.dat')):
+                    currentModel = importModel(model)
 
-                if(currentModel.type == "EMPTY" and (len(currentModel.children) == 0)):
-                    #print("skipping")
-                    continue
-                #joinMeshes(currentModel)
+                    if(currentModel.type == "EMPTY" and (len(currentModel.children) == 0)):
+                        continue
 
-                # Save state of the model
-                ogPos = currentModel.location
-                ogRotation = currentModel.rotation_euler
+                    # Save state of the model
+                    ogPos = currentModel.location
+                    ogRotation = currentModel.rotation_euler
 
-                if not os.path.exists(render_path + model[:-4]):
-                    os.makedirs(render_path + model[:-4])
-                for iteration in range(num_generate):
-                    random.seed()
-                    random.shuffle(colorLibrary)
-                    frame = getCamView()
-                    placePiece(frame)
-                    
-                    renderPiece(render_path + model[:-4], iteration)
-                removeModel()
+                    if not os.path.exists(render_path + model[:-4]):
+                        os.makedirs(render_path + model[:-4])
+                    for iteration in range(num_generate):
+                        random.seed()
+                        random.shuffle(colorLibrary)
+                        frame = getCamView()
+                        placePiece(frame)
+                        renderPiece(render_path + model[:-4], iteration)
+                    removeModel()
+            raise KeyboardInterrupt()
 
     endTime = time.perf_counter()
     print(f"Finished render in {endTime - startTime:0.4f} seconds")
