@@ -4,10 +4,16 @@
 # THE BLENDER DEBUGGING TOOL:
 # raise KeyboardInterrupt()
 
+#Adding module path:
+
 
 import bpy
 import os
 import sys
+
+#Adding module filepath
+#sys.path.append("C:\\users\\seung\\appdata\\roaming\\python\\python310\\site-packages\\")
+
 import random
 from random import uniform
 import math
@@ -37,7 +43,7 @@ from firebase_admin import db
 cam = None
 light = None
 currentModel = None
-num_generate = 1 #Number of images to generate
+num_generate = 1000 #Number of images to generate
 renderResolution = 600
 cameraAngleOfView = 64.8 #Degrees from vertical of the top plane of the cameras view
 dropHeight = 4 #Height (m) in which to drop the Lego piece
@@ -62,10 +68,9 @@ base_path = os.path.realpath(__file__)
 scriptName = os.path.basename(__file__)
 base_path = base_path.removesuffix(scriptName)
 
-
 #Import Textures and Model References (Mac or Linux)
 material_path = base_path + "paper_texture.blend"
-models_path = "/home/billiam/Documents/Lego_Sorter/LDraw Files/complete/ldraw/parts/" #base_path + "LDraw Files/complete/ldraw/parts/"
+models_path = "/home/billiam/Documents/Lego_Sorter/LDraw Files/complete/ldraw/parts/"
 render_path = base_path + "Renders/"
 
 with bpy.data.libraries.load(material_path) as (data_from, data_to):
@@ -80,15 +85,12 @@ default_app = firebase_admin.initialize_app(cred_obj, {
 ref = db.reference("/")
 
 
+
 # Execute
 def execute():
     startTime = time.perf_counter()
-    # pieces = ref.order_by_key().get()
-    # if "3005" in pieces:
-    #     print("3005 was in the dict")
-    # ref.update({
-    #     '24124':True
-    # })
+    
+    
     global currentModel
     global colorLibrary
 
@@ -96,30 +98,30 @@ def execute():
                       token ='MTA4MjIxMjY4NDc0Njk5MzY4NQ.Gp8hFW.L67JvpL3hFSmZmF3xY8QhX8e5dGWy96vVCOU5M',
                       channel_id='1082212254688235612',
                       miniters=50):
-        model = "u9328.dat"
         #Models to test:
         # u9132c05.dat (1: EMPTY, 2: EMPTY WITH MESHES INSIDE, MESH, MESH)
         # 73587po4.dat (1: EMPTY, 2: MESH, MESH)
         # 54696p01c01.dat (1: EMPTY, 2: MESH, MESH WITH MESHES INSIDE, MESH WITH MESHES INSIDE)
         
-        #Here check if model not in database and not in blacklist (massive pieces/electronics)
+        #model = "u9328.dat"
+        
+        #Check if model not in database and not in blacklist
         pieceName = model[:-4]
         pieces = ref.order_by_key().get()
         
         with open(base_path + "blacklist.txt") as f:
             if (pieceName not in pieces) and (pieceName not in f.read()):
-                #As soon as confirmed, need to add model to database so other processes don't do the same ones
                 ref.update({
                     pieceName:True
                 })
 
-                raise KeyboardInterrupt()
-
                 if(model.endswith('.dat')):
-                    currentModel = importModel(model)
+                    currentModel = importModel(model) 
 
                     if(currentModel.type == "EMPTY" and (len(currentModel.children) == 0)):
+                        #print("skipping")
                         continue
+                    #joinMeshes(currentModel)
 
                     # Save state of the model
                     ogPos = currentModel.location
@@ -132,9 +134,9 @@ def execute():
                         random.shuffle(colorLibrary)
                         frame = getCamView()
                         placePiece(frame)
+                        
                         renderPiece(render_path + model[:-4], iteration)
                     removeModel()
-            raise KeyboardInterrupt()
 
     endTime = time.perf_counter()
     print(f"Finished render in {endTime - startTime:0.4f} seconds")
