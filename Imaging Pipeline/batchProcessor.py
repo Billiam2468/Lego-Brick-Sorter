@@ -14,11 +14,11 @@ class BatchProcessor:
         self.imgPath = imgPath
 
     def nextBatch(self):
-        for image in os.listdir(imgPath):
+        for image in os.listdir(self.imgPath):
             uniqueId = image.removeprefix(".png")
             uniqueId = uniqueId.partition("_")[0]
             if uniqueId not in self.processed_ids:
-                batch = [filename for filename in os.listdir(imgPath) if filename.startswith(uniqueId)]
+                batch = [filename for filename in os.listdir(self.imgPath) if filename.startswith(uniqueId)]
                 self.processed_ids.append(uniqueId)
                 return batch
         return []
