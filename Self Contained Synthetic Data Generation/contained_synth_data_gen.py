@@ -94,7 +94,11 @@ def execute():
     global currentModel
     global colorLibrary
 
-    for model in tqdm(os.listdir(models_path),
+    # Objects to render
+    file = open(base_path + "pieces.txt")
+    pieceList = [line.rstrip("\n") for line in file.readlines()]
+
+    for model in tqdm(pieceList,
                       token ='MTA4MjIxMjY4NDc0Njk5MzY4NQ.Gp8hFW.L67JvpL3hFSmZmF3xY8QhX8e5dGWy96vVCOU5M',
                       channel_id='1082212254688235612',
                       miniters=50):
@@ -106,6 +110,7 @@ def execute():
         #model = "u9328.dat"
         
         #Check if model not in database and not in blacklist
+        model = model + ".dat"
         pieceName = model[:-4]
         pieces = ref.order_by_key().get()
         
@@ -115,31 +120,30 @@ def execute():
                     pieceName:False
                 })
 
-                if(model.endswith('.dat')):
-                    currentModel = importModel(model) 
+                currentModel = importModel(model) 
 
-                    if(currentModel.type == "EMPTY" and (len(currentModel.children) == 0)):
-                        #print("skipping")
-                        continue
-                    #joinMeshes(currentModel)
+                if(currentModel.type == "EMPTY" and (len(currentModel.children) == 0)):
+                    #print("skipping")
+                    continue
+                #joinMeshes(currentModel)
 
-                    # Save state of the model
-                    ogPos = currentModel.location
-                    ogRotation = currentModel.rotation_euler
+                # Save state of the model
+                ogPos = currentModel.location
+                ogRotation = currentModel.rotation_euler
 
-                    if not os.path.exists(render_path + model[:-4]):
-                        os.makedirs(render_path + model[:-4])
-                    for iteration in range(num_generate):
-                        random.seed()
-                        random.shuffle(colorLibrary)
-                        frame = getCamView()
-                        placePiece(frame)
-                        
-                        renderPiece(render_path + model[:-4], iteration)
-                    removeModel()
-                    ref.update({
-                        pieceName:False
-                    })
+                if not os.path.exists(render_path + model[:-4]):
+                    os.makedirs(render_path + model[:-4])
+                for iteration in range(num_generate):
+                    random.seed()
+                    random.shuffle(colorLibrary)
+                    frame = getCamView()
+                    placePiece(frame)
+                    
+                    renderPiece(render_path + model[:-4], iteration)
+                removeModel()
+                ref.update({
+                    pieceName:False
+                })
 
     endTime = time.perf_counter()
     print(f"Finished render in {endTime - startTime:0.4f} seconds")
