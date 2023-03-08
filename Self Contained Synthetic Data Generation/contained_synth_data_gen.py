@@ -111,6 +111,9 @@ def execute():
         
         #Check if model not in database and not in blacklist
         model = model + ".dat"
+        if(model not in os.listdir(models_path)):
+            continue
+
         pieceName = model[:-4]
         pieces = ref.order_by_key().get()
         
