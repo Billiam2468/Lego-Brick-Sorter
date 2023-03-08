@@ -4,14 +4,16 @@
 # THE BLENDER DEBUGGING TOOL:
 # raise KeyboardInterrupt()
 
-#WILL CONVERT THIS INTO A CLASS THAT I CAN IMPORT AS A MODULE VIA:
-# myModule = bpy.data.texts[0].as_module()
-# Convert the global variables into variables for the class that can be passed through the initialize function so that we can
-# run our functions from within the console
+#Adding module path:
+
 
 import bpy
 import os
 import sys
+
+#Adding module filepath
+#sys.path.append("C:\\users\\seung\\appdata\\roaming\\python\\python310\\site-packages\\")
+
 import random
 from random import uniform
 import math
@@ -28,46 +30,52 @@ import os.path
 from PIL import ImageColor
 from tqdm import tqdm
 
-# sys.stdout = sys.stderr #For print statements only
+sys.stdout = sys.stderr #For print statements only
 
-# # Global Variables
-# cam = None
-# light = None
-# currentModel = None
-# num_generate = 15 #Number of images to generate
-# renderResolution = 600
-# cameraAngleOfView = 64.8 #Degrees from vertical of the top plane of the cameras view
-# dropHeight = 4 #Height (m) in which to drop the Lego piece
-# frameStart = 1
-# frameEnd = 25 #Frame on which the drop simulation ends
-# padding = 0.01
-# # For plane of cam
-# plane_co = (0, 0, 0)
-# plane_no = (0, 0, 1)
-# context = bpy.context
-# scene = context.scene
+#Discord Bot!
+from tqdm.contrib.discord import tqdm, trange
 
-# scene.cycles.device = "GPU"
-# scene.cycles.adaptive_threshold = 0.1 # Increasing noise threshold
-# scene.cycles.samples = 500 # Decreasing number of samples from 4096 to increase render times
-# scene.gravity[2] = -75
+#Firebase Database
+import firebase_admin
+from firebase_admin import db
+
+# Global Variables
+cam = None
+light = None
+currentModel = None
+num_generate = 1000 #Number of images to generate
+renderResolution = 600
+cameraAngleOfView = 64.8 #Degrees from vertical of the top plane of the cameras view
+dropHeight = 4 #Height (m) in which to drop the Lego piece
+frameStart = 1
+frameEnd = 25 #Frame on which the drop simulation ends
+padding = 0.01
+# For plane of cam
+plane_co = (0, 0, 0)
+plane_no = (0, 0, 1)
+context = bpy.context
+scene = context.scene
+colorLibrary = []
+
+scene.cycles.device = "GPU"
+#scene.cycles.use_denoising = False
+scene.cycles.adaptive_threshold = 0.1 # Increasing noise threshold
+scene.cycles.samples = 500 # Decreasing number of samples from 4096 to increase render times
+scene.gravity[2] = -75
 
 # Make contained (only need to set the models path):
-# base_path = os.path.realpath(__file__)
-# scriptName = os.path.basename(__file__)
-# base_path = base_path.removesuffix(scriptName)
-
+#base_path = os.path.realpath(__file__)
+#scriptName = os.path.basename(__file__)
+#base_path = base_path.removesuffix(scriptName)
 
 #Import Textures and Model References (Mac or Linux)
-#material_path = "/Users/williamlee/Documents/Lego Sorter/Self Contained Synthetic Data Generation/paper_texture.blend"
-# material_path = base_path + "paper_texture.blend"
-# models_path = "/Users/williamlee/Documents/ldraw/parts/"
-# #models_path = "/home/billiam/Documents/Lego_Sorter/LDraw Files/complete/ldraw/parts/" #base_path + "LDraw Files/complete/ldraw/parts/"
-# render_path = base_path + "Troubleshoot/"
+material_path = "/home/billiam/Documents/Lego_Sorter/Self Contained Synthetic Data Generation/paper_texture.blend"
+models_path = "/home/billiam/Documents/Lego_Sorter/LDraw Files/complete/ldraw/parts/"
+render_path = "/home/billiam/Documents/Lego_Sorter/Renders/indSynthGenRenders"
 
-# with bpy.data.libraries.load(material_path) as (data_from, data_to):
-#     data_to.materials = data_from.materials
-# paper_texture = data_to.materials[0]
+with bpy.data.libraries.load(material_path) as (data_from, data_to):
+    data_to.materials = data_from.materials
+paper_texture = data_to.materials[0]
 
 #Database Access:
 # cred_obj = firebase_admin.credentials.Certificate(base_path + "firebaseKey.json")
@@ -76,141 +84,66 @@ from tqdm import tqdm
 # })
 # ref = db.reference("/")
 
-class SynthGen:
-    def __init__(self):
-        self.cam = None
-        self.light = None
-        self.currentModel = None
-        self.num_generate = 15
-        self.renderResolution = 600
-        self.cameraAngleOfView = 64.8
-        self.dropHeight = 4
-        self.frameStart = 1
-        self.frameEnd = 25
-        self.padding = 0.01
-        self.plane_co = (0, 0, 0)
-        self.plane_no = (0, 0, 1)
-        self.context = bpy.context
-        self.scene = context.scene
-
-        self.material_path = "/Users/williamlee/Documents/Lego Sorter/Self Contained Synthetic Data Generation/paper_texture.blend"
-
-        with bpy.data.libraries.load(self.material_path) as (data_from, data_to):
-            data_to.materials = data_from.materials
-        paper_texture = data_to.materials[0]
-
-        self.scene = bpy.data.scenes['Scene']
-        self.scene.render.resolution_x = self.renderResolution
-        self.scene.render.resolution_y = self.renderResolution
-        self.scene.render.image_settings.color_mode = 'RGB'
-        bpy.context.scene.frame_end = self.frameEnd
-
-        # Deselect all, select cube, then delete
-        bpy.ops.object.select_all(action='DESELECT')
-        cube = bpy.context.scene.objects.get("Cube")
-        if cube:
-            bpy.data.objects['Cube'].select_set(True)
-            bpy.ops.object.delete()
-
-        # Creating references to cam and light (Global defined so that cam and light global variables referenced)
-        self.cam = bpy.data.objects['Camera']
-        self.light = bpy.data.objects['Light']
-
-        # Set light settings
-        self.light.data.type = 'POINT'
-        self.light.data.energy = 100
-        self.light.location = (0, 0, 5)
-        self.light.rotation_euler = (0, 0, 0)
-
-        # Set camera settings
-        self.cam.location = (0, -5, 5)
-        self.cam.rotation_euler = (0.785398, 0, 0)
-
-        # Create a plane
-        bpy.ops.object.select_all(action='DESELECT')
-        oldPlane = bpy.context.scene.objects.get("Plane")
-        if oldPlane:
-            bpy.data.objects['Plane'].select_set(True)
-            bpy.ops.object.delete()
-
-        bpy.ops.mesh.primitive_plane_add(
-            size = 15,
-            calc_uvs = True,
-            align = 'WORLD',
-            enter_editmode=False,
-            location = (0, 0, 0),
-            rotation = (0, 0, 0),
-            scale = (0, 0, 0))
-        current_name = bpy.context.selected_objects[0].name
-        self.plane = bpy.data.objects[current_name]
-        self.plane.name = "paper"
-        self.plane.data.name = "paper_mesh"
-
-        #Add plane to rigidbody
-        bpy.ops.rigidbody.object_add()
-        bpy.context.object.rigid_body.type = 'PASSIVE'
-        bpy.context.object.rigid_body.friction = 1
-
-        if (len(self.plane.data.materials.items()) != 0):
-            self.plane.data.materials.clear()
-        else:
-            self.plane.data.materials.append(paper_texture)
 
 
 # Execute
-def execute():
-    startTime = time.perf_counter()
-    global currentModel
-    global colorLibrary
+#def execute():
+#    startTime = time.perf_counter()
+#    
+#    
+#    global currentModel
+#    global colorLibrary
 
-    # for model in tqdm(os.listdir(models_path),
-    #                   token ='MTA4MjIxMjY4NDc0Njk5MzY4NQ.Gp8hFW.L67JvpL3hFSmZmF3xY8QhX8e5dGWy96vVCOU5M',
-    #                   channel_id='1082212254688235612',
-    #                   miniters=50):
-    for model in tqdm(os.listdir(models_path)):
-        #model = "u9328.dat"
-        #Models to test:
-        # u9132c05.dat (1: EMPTY, 2: EMPTY WITH MESHES INSIDE, MESH, MESH)
-        # 73587po4.dat (1: EMPTY, 2: MESH, MESH)
-        # 54696p01c01.dat (1: EMPTY, 2: MESH, MESH WITH MESHES INSIDE, MESH WITH MESHES INSIDE)
-        
-        #Here check if model not in database and not in blacklist (massive pieces/electronics)
-        pieceName = model[:-4]
-        #pieces = ref.order_by_key().get()
-        
-        with open(base_path + "blacklist.txt") as f:
-            if(pieceName not in f.read()):
-            #if (pieceName not in pieces) and (pieceName not in f.read()):
-            #     #As soon as confirmed, need to add model to database so other processes don't do the same ones
-                # ref.update({
-                #     pieceName:False
-                # })
+#    for model in tqdm(os.listdir(models_path),
+#                      token ='MTA4MjIxMjY4NDc0Njk5MzY4NQ.Gp8hFW.L67JvpL3hFSmZmF3xY8QhX8e5dGWy96vVCOU5M',
+#                      channel_id='1082212254688235612',
+#                      miniters=50):
+#        #Models to test:
+#        # u9132c05.dat (1: EMPTY, 2: EMPTY WITH MESHES INSIDE, MESH, MESH)
+#        # 73587po4.dat (1: EMPTY, 2: MESH, MESH)
+#        # 54696p01c01.dat (1: EMPTY, 2: MESH, MESH WITH MESHES INSIDE, MESH WITH MESHES INSIDE)
+#        
+#        #model = "u9328.dat"
+#        
+#        #Check if model not in database and not in blacklist
+#        pieceName = model[:-4]
+#        # pieces = ref.order_by_key().get()
+#        
+#        with open(base_path + "blacklist.txt") as f:
+#            if(pieceName not in f.read()):
+#            # if (pieceName not in pieces) and (pieceName not in f.read()):
+#            #     ref.update({
+#            #         pieceName:False
+#            #     })
 
-                if(model.endswith('u9474.dat')):
-                    currentModel = importModel(model)
+#                if(model.endswith('u9474.dat')):
+#                    currentModel = importModel(model) 
 
-                    if(currentModel.type == "EMPTY" and (len(currentModel.children) == 0)):
-                        continue
+#                    if(currentModel.type == "EMPTY" and (len(currentModel.children) == 0)):
+#                        #print("skipping")
+#                        continue
+#                    #joinMeshes(currentModel)
 
-                    # Save state of the model
-                    ogPos = currentModel.location
-                    ogRotation = currentModel.rotation_euler
+#                    # Save state of the model
+#                    ogPos = currentModel.location
+#                    ogRotation = currentModel.rotation_euler
 
-                    if not os.path.exists(render_path + model[:-4]):
-                        os.makedirs(render_path + model[:-4])
-                    for iteration in range(num_generate):
-                        random.seed()
-                        frame = getCamView()
-                        placePiece(frame)
-                        renderPiece(render_path + model[:-4], iteration)
-                    removeModel()
-                    # ref.update({
-                    #     pieceName:True
-                    # })
-            else:
-                continue
-    endTime = time.perf_counter()
-    print(f"Finished render in {endTime - startTime:0.4f} seconds")
+#                    if not os.path.exists(render_path + model[:-4]):
+#                        os.makedirs(render_path + model[:-4])
+#                    for iteration in range(num_generate):
+#                        random.seed()
+#                        random.shuffle(colorLibrary)
+#                        frame = getCamView()
+#                        placePiece(frame)
+#                        
+#                        renderPiece(render_path + model[:-4], iteration)
+#                    removeModel()
+#                    # ref.update({
+#                    #     pieceName:True
+#                    # })
+
+#    endTime = time.perf_counter()
+#    print(f"Finished render in {endTime - startTime:0.4f} seconds")
 
 # Render Scene
 def renderPiece(final_path, num):
@@ -232,9 +165,6 @@ def renderPiece(final_path, num):
     scene.render.border_min_y = 1 - ((y + height)/renderResolution) - (padding)
     scene.render.border_max_x = ((x + width)/renderResolution) + (padding)
     scene.render.border_min_x = (x/renderResolution) - (padding)
-
-    bpy.context.scene.render.engine = 'CYCLES'
-
     bpy.ops.render.render(write_still = True)
 
 # 2D Bounding box of piece for border rendering
@@ -445,31 +375,29 @@ def dropPiece(model, startLocationX, startLocationY):
     scene.frame_set(1)
     bpy.ops.ptcache.free_bake_all()
     model.rotation_euler = (uniform(0, 2 * math.pi), uniform(0, 2 * math.pi), uniform(0, 2 * math.pi))
-
+    bpy.context.view_layer.update()
     height = getHighestPoint(model) - model.matrix_world.translation.z
-
+    print("height of model is ", height)
+    
     model.location = (startLocationX, startLocationY, height * 2)
-
+    
+    
     rbw = scene.rigidbody_world
     pc = rbw.point_cache
     pc.frame_start = frameStart
     pc.frame_end = frameEnd
 
-    
-
     #bpy.ops.ptcache.bake({"point_cache": pc}, bake=True)
     bpy.ops.ptcache.bake_all(bake=True)
-
     scene.frame_set(frameEnd)
     
-
-
+    
     bpy.ops.object.select_all(action='DESELECT')
     model.select_set(True)
     bpy.ops.object.visual_transform_apply()
     bpy.ops.ptcache.free_bake_all()
     
-
+    
 
     #Update the location of the potentially parent body:
     if model.type == "EMPTY":
@@ -478,7 +406,6 @@ def dropPiece(model, startLocationX, startLocationY):
         
         model.rotation_euler = meshObject[0].matrix_world.to_euler('XYZ')
         bpy.ops.object.visual_transform_apply()
-    #raise KeyboardInterrupt()
     scene.rigidbody_world.enabled = False
     
     
@@ -525,10 +452,7 @@ def placePiece(frame):
     xStart = 0
     yStart = camTopLeft[1] - maxYDeviation
     # Drop a piece at the "center" defined by xStart and yStart (this will get our random rotation)
-
     dropPiece(currentModel, xStart, yStart)
-
-
 
     # PLACE PIECE RANDOMLY INSIDE USING RANDOMIZE TRANSFORM AND CHECK IF WITHIN BOUNDS OF PLANE
     notInside = True
@@ -592,38 +516,14 @@ def flatten(array):
 
 # Returns the highest point of the model
 def getHighestPoint(model):
+
     z_coords = []
-    z = -1000000
+    maxZ = -1000000
 
-    trueModels = getMeshes(model)
-    #print(trueModels)
-    for meshModel in trueModels:
-        mesh = meshModel.data
-        verts = mesh.vertices
-        for v in verts:
-            z_coords.append(v.co[2])
-    # NOTE: OLD
-    # if(model.type == "EMPTY"):
-    #     for children in model.children:
-    #         mesh = children.data
-    #         verts = mesh.vertices
-    #         for v in verts:
-    #             z_coords.append(v.co[2])
-    # else:
-    #     mesh = model.data
-    #     verts = mesh.vertices
-    #     for v in verts:
-    #         z_coords.append(v.co[2])
-
-    maxZ = max(z_coords) + model.location.z
+    for coord in model.bound_box:
+        worldCoord = model.matrix_world @ Vector( (coord[0], coord[1], coord[2]))
+        maxZ = max(maxZ, worldCoord.z)
     return maxZ
-    
-    # mesh = model.data
-    # z = -100000
-    # verts = mesh.vertices
-    # z_coords = [v.co[2] for v in verts]
-    # maxZ = max(z_coords) + model.location.z
-    # return maxZ
 
 # Returns the max distance from the camera where the height of the piece will not be cut off
 def getCamMaxDistance(modelHeight):
@@ -690,16 +590,91 @@ def removeModel():
     bpy.ops.object.delete()
 
 # Scene Set Up
+def setUpScene():
+    # Set Render Scenes
+    scene = bpy.data.scenes['Scene']
+    scene.render.resolution_x = renderResolution
+    scene.render.resolution_y = renderResolution
+    scene.render.image_settings.color_mode = 'RGB'
+    bpy.context.scene.frame_end = frameEnd
 
+    # Deselect all, select cube, then delete
+    bpy.ops.object.select_all(action='DESELECT')
+    cube = bpy.context.scene.objects.get("Cube")
+    if cube:
+        bpy.data.objects['Cube'].select_set(True)
+        bpy.ops.object.delete()
+
+    # Creating references to cam and light (Global defined so that cam and light global variables referenced)
+    global cam
+    global light
+    cam = bpy.data.objects['Camera']
+    light = bpy.data.objects['Light']
+
+    # Set light settings
+    light.data.type = 'POINT'
+    light.data.energy = 100
+    light.location = (0, 0, 5)
+    light.rotation_euler = (0, 0, 0)
+
+    # Set camera settings
+    cam.location = (0, -5, 5)
+    cam.rotation_euler = (0.785398, 0, 0)
+
+    # Create a plane
+    bpy.ops.object.select_all(action='DESELECT')
+    oldPlane = bpy.context.scene.objects.get("Plane")
+    if oldPlane:
+        bpy.data.objects['Plane'].select_set(True)
+        bpy.ops.object.delete()
+
+    bpy.ops.mesh.primitive_plane_add(
+        size = 15,
+        calc_uvs = True,
+        align = 'WORLD',
+        enter_editmode=False,
+        location = (0, 0, 0),
+        rotation = (0, 0, 0),
+        scale = (0, 0, 0))
+    current_name = bpy.context.selected_objects[0].name
+    plane = bpy.data.objects[current_name]
+    plane.name = "paper"
+    plane.data.name = "paper_mesh"
+
+    #Add plane to rigidbody
+    bpy.ops.rigidbody.object_add()
+    bpy.context.object.rigid_body.type = 'PASSIVE'
+    bpy.context.object.rigid_body.friction = 1
+
+    if (len(plane.data.materials.items()) != 0):
+        plane.data.materials.clear()
+    else:
+        plane.data.materials.append(paper_texture)
+
+# def getAxisOrientedBoundingBox(footPrint):
+#     footprint_left = 999999
+#     footprint_right = -999999
+#     footprint_bot = 999999
+#     footprint_top = -999999
+#     for foot in footPrint:
+#         if foot[0] > footprint_right:
+#             footprint_right = foot[0]
+#         if foot[0] < footprint_left:
+#             footprint_left = foot[0]
+#         if foot[1] < footprint_bot:
+#             footprint_bot = foot[1]
+#         if foot[1] > footprint_top:
+#             footprint_top = foot[1]
+#     return [footprint_left, footprint_right, footprint_bot, footprint_top]
 
 # Main function
-# def main():
-#     setUpScene()
-#     execute()
+#def main():
+#    setUpScene()
+#    execute()
 
-# # Call main function
-# if __name__ == "__main__":
-#     main()
+## Call main function
+#if __name__ == "__main__":
+#    main()
 
 # What will design of this function look like
 # Iterate over all files referenced in a text file for model names and 

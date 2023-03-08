@@ -374,6 +374,7 @@ def dropPiece(model, startLocationX, startLocationY):
     scene.frame_set(1)
     bpy.ops.ptcache.free_bake_all()
     model.rotation_euler = (uniform(0, 2 * math.pi), uniform(0, 2 * math.pi), uniform(0, 2 * math.pi))
+    bpy.context.view_layer.update()
 
     height = getHighestPoint(model) - model.matrix_world.translation.z
 
@@ -515,37 +516,11 @@ def flatten(array):
 # Returns the highest point of the model
 def getHighestPoint(model):
     z_coords = []
-    z = -1000000
-
-    trueModels = getMeshes(model)
-    #print(trueModels)
-    for meshModel in trueModels:
-        mesh = meshModel.data
-        verts = mesh.vertices
-        for v in verts:
-            z_coords.append(v.co[2])
-    # NOTE: OLD
-    # if(model.type == "EMPTY"):
-    #     for children in model.children:
-    #         mesh = children.data
-    #         verts = mesh.vertices
-    #         for v in verts:
-    #             z_coords.append(v.co[2])
-    # else:
-    #     mesh = model.data
-    #     verts = mesh.vertices
-    #     for v in verts:
-    #         z_coords.append(v.co[2])
-
-    maxZ = max(z_coords) + model.location.z
+    maxZ = -1000000
+    for coord in model.bound_box:
+        worldCoord = model.matrix_world @ Vector( (coord[0], coord[1], coord[2]))
+        maxZ = max(maxZ, worldCoord.z)
     return maxZ
-    
-    # mesh = model.data
-    # z = -100000
-    # verts = mesh.vertices
-    # z_coords = [v.co[2] for v in verts]
-    # maxZ = max(z_coords) + model.location.z
-    # return maxZ
 
 # Returns the max distance from the camera where the height of the piece will not be cut off
 def getCamMaxDistance(modelHeight):
