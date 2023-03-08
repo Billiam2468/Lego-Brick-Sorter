@@ -17,7 +17,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
-table = pd.read_html("https://library.ldraw.org/tracker/search?s=sticker&scope=header")
+table = pd.read_html("https://library.ldraw.org/tracker/search?s=%22moved+to%22&scope=header")
 
 print("total tables", len(table))
 
