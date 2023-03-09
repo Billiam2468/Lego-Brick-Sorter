@@ -1,11 +1,16 @@
 import tkinter as tk
 from functools import partial
 from PIL import ImageTk, Image
-import os
+import os  
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 import batchProcessor as batch
 import shutil
 import tensorflow as tf
 from tensorflow import keras
+
+physical_devices = tf.config.experimental.list_physical_devices('GPU')
+assert len(physical_devices) > 0, "Not enough GPU hardware devices available"
+config = tf.config.experimental.set_memory_growth(physical_devices[0], True)
 
 window = tk.Tk()
 window.geometry("700x800")
@@ -17,7 +22,9 @@ base_path = base_path.removesuffix(scriptName)
 
 batch_path = base_path + "exampleBatches/"
 output_path = base_path + "organizedBatches/"
-ref_path = base_path + "Ref Images/"
+#ref_path = base_path + "Ref Images/"
+ref_path = "/home/billiam/Documents/Lego_Sorter/LEGO_BRICK_LABELS/LEGO_BRICK_LABELS-v39/Labels/Piece Images/"
+
 
 # This will be a list of the model suggested labels. The index chosen will be returned from choose()
 # These will be different pieces since different guesses
@@ -35,7 +42,7 @@ batchImgs = []
 predictedImgs = []
 
 batchProcessor = batch.BatchProcessor(batch_path)
-model = tf.keras.models.load_model(base_path + "model.h5")
+model = tf.keras.models.load_model(base_path + "testModel.h5")
 
 file = open(base_path + "pieces.txt")
 pieceList = [line.rstrip("\n") for line in file.readlines()]
@@ -81,7 +88,8 @@ def addBatch(batch):
     for img in batch:
         image = Image.open(batch_path + img)
         image.thumbnail((150,150), Image.ANTIALIAS)
-        batchImgs.append(ImageTk.PhotoImage(image))
+        newImg = ImageTk.PhotoImage(image)
+        batchImgs.append(newImg)
         imgBox = tk.Button(
             imageFrame,
             image = batchImgs[index])
@@ -129,27 +137,38 @@ def modelPredict(batch):
 
     # Do not need to pre-process the image to be predicted as it becomes integrated into the model layers
     for img in batch:
+        print("reading image", img)
         loaded = tf.keras.utils.load_img(
                 batch_path + img, target_size=(224, 224)
         )
         img_array = tf.keras.utils.img_to_array(loaded)
         img_array = tf.expand_dims(img_array, 0)
         predictions = model.predict(img_array)
-        prediction_probabilities = tf.math.top_k(predictions, k=5)
+        prediction_probabilities = tf.math.top_k(predictions, k=4)
         top_5_scores = prediction_probabilities.values.numpy()
         top_5_indices = prediction_probabilities.indices.numpy()
-        for index in range(5):
-            indexToAdd = top_5_indices[index]
+        for index in range(4):
+            indexToAdd = top_5_indices[0][index]
             if indexToAdd in probDict:
-                probDict[indexToAdd] = probDict[indexToAdd] + top_5_scores[index]
+                probDict[indexToAdd] = probDict[indexToAdd] + top_5_scores[0][index]
             else:
-                probDict[indexToAdd] = top_5_scores[index]
+                probDict[indexToAdd] = top_5_scores[0][index]
 
     sortedDict = sorted(probDict,reverse=True)
-    
 
-    # use our model here and predict the top 5 and return an ordered list of the predictions
-    imgBatch = ["3184", "3070b", "3149", "3176", "3185"]
+    print(sortedDict)
+    
+    #NOTE: For 3.9.2023:
+    # Sorted dict returns the top predicted indices
+    # Use these indices in the list of our pieces to get a number to add to our return
+
+    imgBatch = []
+
+    for index in sortedDict:
+        imgBatch.append(pieceList[index])
+
+    # # use our model here and predict the top 5 and return an ordered list of the predictions
+    # imgBatch = ["3184", "3070b", "3149", "3176", "3185"]
     return imgBatch
     #Takes in imgBatch (next batch of images returned)
     # Creates a prediction on each of the images on the batch and returns the top 5 most likely
