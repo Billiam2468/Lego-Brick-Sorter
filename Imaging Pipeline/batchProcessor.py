@@ -10,23 +10,27 @@ import os
 
 class BatchProcessor:
     def __init__(self, imgPath):
-        self.processed_ids = []
+        self.processed_ids = [".DS"]
         self.imgPath = imgPath
+        self.currentBatch = []
 
     def nextBatch(self):
         for image in os.listdir(self.imgPath):
-            uniqueId = image.removeprefix(".png")
+            # Change this back to .png when using real imgs
+            uniqueId = image.removesuffix(".bmp")
             uniqueId = uniqueId.partition("_")[0]
             if uniqueId not in self.processed_ids:
                 batch = [filename for filename in os.listdir(self.imgPath) if filename.startswith(uniqueId)]
                 self.processed_ids.append(uniqueId)
+                self.currentBatch = batch
                 return batch
+        self.currentBatch = []
         return []
             
 
 #NOTE: USAGE BELOW
 
-# imgPath = "/home/billiam/Documents/Lego_Sorter/Renders/test/6091 (copy)/"
+# imgPath = "/Users/williamlee/Documents/Git Repos/Lego-Brick-Sorter/Imaging Pipeline/exampleBatches/"
 
 # batchProcessor = BatchProcessor(imgPath)
 
