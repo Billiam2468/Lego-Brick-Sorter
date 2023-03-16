@@ -1,3 +1,5 @@
+# NOTE: CHANGE THE 4S TO 5S WHEN USING A REAL MODEL. 4 BECAUSE OUR MODEL ONLY RETURNS 4 OUTPUTS
+
 import tkinter as tk
 from functools import partial
 from PIL import ImageTk, Image
@@ -8,12 +10,15 @@ import shutil
 import tensorflow as tf
 from tensorflow import keras
 
-physical_devices = tf.config.experimental.list_physical_devices('GPU')
-assert len(physical_devices) > 0, "Not enough GPU hardware devices available"
-config = tf.config.experimental.set_memory_growth(physical_devices[0], True)
+# NOTE: UNCOMMENT THIS ON LINUX#
+# physical_devices = tf.config.experimental.list_physical_devices('GPU')
+# assert len(physical_devices) > 0, "Not enough GPU hardware devices available"
+# config = tf.config.experimental.set_memory_growth(physical_devices[0], True)
 
 window = tk.Tk()
+numTop = 4
 window.geometry("700x800")
+window.configure(width=700, height=800)
 
 # Make contained (only need to set the models path):
 base_path = os.path.realpath(__file__)
@@ -22,20 +27,22 @@ base_path = base_path.removesuffix(scriptName)
 
 batch_path = base_path + "exampleBatches/"
 output_path = base_path + "organizedBatches/"
-#ref_path = base_path + "Ref Images/"
-ref_path = "/home/billiam/Documents/Lego_Sorter/LEGO_BRICK_LABELS/LEGO_BRICK_LABELS-v39/Labels/Piece Images/"
+ref_path = base_path + "Ref Images/"
+#ref_path = "/home/billiam/Documents/Lego_Sorter/LEGO_BRICK_LABELS/LEGO_BRICK_LABELS-v39/Labels/Piece Images/"
 
 
 # This will be a list of the model suggested labels. The index chosen will be returned from choose()
 # These will be different pieces since different guesses
-suggested = []#["test", "val", "here", "last", "one"]
+#suggested = []#["test", "val", "here", "last", "one"]
 
 # Batch of images to be displayed (should be same piee)
-imgBatch = []#["3184", "3070b", "3149", "3176"]
+#imgBatch = []#["3184", "3070b", "3149", "3176"]
 
 # Upon receiving a new batch of images, we will update these buttons (images) and labels (piece name) for the model suggestions
 suggestButtons = []
 suggestLabels = []
+batchButtons = []
+currBatch = []
 
 # Stores images displayed in batch
 batchImgs = []
@@ -43,6 +50,7 @@ predictedImgs = []
 
 batchProcessor = batch.BatchProcessor(batch_path)
 model = tf.keras.models.load_model(base_path + "testModel.h5")
+#model.summary()
 
 file = open(base_path + "pieces.txt")
 pieceList = [line.rstrip("\n") for line in file.readlines()]
@@ -51,6 +59,7 @@ pieceList = [line.rstrip("\n") for line in file.readlines()]
 def classify(entry):
     global pieceList
     global batchProcessor
+    global currBatch
     T.delete(0, tk.END)
     if (entry not in pieceList) and (entry != "first"):
         print(entry + " not in list")
@@ -58,11 +67,12 @@ def classify(entry):
 
     # Move images to correct folder
     if entry != "first":
-        prevBatch = batchProcessor.currentBatch
+        prevBatch = currBatch
         moveBatch(prevBatch, entry)
 
     # Grab the batch and add it to the image gallery
     batch = batchProcessor.nextBatch()
+    currBatch = batch
     if(len(batch) == 0):
         #If run out of batches, then end the program maybe?
         print("no more batches")
@@ -79,22 +89,45 @@ def moveBatch(batch, pieceName):
 
 # Takes a list of images (batch), removes the current displayed batch, and displays the new batch
 def addBatch(batch):
+    global batchButtons
+    global batchImgs
     #Delete all of the old images
+    batchButtons = []
+    batchImgs = []
     for widget in imageFrame.winfo_children():
         widget.destroy()
-    global batchImgs
-    batchImgs = []
+
+    width = window.winfo_width()
+    print("width is", width)
+    eachWidth = width/len(batch)
+    print("each width is", eachWidth)
+
     index = 0
     for img in batch:
         image = Image.open(batch_path + img)
-        image.thumbnail((150,150), Image.ANTIALIAS)
+        image.thumbnail((eachWidth,eachWidth), Image.ANTIALIAS)
         newImg = ImageTk.PhotoImage(image)
         batchImgs.append(newImg)
         imgBox = tk.Button(
             imageFrame,
-            image = batchImgs[index])
+            image = batchImgs[index],
+            command = partial(removeBatch, index))
         imgBox.pack(side=tk.LEFT)
+        batchButtons.append(imgBox)
         index += 1
+
+def removeBatch(index):
+    global currBatch
+    global batchButtons
+    global batchImgs
+    print("removing img at index:", index)
+    print("currBatch is ", currBatch)
+    del currBatch[index]
+    print("currBatch after deletion is:", currBatch)
+    addBatch(currBatch)
+    # Only have to update currBatch and then re-call addBatch()
+
+
 
 
     # First check if val in textbox is valid. IF not, display msg asking to try again somehow?
@@ -135,6 +168,7 @@ def modelPredict(batch):
 
     probDict = {}
 
+    # For each img in the batch, we are going to grab the top 5 predictions for the image by the model, and then add it to a dictionary that adds up the percentages
     # Do not need to pre-process the image to be predicted as it becomes integrated into the model layers
     for img in batch:
         print("reading image", img)
@@ -144,19 +178,35 @@ def modelPredict(batch):
         img_array = tf.keras.utils.img_to_array(loaded)
         img_array = tf.expand_dims(img_array, 0)
         predictions = model.predict(img_array)
-        prediction_probabilities = tf.math.top_k(predictions, k=4)
+        prediction_probabilities = tf.math.top_k(predictions, k=numTop)
+
+        # The model will predict the top 5 possible pieces that it thinks it could be
+        # top_5_scores will return the probabilities of the top 5 scores
+        # top_5_indices will return the matching index of the type of piece that it predicts
         top_5_scores = prediction_probabilities.values.numpy()
         top_5_indices = prediction_probabilities.indices.numpy()
-        for index in range(4):
+
+        # print("top 5 indices are")
+        # print(top_5_indices)
+        # print("top 5 scores are ")
+        # print(top_5_scores)
+        # Iterate through each of the top 5 scores and add them to a dictionary that keeps track of our probabilities
+        for index in range(numTop):
             indexToAdd = top_5_indices[0][index]
             if indexToAdd in probDict:
                 probDict[indexToAdd] = probDict[indexToAdd] + top_5_scores[0][index]
             else:
                 probDict[indexToAdd] = top_5_scores[0][index]
 
+    # Sort the dict (in form: indexOfPiece : sumOfProbabilities)
     sortedDict = sorted(probDict,reverse=True)
 
-    print(sortedDict)
+    # for i in sortedDict:
+    #     print(i, sortedDict[i])
+
+    # for j in probDict:
+    #     print(j, probDict[j])
+   #print(sortedDict)
     
     #NOTE: For 3.9.2023:
     # Sorted dict returns the top predicted indices
@@ -252,6 +302,7 @@ for i in range(5):
     frame.grid(row=i, column=2)
     suggestButtons.append(frame)
 
+print("th efirst window width is", window.winfo_width())
 classify("first")
 
 window.mainloop()
