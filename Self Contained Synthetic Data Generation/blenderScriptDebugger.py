@@ -77,14 +77,16 @@ with bpy.data.libraries.load(material_path) as (data_from, data_to):
     data_to.materials = data_from.materials
 paper_texture = data_to.materials[0]
 
-#Database Access:
-# cred_obj = firebase_admin.credentials.Certificate(base_path + "firebaseKey.json")
-# default_app = firebase_admin.initialize_app(cred_obj, {
-#     "databaseURL":"https://lego-brick-sorter-default-rtdb.firebaseio.com/"
-# })
-# ref = db.reference("/")
 
+# NOTE: WHEN DEBUGGING WITH BLENDER, SHOULD JUST NEED TO RUN THINGS IN ORDER:
+# 0. Copy paste script into script window and run: mod = bpy.data.texts[0].as_module()
+# 1. mod.setUpScene()
+# 2. currentModel = mod.importModel("model name ending with .dat")
+# 3. mod.joinMeshes(currentModel)
+# 4. frame = mod.getCamView()
+# 5. mod.placePiece(frame)
 
+# Issues generally happen at the placePiece() step. Probably an issue with how the pieces is dropped (so how piece dimensions calculated)
 
 # Execute
 #def execute():
@@ -374,11 +376,15 @@ def dropPiece(model, startLocationX, startLocationY):
     scene.rigidbody_world.enabled = True
     scene.frame_set(1)
     bpy.ops.ptcache.free_bake_all()
-    model.rotation_euler = (uniform(0, 2 * math.pi), uniform(0, 2 * math.pi), uniform(0, 2 * math.pi))
+    rotation = (uniform(0, 2 * math.pi), uniform(0, 2 * math.pi), uniform(0, 2 * math.pi))
+    model.rotation_euler = rotation
     bpy.context.view_layer.update()
-    height = getHighestPoint(model) - model.matrix_world.translation.z
+    height = getHighestPoint(model) - getLowestPoint(model)#model.matrix_world.translation.z
     print("height of model is ", height)
-    
+    print("rotation", rotation)
+    print("start X", startLocationX)
+    print("start Y", startLocationY)
+
     model.location = (startLocationX, startLocationY, height * 2)
     
     
@@ -428,7 +434,7 @@ def placePiece(frame):
     camBotRight = frame[2]
 
     # Calculate the maximum y distance from the camera that a piece of modelHeight can be placed
-    modelHeight = getHighestPoint(currentModel)
+    modelHeight = getHighestPoint(currentModel)-getLowestPoint(currentModel)
     maxDistanceFromCam = getCamMaxDistance(modelHeight)
     maxY = cam.location.y + maxDistanceFromCam
 
@@ -524,6 +530,16 @@ def getHighestPoint(model):
         worldCoord = model.matrix_world @ Vector( (coord[0], coord[1], coord[2]))
         maxZ = max(maxZ, worldCoord.z)
     return maxZ
+
+# Returns the lowest point of the model
+def getLowestPoint(model):
+    z_coords = []
+    minZ = 1000000
+    
+    for coord in model.bound_box:
+        worldCoord = model.matrix_world @ Vector( (coord[0], coord[1], coord[2]))
+        minZ = min(minZ, worldCoord.z)
+    return minZ
 
 # Returns the max distance from the camera where the height of the piece will not be cut off
 def getCamMaxDistance(modelHeight):
@@ -645,6 +661,10 @@ def setUpScene():
     bpy.ops.rigidbody.object_add()
     bpy.context.object.rigid_body.type = 'PASSIVE'
     bpy.context.object.rigid_body.friction = 1
+
+    #Add solidifier to plane
+    bpy.ops.object.modifier_add(type='SOLIDIFY')
+    bpy.context.object.modifiers["Solidify"].thickness = 0.5
 
     if (len(plane.data.materials.items()) != 0):
         plane.data.materials.clear()

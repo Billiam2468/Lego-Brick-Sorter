@@ -235,9 +235,6 @@ def camera_view_bounds_2d(scene, cam_ob, me_ob):
             if z == 0.0:
                 lx.append(0.5)
                 ly.append(0.5)
-            # Does it make any sense to drop these?
-            # if z <= 0.0:
-            #    continue
             else:
                 frame = [(v / (v.z / z)) for v in frame]
 
@@ -644,6 +641,10 @@ def setUpScene():
     plane = bpy.data.objects[current_name]
     plane.name = "paper"
     plane.data.name = "paper_mesh"
+
+    #Add solidifier to plane
+    bpy.ops.object.modifier_add(type='SOLIDIFY')
+    bpy.context.object.modifiers["Solidify"].thickness = 0.5
 
     #Add plane to rigidbody
     bpy.ops.rigidbody.object_add()
