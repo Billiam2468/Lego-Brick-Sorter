@@ -68,10 +68,17 @@ scene.gravity[2] = -75
 #scriptName = os.path.basename(__file__)
 #base_path = base_path.removesuffix(scriptName)
 
-#Import Textures and Model References (Mac or Linux)
-material_path = "/home/billiam/Documents/Lego_Sorter/Self Contained Synthetic Data Generation/paper_texture.blend"
-models_path = "/home/billiam/Documents/Lego_Sorter/LDraw Files/complete/ldraw/parts/"
-render_path = "/home/billiam/Documents/Lego_Sorter/Renders/indSynthGenRenders"
+# Import Textures and Model References
+# LINUX VERSION:
+# material_path = "/home/billiam/Documents/Lego_Sorter/Self Contained Synthetic Data Generation/paper_texture.blend"
+# models_path = "/home/billiam/Documents/Lego_Sorter/LDraw Files/complete/ldraw/parts/"
+# render_path = "/home/billiam/Documents/Lego_Sorter/Renders/indSynthGenRenders"
+
+# MAC VERSION:
+base_path = "/Users/williamlee/Documents/Lego Sorter/Self Contained Synthetic Data Generation/"
+material_path = base_path + "paper_texture.blend"
+models_path = "/Users/williamlee/Documents/ldraw/parts/"
+render_path = base_path + "Renders/"
 
 with bpy.data.libraries.load(material_path) as (data_from, data_to):
     data_to.materials = data_from.materials
