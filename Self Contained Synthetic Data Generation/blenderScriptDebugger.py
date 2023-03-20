@@ -593,10 +593,21 @@ def importModel(model_path):
     theModel.select_set(True)
     bpy.ops.rigidbody.object_add()
     bpy.context.object.rigid_body.type = 'ACTIVE'
+    if(current_name == "00000_98135.dat" or
+       current_name == "00000_15082.dat" or
+       current_name == "00000_51266.dat" or
+       current_name == "00000_57895.dat" or
+       current_name == "00000_69858.dat" or
+       current_name == "00000_69934.dat" or
+       current_name == "00000_90498.dat" or
+       current_name == "00000_90509.dat" or
+       current_name == "00000_92438.dat" or
+       current_name == "00000_2525.dat" or
+       current_name == "00000_3456.dat"):
+        bpy.context.object.rigid_body.collision_shape = 'BOX'
     bpy.ops.object.origin_set(type='ORIGIN_CENTER_OF_VOLUME', center='MEDIAN')
 
     return(theModel)
-
 # Remove Model
 def removeModel():
     global currentModel
