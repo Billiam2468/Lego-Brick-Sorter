@@ -28,16 +28,16 @@ from pandas import *
 import colorsys
 import os.path
 from PIL import ImageColor
-from tqdm import tqdm
+# from tqdm import tqdm
 
 sys.stdout = sys.stderr #For print statements only
 
-#Discord Bot!
-from tqdm.contrib.discord import tqdm, trange
+# #Discord Bot!
+# from tqdm.contrib.discord import tqdm, trange
 
-#Firebase Database
-import firebase_admin
-from firebase_admin import db
+# #Firebase Database
+# import firebase_admin
+# from firebase_admin import db
 
 # Global Variables
 cam = None
