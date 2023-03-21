@@ -419,6 +419,10 @@ def dropPiece(model, startLocationX, startLocationY):
         
         model.rotation_euler = meshObject[0].matrix_world.to_euler('XYZ')
         bpy.ops.object.visual_transform_apply()
+
+    bpy.ops.ptcache.bake_all(bake=True)
+    bpy.ops.ptcache.free_bake_all()
+
     scene.rigidbody_world.enabled = False
     
     
