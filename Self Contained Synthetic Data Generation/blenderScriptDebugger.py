@@ -693,6 +693,10 @@ def setUpScene():
     else:
         plane.data.materials.append(paper_texture)
 
+
+
+    bpy.context.scene.rigidbody_world.substeps_per_frame = 30
+
 # def getAxisOrientedBoundingBox(footPrint):
 #     footprint_left = 999999
 #     footprint_right = -999999
