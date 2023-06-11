@@ -85,7 +85,6 @@ default_app = firebase_admin.initialize_app(cred_obj, {
 ref = db.reference("/")
 
 
-
 # Execute
 def execute():
     startTime = time.perf_counter()
