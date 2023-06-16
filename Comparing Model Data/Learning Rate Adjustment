@@ -1,0 +1,111 @@
+Batch size of:  32
+Learning rate of:  0.0001
+Found 955800 images belonging to 1593 classes.
+Found 398250 images belonging to 1593 classes.
+Found 238950 images belonging to 1593 classes.
+Start training:
+Epoch 1/25
+29869/29869 [==============================] - 3118s 104ms/step - loss: 3.3581 - categorical_accuracy: 0.2785 - val_loss: 1.9268 - val_categorical_accuracy: 0.5088
+Epoch 2/25
+29869/29869 [==============================] - 3080s 103ms/step - loss: 2.3055 - categorical_accuracy: 0.4319 - val_loss: 1.6705 - val_categorical_accuracy: 0.5610
+Epoch 3/25
+29869/29869 [==============================] - 3079s 103ms/step - loss: 2.0366 - categorical_accuracy: 0.4833 - val_loss: 1.4973 - val_categorical_accuracy: 0.5968
+Epoch 4/25
+29869/29869 [==============================] - 3076s 103ms/step - loss: 1.9096 - categorical_accuracy: 0.5094 - val_loss: 1.4154 - val_categorical_accuracy: 0.6152
+Epoch 5/25
+29869/29869 [==============================] - 3058s 102ms/step - loss: 1.8356 - categorical_accuracy: 0.5250 - val_loss: 1.3609 - val_categorical_accuracy: 0.6282
+Epoch 6/25
+29869/29869 [==============================] - 3032s 101ms/step - loss: 1.7827 - categorical_accuracy: 0.5361 - val_loss: 1.2959 - val_categorical_accuracy: 0.6411
+Epoch 7/25
+29869/29869 [==============================] - 3040s 102ms/step - loss: 1.7528 - categorical_accuracy: 0.5435 - val_loss: 1.2896 - val_categorical_accuracy: 0.6444
+Epoch 8/25
+29869/29869 [==============================] - 3027s 101ms/step - loss: 1.7282 - categorical_accuracy: 0.5494 - val_loss: 1.2735 - val_categorical_accuracy: 0.6488
+Epoch 9/25
+29869/29869 [==============================] - 3040s 102ms/step - loss: 1.7148 - categorical_accuracy: 0.5535 - val_loss: 1.2553 - val_categorical_accuracy: 0.6535
+Epoch 10/25
+29869/29869 [==============================] - 3040s 102ms/step - loss: 1.7065 - categorical_accuracy: 0.5554 - val_loss: 1.2292 - val_categorical_accuracy: 0.6606
+Epoch 11/25
+29869/29869 [==============================] - 3033s 101ms/step - loss: 1.6966 - categorical_accuracy: 0.5588 - val_loss: 1.2520 - val_categorical_accuracy: 0.6553
+Epoch 12/25
+29869/29869 [==============================] - 3022s 101ms/step - loss: 1.6982 - categorical_accuracy: 0.5593 - val_loss: 1.2084 - val_categorical_accuracy: 0.6654
+
+
+Batch size of:  32
+Learning rate of:  1e-05
+Found 955800 images belonging to 1593 classes.
+Found 398250 images belonging to 1593 classes.
+Found 238950 images belonging to 1593 classes.
+Start training:
+Epoch 1/10
+29869/29869 [==============================] - 3104s 104ms/step - loss: 5.1773 - categorical_accuracy: 0.1012 - top_k_categorical_accuracy: 0.2354 - val_loss: 3.3821 - val_categorical_accuracy: 0.3104 - val_top_k_categorical_accuracy: 0.5678
+Epoch 2/10
+29869/29869 [==============================] - 3086s 103ms/step - loss: 3.7333 - categorical_accuracy: 0.2232 - top_k_categorical_accuracy: 0.4505 - val_loss: 2.6914 - val_categorical_accuracy: 0.4039 - val_top_k_categorical_accuracy: 0.6764
+Epoch 3/10
+29869/29869 [==============================] - 3082s 103ms/step - loss: 3.1992 - categorical_accuracy: 0.2941 - top_k_categorical_accuracy: 0.5495 - val_loss: 2.3506 - val_categorical_accuracy: 0.4561 - val_top_k_categorical_accuracy: 0.7283
+Epoch 4/10
+29869/29869 [==============================] - 3082s 103ms/step - loss: 2.8796 - categorical_accuracy: 0.3422 - top_k_categorical_accuracy: 0.6088 - val_loss: 2.1371 - val_categorical_accuracy: 0.4922 - val_top_k_categorical_accuracy: 0.7593
+Epoch 5/10
+29869/29869 [==============================] - 3069s 103ms/step - loss: 2.6590 - categorical_accuracy: 0.3786 - top_k_categorical_accuracy: 0.6492 - val_loss: 1.9931 - val_categorical_accuracy: 0.5166 - val_top_k_categorical_accuracy: 0.7801
+Epoch 6/10
+29869/29869 [==============================] - 3059s 102ms/step - loss: 2.4920 - categorical_accuracy: 0.4071 - top_k_categorical_accuracy: 0.6793 - val_loss: 1.8833 - val_categorical_accuracy: 0.5368 - val_top_k_categorical_accuracy: 0.7964
+Epoch 7/10
+29869/29869 [==============================] - 3040s 102ms/step - loss: 2.3605 - categorical_accuracy: 0.4314 - top_k_categorical_accuracy: 0.7032 - val_loss: 1.7912 - val_categorical_accuracy: 0.5528 - val_top_k_categorical_accuracy: 0.8099
+Epoch 8/10
+29869/29869 [==============================] - 3043s 102ms/step - loss: 2.2548 - categorical_accuracy: 0.4507 - top_k_categorical_accuracy: 0.7222 - val_loss: 1.7244 - val_categorical_accuracy: 0.5653 - val_top_k_categorical_accuracy: 0.8201
+Epoch 9/10
+29869/29869 [==============================] - 3043s 102ms/step - loss: 2.1647 - categorical_accuracy: 0.4677 - top_k_categorical_accuracy: 0.7380 - val_loss: 1.6667 - val_categorical_accuracy: 0.5767 - val_top_k_categorical_accuracy: 0.8278
+Epoch 10/10
+29869/29869 [==============================] - 3035s 102ms/step - loss: 2.0900 - categorical_accuracy: 0.4821 - top_k_categorical_accuracy: 0.7511 - val_loss: 1.6084 - val_categorical_accuracy: 0.5891 - val_top_k_categorical_accuracy: 0.8366
+Performance:
+7468/7468 - 528s - loss: 1.6126 - categorical_accuracy: 0.5868 - top_k_categorical_accuracy: 0.8362 - 528s/epoch - 71ms/step
+
+
+Batch size of:  16
+Learning rate of:  0.0001
+Found 955800 images belonging to 1593 classes.
+Found 398250 images belonging to 1593 classes.
+Found 238950 images belonging to 1593 classes.
+Start training:
+Epoch 1/3
+59738/59738 [==============================] - 3377s 56ms/step - loss: 3.3279 - categorical_accuracy: 0.2787 - top_k_categorical_accuracy: 0.5271 - val_loss: 1.9524 - val_categorical_accuracy: 0.4983 - val_top_k_categorical_accuracy: 0.7785
+Epoch 2/3
+59738/59738 [==============================] - 3371s 56ms/step - loss: 2.3933 - categorical_accuracy: 0.4163 - top_k_categorical_accuracy: 0.6971 - val_loss: 1.7081 - val_categorical_accuracy: 0.5500 - val_top_k_categorical_accuracy: 0.8187
+Epoch 3/3
+59738/59738 [==============================] - 3336s 56ms/step - loss: 2.2140 - categorical_accuracy: 0.4511 - top_k_categorical_accuracy: 0.7311 - val_loss: 1.5885 - val_categorical_accuracy: 0.5749 - val_top_k_categorical_accuracy: 0.8381
+Performance:
+14935/14935 - 593s - loss: 1.5914 - categorical_accuracy: 0.5744 - top_k_categorical_accuracy: 0.8372 - 593s/epoch - 40ms/step
+
+
+Batch size of:  32
+Learning rate of:  0.0001
+Found 955800 images belonging to 1593 classes.
+Found 398250 images belonging to 1593 classes.
+Found 238950 images belonging to 1593 classes.
+Start training:
+Epoch 1/3
+29869/29869 [==============================] - 2991s 100ms/step - loss: 3.3545 - categorical_accuracy: 0.2788 - top_k_categorical_accuracy: 0.5232 - val_loss: 1.9568 - val_categorical_accuracy: 0.5010 - val_top_k_categorical_accuracy: 0.7790
+Epoch 2/3
+29869/29869 [==============================] - 2999s 100ms/step - loss: 2.3051 - categorical_accuracy: 0.4321 - top_k_categorical_accuracy: 0.7120 - val_loss: 1.6567 - val_categorical_accuracy: 0.5626 - val_top_k_categorical_accuracy: 0.8255
+Epoch 3/3
+29869/29869 [==============================] - 2997s 100ms/step - loss: 2.0419 - categorical_accuracy: 0.4820 - top_k_categorical_accuracy: 0.7587 - val_loss: 1.4975 - val_categorical_accuracy: 0.5971 - val_top_k_categorical_accuracy: 0.8497
+Performance:
+7468/7468 - 531s - loss: 1.5002 - categorical_accuracy: 0.5968 - top_k_categorical_accuracy: 0.8492 - 531s/epoch - 71ms/step
+
+
+Batch size of:  64
+Learning rate of:  0.0001
+Found 955800 images belonging to 1593 classes.
+Found 398250 images belonging to 1593 classes.
+Found 238950 images belonging to 1593 classes.
+Start training:
+Epoch 1/3
+14935/14935 [==============================] - 3372s 225ms/step - loss: 3.5050 - categorical_accuracy: 0.2626 - top_k_categorical_accuracy: 0.4984 - val_loss: 2.0600 - val_categorical_accuracy: 0.4855 - val_top_k_categorical_accuracy: 0.7635
+Epoch 2/3
+14935/14935 [==============================] - 3404s 228ms/step - loss: 2.3624 - categorical_accuracy: 0.4237 - top_k_categorical_accuracy: 0.7009 - val_loss: 1.6599 - val_categorical_accuracy: 0.5639 - val_top_k_categorical_accuracy: 0.8271
+Epoch 3/3
+14935/14935 [==============================] - 3242s 217ms/step - loss: 2.0413 - categorical_accuracy: 0.4841 - top_k_categorical_accuracy: 0.7582 - val_loss: 1.4954 - val_categorical_accuracy: 0.5988 - val_top_k_categorical_accuracy: 0.8518
+Performance:
+3734/3734 - 516s - loss: 1.4988 - categorical_accuracy: 0.5985 - top_k_categorical_accuracy: 0.8512 - 516s/epoch - 138ms/step
+
+
+
