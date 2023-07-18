@@ -16,9 +16,8 @@ from tensorflow import keras
 # config = tf.config.experimental.set_memory_growth(physical_devices[0], True)
 
 window = tk.Tk()
-numTop = 4
+numTop = 5
 window.geometry("700x800")
-window.configure(width=700, height=800)
 
 # Make contained (only need to set the models path):
 base_path = os.path.realpath(__file__)
@@ -27,8 +26,8 @@ base_path = base_path.removesuffix(scriptName)
 
 batch_path = base_path + "exampleBatches/"
 output_path = base_path + "organizedBatches/"
-ref_path = base_path + "Ref Images/"
-#ref_path = "/home/billiam/Documents/Lego_Sorter/LEGO_BRICK_LABELS/LEGO_BRICK_LABELS-v39/Labels/Piece Images/"
+#ref_path = base_path + "Ref Images/"
+ref_path = "/home/billiam/Documents/Lego_Sorter/LEGO_BRICK_LABELS/LEGO_BRICK_LABELS-v39/Labels/Piece Images/"
 
 
 # This will be a list of the model suggested labels. The index chosen will be returned from choose()
@@ -49,13 +48,17 @@ batchImgs = []
 predictedImgs = []
 
 batchProcessor = batch.BatchProcessor(batch_path)
-model = tf.keras.models.load_model(base_path + "testModel.h5")
+#model = tf.keras.models.load_model(base_path + "testModel.h5")
+model = tf.keras.models.load_model("/home/billiam/Documents/Lego_Sorter/Self Contained Synthetic Data Generation/Models/syntheticTrainedModel1593Classes.h5")
 #model.summary()
 
-file = open(base_path + "pieces.txt")
+file = open(base_path + "finalPieceList.txt")
 pieceList = [line.rstrip("\n") for line in file.readlines()]
 
 #DEFINE FUNCTIONS HERE:
+
+# This function is called after you either click on one of the suggested labels or type and enter a valid piece number
+# Moves the current batch of images to a corresponding folder, clears the text box, and brings in new batch images and adds the predictions
 def classify(entry):
     global pieceList
     global batchProcessor
@@ -76,6 +79,10 @@ def classify(entry):
     if(len(batch) == 0):
         #If run out of batches, then end the program maybe?
         print("no more batches")
+
+        # Delete all of the old images
+        for widget in imageFrame.winfo_children():
+            widget.destroy()
         return
     addBatch(batch)
     addPredictions(batch)
@@ -91,16 +98,16 @@ def moveBatch(batch, pieceName):
 def addBatch(batch):
     global batchButtons
     global batchImgs
-    #Delete all of the old images
     batchButtons = []
     batchImgs = []
+
+    #Delete all of the old images
     for widget in imageFrame.winfo_children():
         widget.destroy()
 
     width = window.winfo_width()
-    print("width is", width)
+    #print("window width is", width)
     eachWidth = width/len(batch)
-    print("each width is", eachWidth)
 
     index = 0
     for img in batch:
@@ -116,6 +123,7 @@ def addBatch(batch):
         batchButtons.append(imgBox)
         index += 1
 
+# This functions removes the clicked batch image from the batch
 def removeBatch(index):
     global currBatch
     global batchButtons
@@ -130,12 +138,12 @@ def removeBatch(index):
 
 
 
-    # First check if val in textbox is valid. IF not, display msg asking to try again somehow?
-    # Then move images into folder (or createand move if not exist)
-    # Then get next batch of images
-    #   Next batch entails: Updating suggested (what our model thinks the batch is)
-    #                       Updating suggestButtons (image of model idea)
-    #                       Updating suggestLabels (text of what model thinks)
+# First check if val in textbox is valid. IF not, display msg asking to try again somehow?
+# Then move images into folder (or create and move if not exist)
+# Then get next batch of images
+#   Next batch entails: Updating suggested (what our model thinks the batch is)
+#                       Updating suggestButtons (image of model idea)
+#                       Updating suggestLabels (text of what model thinks)
 
 # Gets predictions from the model and formats the recommendation panel accordingly
 def addPredictions(batch):
@@ -145,22 +153,22 @@ def addPredictions(batch):
     predictedImgs = []
     predictions = modelPredict(batch)
 
-    # image1 = Image.open(base_path + "Ref Images/2434.bmp")
-    # image1 = image1.resize((100,100), Image.ANTIALIAS)
-    # testImg = ImageTk.PhotoImage(image1)
-
     index = 0
     for prediction in predictions:
         img = Image.open(ref_path + prediction + ".bmp")
         img.thumbnail((150, 150), Image.ANTIALIAS)
         testImg = ImageTk.PhotoImage(img)
         predictedImgs.append(testImg)
+        print("index is ", index)
         suggestLabels[index]["text"] = prediction
         suggestButtons[index]["image"] = predictedImgs[index]
-        suggestButtons[index]["command"] = partial(classify, "classify as" + prediction)
+        suggestButtons[index]["command"] = partial(classify, prediction)
         index += 1
 
 # Takes in batch and returns the top 5 most likely predictions
+# Takes in imgBatch (next batch of images returned)
+# Creates a prediction on each of the images on the batch and returns the top 5 most likely
+# Puts these top 5 most likely into suggested
 def modelPredict(batch):
     #Our list of all of the possible pieces
     global pieceList
@@ -186,10 +194,10 @@ def modelPredict(batch):
         top_5_scores = prediction_probabilities.values.numpy()
         top_5_indices = prediction_probabilities.indices.numpy()
 
-        # print("top 5 indices are")
-        # print(top_5_indices)
-        # print("top 5 scores are ")
-        # print(top_5_scores)
+        print("top 5 indices are")
+        print(top_5_indices)
+        print("top 5 scores are ")
+        print(top_5_scores)
         # Iterate through each of the top 5 scores and add them to a dictionary that keeps track of our probabilities
         for index in range(numTop):
             indexToAdd = top_5_indices[0][index]
@@ -199,44 +207,32 @@ def modelPredict(batch):
                 probDict[indexToAdd] = top_5_scores[0][index]
 
     # Sort the dict (in form: indexOfPiece : sumOfProbabilities)
-    sortedDict = sorted(probDict,reverse=True)
-
-    # for i in sortedDict:
-    #     print(i, sortedDict[i])
-
-    # for j in probDict:
-    #     print(j, probDict[j])
-   #print(sortedDict)
-    
-    #NOTE: For 3.9.2023:
-    # Sorted dict returns the top predicted indices
-    # Use these indices in the list of our pieces to get a number to add to our return
+    sortedDict = {k: v for k, v in sorted(probDict.items(), reverse=True, key=lambda item: item[1])}
 
     imgBatch = []
-
-    for index in sortedDict:
-        imgBatch.append(pieceList[index])
-
-    # # use our model here and predict the top 5 and return an ordered list of the predictions
-    # imgBatch = ["3184", "3070b", "3149", "3176", "3185"]
+    index = 0
+    for k, v in sortedDict.items():
+        if index < numTop:
+            imgBatch.append(pieceList[k])
+            index += 1
+        else:
+            break
     return imgBatch
-    #Takes in imgBatch (next batch of images returned)
-    # Creates a prediction on each of the images on the batch and returns the top 5 most likely
-    # Puts these top 5 most likely into suggested
 
+
+# Listener that calls classify on the batch using the text in the text box when enter key pressed
 def returnListener(self):
     text = T.get()
     classify(text)
 
+# Listener that calls classify on the batch using the text in the text box when button is pressed
 def buttonListener():
     text = T.get()
     classify(text)
 
 
 
-
-
-
+#Creating all of the frames and windows here
 
 imageFrame = tk.Frame(master=window, height = 200, width = 500, bg="blue")
 textFrame = tk.Frame(master=window, height = 50, width = 500, bg="red")
@@ -246,27 +242,13 @@ imageFrame.pack(fill=tk.X)
 textFrame.pack(fill=tk.X)
 suggestFrame.pack()
 
-#IMAGE FRAME:
-#Centering: https://stackoverflow.com/questions/48930355/center-align-a-group-of-widgets-in-a-frame
-# index = 0
-# for img in imgBatch:
-#     # RIGHT NOW THIS IS REF IMGS BUT CHANGE TO BULK PHOTOS LATER
-#     # image = Image.open(base_path + "Ref Images/" + img + ".bmp")
-#     # image = image.resize((100,100), Image.ANTIALIAS)
-#     # imgs.append(ImageTk.PhotoImage(image))
-#     imgBox = tk.Button(
-#         imageFrame,
-#         image = imgs[index])
-#     imgBox.pack(side=tk.LEFT)
-#     index += 1
-
-
 #TEXT ENTRY FRAME
 T = tk.Entry(
     textFrame,
     font = ('calibre',30,'normal'))
 T.pack()
-#T.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
+
+#BUTTON FRAME
 confirm = tk.Button(
     textFrame,
     text="Confirm",
@@ -274,11 +256,6 @@ confirm = tk.Button(
 )
 confirm.pack(side=tk.RIGHT)
 window.bind('<Return>', returnListener)
-
-
-# image1 = Image.open(base_path + "Ref Images/2434.bmp")
-# image1 = image1.resize((100,100), Image.ANTIALIAS)
-# testImg = ImageTk.PhotoImage(image1)
 
 #Place our labels
 for i in range(5):
@@ -289,20 +266,18 @@ for i in range(5):
     frame.grid(row=i, column=1)
     suggestLabels.append(frame)
 
-# suggestLabels[0]["text"] = "modify first with?"
-
 #Place our buttons
 for i in range(5):
     frame = tk.Button(
         master=suggestFrame,
         borderwidth = 1
-        #command=partial(classify, suggested[i])
-        #image = testImg
     )
     frame.grid(row=i, column=2)
     suggestButtons.append(frame)
 
-print("th efirst window width is", window.winfo_width())
+
+window.update_idletasks()
+print("thefirst window width is", window.winfo_width())
 classify("first")
 
 window.mainloop()
