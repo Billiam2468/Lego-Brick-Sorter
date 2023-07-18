@@ -102,7 +102,7 @@ def addBatch(batch):
     index = 0
     for img in batch:
         image = Image.open(batch_path + img)
-        image.thumbnail((eachWidth,eachWidth), Image.ANTIALIAS)
+        image.thumbnail((eachWidth,eachWidth), Image.Resampling.LANCZOS)
         newImg = ImageTk.PhotoImage(image)
         batchImgs.append(newImg)
         imgBox = tk.Button(
@@ -146,10 +146,9 @@ def addPredictions(batch):
     index = 0
     for prediction in predictions:
         img = Image.open(ref_path + prediction + ".bmp")
-        img.thumbnail((150, 150), Image.ANTIALIAS)
+        img.thumbnail((150, 150), Image.Resampling.LANCZOS)
         testImg = ImageTk.PhotoImage(img)
         predictedImgs.append(testImg)
-        print("index is ", index)
         suggestLabels[index]["text"] = prediction
         suggestButtons[index]["image"] = predictedImgs[index]
         suggestButtons[index]["command"] = partial(classify, prediction)
@@ -270,7 +269,6 @@ for i in range(5):
 
 
 window.update_idletasks()
-print("thefirst window width is", window.winfo_width())
 classify("first")
 
 window.mainloop()
