@@ -184,10 +184,13 @@ def modelPredict(batch):
         top_5_scores = prediction_probabilities.values.numpy()
         top_5_indices = prediction_probabilities.indices.numpy()
 
-        print("top 5 indices are")
-        print(top_5_indices)
-        print("top 5 scores are ")
-        print(top_5_scores)
+        top5 = []
+        for rank in top_5_indices[0]:
+            pieceName = pieceList[rank]
+            top5.append(pieceName)
+        print("top 5 pieces are" , top5)
+        print("top 5 scores are ", top_5_scores)
+        print("\n")
         # Iterate through each of the top 5 scores and add them to a dictionary that keeps track of our probabilities
         for index in range(numTop):
             indexToAdd = top_5_indices[0][index]

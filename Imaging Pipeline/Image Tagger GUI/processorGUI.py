@@ -26,16 +26,7 @@ base_path = base_path.removesuffix(scriptName)
 
 batch_path = base_path + "exampleBatches/"
 output_path = base_path + "organizedBatches/"
-#ref_path = base_path + "Ref Images/"
-ref_path = "/home/billiam/Documents/Lego_Sorter/LEGO_BRICK_LABELS/LEGO_BRICK_LABELS-v39/Labels/Piece Images/"
-
-
-# This will be a list of the model suggested labels. The index chosen will be returned from choose()
-# These will be different pieces since different guesses
-#suggested = []#["test", "val", "here", "last", "one"]
-
-# Batch of images to be displayed (should be same piee)
-#imgBatch = []#["3184", "3070b", "3149", "3176"]
+ref_path = base_path + "Ref Images/"
 
 # Upon receiving a new batch of images, we will update these buttons (images) and labels (piece name) for the model suggestions
 suggestButtons = []
@@ -48,8 +39,7 @@ batchImgs = []
 predictedImgs = []
 
 batchProcessor = batch.BatchProcessor(batch_path)
-#model = tf.keras.models.load_model(base_path + "testModel.h5")
-model = tf.keras.models.load_model("/home/billiam/Documents/Lego_Sorter/Self Contained Synthetic Data Generation/Models/syntheticTrainedModel1593Classes.h5")
+model = tf.keras.models.load_model(base_path + "syntheticTrainedModel1593Classes.h5")
 #model.summary()
 
 file = open(base_path + "finalPieceList.txt")
@@ -194,10 +184,13 @@ def modelPredict(batch):
         top_5_scores = prediction_probabilities.values.numpy()
         top_5_indices = prediction_probabilities.indices.numpy()
 
-        print("top 5 indices are")
-        print(top_5_indices)
-        print("top 5 scores are ")
-        print(top_5_scores)
+        top5 = []
+        for rank in top_5_indices[0]:
+            pieceName = pieceList[rank]
+            top5.append(pieceName)
+        print("top 5 pieces are" , top5)
+        print("top 5 scores are ", top_5_scores)
+        print("\n")
         # Iterate through each of the top 5 scores and add them to a dictionary that keeps track of our probabilities
         for index in range(numTop):
             indexToAdd = top_5_indices[0][index]
