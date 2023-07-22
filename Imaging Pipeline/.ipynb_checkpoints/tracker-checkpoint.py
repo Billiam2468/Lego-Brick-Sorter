@@ -42,14 +42,14 @@ class EuclideanDistTracker:
 
             # New object is detected we assign the ID to that object
             if same_object_detected is False:
-                print("a new piece detected")
-                print("current unique ids are", self.createdUniqueIds)
+                #print("a new piece detected")
+                #print("current unique ids are", self.createdUniqueIds)
                 
                 uniqueId = str(uuid.UUID(int=random.getrandbits(128), version=4))
                 
                 while(uniqueId in self.createdUniqueIds):
                     uniqueId = str(uuid.UUID(int=random.getrandbits(128), version=4))
-                print("unqiue id generating for this one", uniqueId)
+                #print("unqiue id generating for this one", uniqueId)
                 
                 self.createdUniqueIds.append(uniqueId)
 
