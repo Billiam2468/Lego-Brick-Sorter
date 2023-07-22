@@ -10,12 +10,15 @@ import shutil
 import tensorflow as tf
 from tensorflow import keras
 
+from ttkthemes import ThemedTk
+
 # NOTE: UNCOMMENT THIS ON LINUX#
 # physical_devices = tf.config.experimental.list_physical_devices('GPU')
 # assert len(physical_devices) > 0, "Not enough GPU hardware devices available"
 # config = tf.config.experimental.set_memory_growth(physical_devices[0], True)
 
-window = tk.Tk()
+#window = tk.Tk()
+window = ThemedTk(theme="clam")
 numTop = 5
 window.geometry("700x800")
 
@@ -26,7 +29,7 @@ base_path = base_path.removesuffix(scriptName)
 
 # Swap batch path to exampleBatches when debugging with premade batches
 #batch_path = base_path + "exampleBatches/"
-batch_path = base_path + "exampleBatches/"
+batch_path = "/home/billiam/Documents/Lego_Sorter/CREATED BATCHES/"
 output_path = base_path + "organizedBatches/"
 ref_path = base_path + "Ref Images/"
 
@@ -56,7 +59,7 @@ def classify(entry):
     global batchProcessor
     global currBatch
     T.delete(0, tk.END)
-    if (entry not in pieceList) and (entry != "first"):
+    if (entry not in pieceList) and (entry != "first") and (entry != "junk"):
         print(entry + " not in list")
         return
 
@@ -93,27 +96,34 @@ def addBatch(batch):
     batchButtons = []
     batchImgs = []
 
-    #Delete all of the old images
-    for widget in imageFrame.winfo_children():
+    # Delete all of the old images
+    for widget in canvas.winfo_children():
         widget.destroy()
 
-    width = window.winfo_width()
-    #print("window width is", width)
-    eachWidth = width/len(batch)
+    each_width = 150
+
+    # Create a frame inside the canvas to hold the images
+    frame = tk.Frame(canvas)
+    canvas.create_window((0, 0), window=frame, anchor="nw")
 
     index = 0
     for img in batch:
         image = Image.open(batch_path + img)
-        image.thumbnail((eachWidth,eachWidth), Image.Resampling.LANCZOS)
+        image.thumbnail((each_width, each_width), Image.Resampling.LANCZOS)
         newImg = ImageTk.PhotoImage(image)
         batchImgs.append(newImg)
         imgBox = tk.Button(
-            imageFrame,
-            image = batchImgs[index],
-            command = partial(removeBatch, index))
-        imgBox.pack(side=tk.LEFT)
+            frame,  # Add the buttons to the frame instead of directly to the canvas
+            image=batchImgs[index],
+            command=partial(removeBatch, index)
+        )
+        imgBox.grid(row=0, column=index)
         batchButtons.append(imgBox)
         index += 1
+
+    # Update the scrollable region to fit all images
+    canvas.update_idletasks()
+    canvas.config(scrollregion=canvas.bbox("all"))
 
 # This functions removes the clicked batch image from the batch
 def removeBatch(index):
@@ -121,12 +131,12 @@ def removeBatch(index):
     global batchButtons
     global batchImgs
     
-    print("currBatch is ", currBatch)
-    print("removing img at index:", index)
+    #print("currBatch is ", currBatch)
+    #print("removing img at index:", index)
     thisBatch = currBatch[index]
     del currBatch[index]
     # When we delete our piece it would be nice if we could move it to a junk folder
-    print("currBatch after deletion is:", currBatch)
+    #print("currBatch after deletion is:", currBatch)
 
     shutil.move(batch_path+thisBatch, output_path + "junk/" + thisBatch)
 
@@ -183,7 +193,7 @@ def modelPredict(batch):
     # For each img in the batch, we are going to grab the top 5 predictions for the image by the model, and then add it to a dictionary that adds up the percentages
     # Do not need to pre-process the image to be predicted as it becomes integrated into the model layers
     for img in batch:
-        print("reading image", img)
+        #print("reading image", img)
         loaded = tf.keras.utils.load_img(
                 batch_path + img, target_size=(224, 224)
         )
@@ -202,9 +212,9 @@ def modelPredict(batch):
         for rank in top_5_indices[0]:
             pieceName = pieceList[rank]
             top5.append(pieceName)
-        print("top 5 pieces are" , top5)
-        print("top 5 scores are ", top_5_scores)
-        print("\n")
+        #print("top 5 pieces are" , top5)
+        #print("top 5 scores are ", top_5_scores)
+        #print("\n")
         # Iterate through each of the top 5 scores and add them to a dictionary that keeps track of our probabilities
         for index in range(numTop):
             indexToAdd = top_5_indices[0][index]
@@ -229,8 +239,12 @@ def modelPredict(batch):
 
 # Listener that calls classify on the batch using the text in the text box when enter key pressed
 def returnListener(self):
+    print("pressed enter")
     text = T.get()
     classify(text)
+    # Update the scrollable region after classifying
+    canvas.update_idletasks()
+    canvas.config(scrollregion=canvas.bbox("all"))
 
 # Listener that calls classify on the batch using the text in the text box when button is pressed
 def buttonListener():
@@ -242,11 +256,51 @@ def buttonListener():
 #Creating all of the frames and windows here
 
 
-imageFrame = tk.Frame(master=window, height = 200, width = 500, bg="blue")
+#imageFrame = tk.Frame(master=window, height = 200, width = 500, bg="blue")
+# Creating a canvas widget with a horizontal scrollbar
+canvas = tk.Canvas(window, height=200, width=500, bg="blue")
+scrollbar = tk.Scrollbar(window, orient="horizontal", command=canvas.xview)
+canvas.config(xscrollcommand=scrollbar.set)
+
+canvas.pack(side=tk.TOP, fill=tk.X)
+scrollbar.pack(side=tk.TOP, fill=tk.X)
+# canvas.place(x=0, y=0, relwidth=1, height=200)
+# scrollbar.place(x=0, y=200, relwidth=1, height=20)
+
 textFrame = tk.Frame(master=window, height = 50, width = 500, bg="red")
 suggestFrame = tk.Frame(master=window)
 
-imageFrame.pack(fill=tk.X)
+# THESE CHANGE DEPENDING ON WHETHER YOU ARE LINUX OR MAC/WINDOWS
+
+# MAC/WINDOWS:
+# def on_mousewheel(event):
+#     # Determine the scrolling direction and amount
+#     print("scrolling here")
+#     if event.delta > 0:
+#         direction = -1  # Scrolling to the left
+#     else:
+#         direction = 1   # Scrolling to the right
+
+#     # Update the horizontal scrollbar's position based on the scrolling direction
+#     canvas.xview_scroll(direction, "units")
+
+# # Bind the mouse wheel event to the canvas
+# canvas.bind("<MouseWheel>", on_mousewheel)
+
+# LINUX:
+def on_mousewheel_up(event):
+    # Determine the scrolling direction and amount
+    canvas.xview_scroll(-1, "units")
+def on_mousewheel_down(event):
+    # Determine the scrolling direction and amount
+    canvas.xview_scroll(1, "units")
+
+# Bind the mouse wheel event to the canvas
+canvas.bind("<Button-4>", on_mousewheel_up)
+canvas.bind("<Button-5>", on_mousewheel_down)
+
+
+
 textFrame.pack(fill=tk.X)
 suggestFrame.pack()
 
