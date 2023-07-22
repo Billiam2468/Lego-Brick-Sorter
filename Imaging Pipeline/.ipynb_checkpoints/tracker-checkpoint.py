@@ -13,6 +13,7 @@ class EuclideanDistTracker:
         # Keep the count of the IDs
         # each time a new object id detected, the count will increase by one
         self.id_count = 0
+        self.createdUniqueIds = []
 
 
     def update(self, objects_rect):
@@ -33,7 +34,7 @@ class EuclideanDistTracker:
                 uniqueId = pttime[2]
                 dist = math.hypot(cx - xpoint, cy - ypoint)
 
-                if dist < 200:
+                if dist < 50:
                     self.center_points[id] = [(cx, cy), timerVal+1, uniqueId]
                     objects_bbs_ids.append([x, y, w, h, id, timerVal+1, uniqueId])
                     same_object_detected = True
@@ -41,8 +42,16 @@ class EuclideanDistTracker:
 
             # New object is detected we assign the ID to that object
             if same_object_detected is False:
-
+                print("a new piece detected")
+                print("current unique ids are", self.createdUniqueIds)
+                
                 uniqueId = str(uuid.UUID(int=random.getrandbits(128), version=4))
+                
+                while(uniqueId in self.createdUniqueIds):
+                    uniqueId = str(uuid.UUID(int=random.getrandbits(128), version=4))
+                print("unqiue id generating for this one", uniqueId)
+                
+                self.createdUniqueIds.append(uniqueId)
 
                 self.center_points[self.id_count] = [(cx, cy), 0, uniqueId]
                 objects_bbs_ids.append([x, y, w, h, self.id_count, 0, uniqueId])
