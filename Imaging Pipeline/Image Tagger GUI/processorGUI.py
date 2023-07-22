@@ -24,6 +24,8 @@ base_path = os.path.realpath(__file__)
 scriptName = os.path.basename(__file__)
 base_path = base_path.removesuffix(scriptName)
 
+# Swap batch path to exampleBatches when debugging with premade batches
+#batch_path = base_path + "exampleBatches/"
 batch_path = base_path + "exampleBatches/"
 output_path = base_path + "organizedBatches/"
 ref_path = base_path + "Ref Images/"
@@ -118,11 +120,24 @@ def removeBatch(index):
     global currBatch
     global batchButtons
     global batchImgs
-    print("removing img at index:", index)
+    
     print("currBatch is ", currBatch)
+    print("removing img at index:", index)
+    thisBatch = currBatch[index]
     del currBatch[index]
+    # When we delete our piece it would be nice if we could move it to a junk folder
     print("currBatch after deletion is:", currBatch)
-    addBatch(currBatch)
+
+    shutil.move(batch_path+thisBatch, output_path + "junk/" + thisBatch)
+
+
+    if len(currBatch) == 0:
+        batch = batchProcessor.nextBatch()
+        currBatch = batch
+        addBatch(currBatch)
+        addPredictions(currBatch)
+    else:
+        addBatch(currBatch)
     # Only have to update currBatch and then re-call addBatch()
 
 
@@ -225,6 +240,7 @@ def buttonListener():
 
 
 #Creating all of the frames and windows here
+
 
 imageFrame = tk.Frame(master=window, height = 200, width = 500, bg="blue")
 textFrame = tk.Frame(master=window, height = 50, width = 500, bg="red")
