@@ -25,19 +25,9 @@ Since I don't have a dataset of all Lego pieces that have ever been in productio
 <h2>Model Training:</h2>
 Finally I initiated model training using our fully synthetic database. Prior to training on our raw synthetic images, I implemented several preprocessing functions including horizontal reflections, color channel shifts, and Gaussian blur. These steps were aimed at introducing diversity into our images and, crucially, preventing overfitting to artificially generated Lego pieces. Instead of starting from scratch, I employed transfer learning with the ResNet50 model, utilizing its pre-trained capabilities in image categorization to classify Lego bricks. Initially trained exclusively on synthetic data, I then refined the model's performance by fine-tuning it with real-world images, bridging the gap between artificial and real-world datasets.
 
-<h2>Model Training Benchmarks:</h2>
-Training on our real data set (images captured from our conveyor belt):
+<h2>Model Performance (100 classes):</h2>
+Performance: 59/59 - 31s - loss: 0.3236 - <b>categorical_accuracy: 0.8985</b> - 31s/epoch - 522ms/step
 
-1. Model v1:
-* DenseNet169 transfer-trained fully on synthetic data --> Real world accuracy ~37%
-2. Model v1.1:
-* DenseNet169 transfer-trained fully on synthetic data with random noise/color background --> Real world accuracy ~50% (But low validation acc for some reason?)
-3. Model v1.2:
-* DenseNet169 transfer-trained fully on synthetic data with data augmentation --> Real world accuracy ~75%
-4. Model v2.0:
-* DenseNet169 transfer-trained fully on synthetic data with all techniques above + fine-tuning on real world data --> RW Categorical Accuracy ~93.3
-5. **Model v3.0:**
-* ResNet50 transfer-trained fully on synthetic data --> RWCA AVG 81% --> Fine-Tuned --> **RWCA AVG 95.69%**
 <br></br>
 
 <h2>Resources Used:</h2>
