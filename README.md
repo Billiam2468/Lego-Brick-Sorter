@@ -4,7 +4,7 @@ Project utilizing TensorFlow and OpenCV to classify and sort Lego bricks into di
 <br>
 
 <h2>Piece Image Capture:</h2>
-Will utilize our webcam with OpenCV to capture pieces on a moving conveyor belt. Experimentation found that the MOG2 background subtractor worked best here.
+I utilized a Logitech C310 webcam and OpenCV to film pieces on a moving conveyor belt. Experimentation found that the MOG2 background subtractor worked best here to isolate pieces from the moving background.
 
 ![ezgif-3-d4c07acc58](https://github.com/Billiam2468/Lego-Brick-Sorter/assets/2740224/558b6816-c81e-4b50-bba4-04eedfee22bb)
 
