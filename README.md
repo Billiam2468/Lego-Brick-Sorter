@@ -11,12 +11,16 @@ Will utilize our webcam with OpenCV to capture pieces on a moving conveyor belt.
 Apologies for the poor video quality. Will get proper screen recordings later.
 
 <h2>Synthetic Data Generation:</h2>
-Since we don't have access to pictures of all Lego pieces that have ever been in production, we relied on synthetic data generation using 3D models of Lego bracks
+Since I don't have a dataset of all Lego pieces that have ever been in production to train on, I relied on synthetic data generation using 3D models of Lego bricks using the LDraw library. Using Blenders Python API, I was able to use these 3D models, simulate the dropping of pieces in random positions, with randomized backgrounds to prevent overfitting and create 10,000 images for the database of ~1500 pieces, coming out to roughly 15 million synthetic images.
+
+Setup of Blender Python Script
+
+Sample of Images Created
 
 <h2>Model Training:</h2>
 
-<h2>Model Training Benchmarks:</h2>
-This involves training a model on four classes and testing on our real data set
+<h2>Model Training Benchmarks (GRAPHS OF TRAINING AND VALIDATION ACCURACY HERE):</h2>
+Training on our real data set (images captured from our conveyor belt):
 
 1. Model v1:
 * DenseNet169 transfer-trained fully on synthetic data (4 classes) --> Real world accuracy ~37%
@@ -30,13 +34,13 @@ This involves training a model on four classes and testing on our real data set
 * ResNet50 transfer-trained fully on synthetic data --> RWCA AVG 81% --> Fine-Tuned --> **RWCA AVG 95.69%**
 <br></br>
 
-<h2>Software Used:</h2>
+<h2>Resources Used:</h2>
 <div style="white-space: nowrap;">
   <img src="https://img.shields.io/badge/github-%23181717.svg?&style=for-the-badge&logo=github&logoColor=white" style="display: inline-block; margin-right: 10px;">
   <img src="https://img.shields.io/badge/blender-%23F5792A.svg?&style=for-the-badge&logo=blender&logoColor=white" style="display: inline-block; margin-right: 10px;">
   <img src="https://img.shields.io/badge/python-%233776AB.svg?&style=for-the-badge&logo=python&logoColor=white" style="display: inline-block; margin-right: 10px;">
   <img src="https://img.shields.io/badge/jupyter-%23F37626.svg?&style=for-the-badge&logo=jupyter&logoColor=white" style="display: inline-block; margin-right: 10px;">
   <img src="https://img.shields.io/badge/opencv-%235C3EE8.svg?&style=for-the-badge&logo=opencv&logoColor=white" style="display: inline-block; margin-right: 10px;">
-  <img src="https://img.shields.io/badge/tensorflow-%23FF6F00.svg?&style=for-the-badge&logo=tensorflow&logoColor=white" style="display: inline-block;">
-  
+  <img src="https://img.shields.io/badge/tensorflow-%23FF6F00.svg?&style=for-the-badge&logo=tensorflow&logoColor=white" style="display: inline-block; margin-right: 10px">
+  <img src="https://www.ldraw.org/common/images/banners/default/main.png" style="display: inline-block; margin-right: 10px; height: 30px">
 </div>
